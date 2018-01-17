@@ -1,0 +1,39 @@
+@media (max-width: 767px) {
+
+  .title {
+    margin: 0;
+  }
+
+  .subscribe {
+    height: max-content;
+
+    .content {
+      flex-direction: column;
+      h3 {
+        font-size: 1.5em;
+        color: white;
+      }
+
+      .form {
+        margin: 15px 0;
+      }
+    }
+  }
+
+  .nav-container {
+    position: relative;
+
+    .user-auth {
+      position: absolute;
+      top: 12px;
+      left: 15px;
+      width: 150px;
+
+      a {
+        display: inline-block;
+        margin: 0 15px;
+      }
+    }
+  }
+
+}

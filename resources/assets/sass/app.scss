@@ -7,3 +7,13 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Font-Awesome
+@import "~font-awesome/scss/font-awesome";
+
+// My CSS
+@import "main";
+
+@import "tablets";
+
+@import "smartphones";

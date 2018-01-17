@@ -1,0 +1,35 @@
+@media (min-width: 768px) and (max-width: 991px) {
+
+  .subscribe {
+    height: 200px;
+
+    .content {
+      flex-direction: column;
+
+      .form {
+        margin-top: 15px;
+        .subscribe-form {
+          width: 300px;
+        }
+      }
+    }
+  }
+
+  .carousel {
+    .carousel-control {
+      .glyphicon {
+        width: 30px;
+        height: 30px;
+        &::before {
+          font-size: .8em;
+          position: absolute;
+          width: 30px;
+          height: 30px;
+          top: -9px;
+          left: 0;
+        }
+      }
+    }
+  }
+
+}

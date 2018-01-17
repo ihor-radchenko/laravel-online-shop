@@ -1,0 +1,400 @@
+
+* {
+  box-sizing: border-box;
+  transition: .3s all;
+  user-select: none;
+}
+
+a, a:hover {
+  color: $text-color;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.header-wrap {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  max-height: 50px;
+  margin: 30px 0;
+}
+
+.logo {
+  display: block;
+}
+
+.nav-wrap {
+  background-color: $black;
+}
+
+.nav-cart{
+  align-self: center;
+  display: block;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &:hover .cart-count {
+    @extend .nav-wrap
+  }
+}
+
+.cart-count {
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  background-color: $gray;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.main-nav {
+  margin: 0;
+  border-radius: 0;
+  background-color: inherit;
+  border-color: $black;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  ul.nav {
+    li {
+      position: relative;
+
+      &:hover .bot-link{
+        width: 100%;
+      }
+
+      a {
+        display: block;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+
+      .bot-link {
+        position: absolute;
+        bottom: 0;
+        height: 4px;
+        background-color: $red;
+        width: 0;
+      }
+    }
+  }
+}
+
+.carousel {
+  cursor: pointer;
+
+  .carousel-control {
+    background-image: none;
+    opacity: 1;
+
+    span {
+      width: 48px;
+      height: 48px;
+      background-color: $body-bg;
+      line-height: 46px;
+      border-radius: 50%;
+      color: $gray;
+
+      &:hover {
+        box-shadow: 0 0 0 6px rgba(255, 255, 255, .6);
+      }
+    }
+  }
+
+  .carousel-indicators {
+    li {
+      background-color: $black;
+      border: none;
+      width: 16px;
+      height: 16px;
+      margin: 0 5px;
+
+      &.active, &:hover {
+        background-color: $gray;
+        box-shadow: 0 0 0 3px rgba(133, 148, 160, .6);
+      }
+    }
+  }
+
+  .carousel-caption {
+    bottom: 40%;
+    left: 50%;
+    text-align: right;
+
+    h3 {
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $black;
+    }
+
+    a {
+      background-color: $red;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 5px 20px;
+      border: none;
+      display: inline-block;
+
+      &:hover {
+        background-color: $black;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.inner-border {
+  &:hover::before {
+    opacity: .6;
+  }
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    border: 12px solid $black;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+}
+
+.cat-img {
+  position: relative;
+
+  .inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 25px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .category-name {
+      font-weight: bold;
+      font-size: 1.5em;
+      margin-bottom: 35px;
+    }
+
+    .button-more {
+      margin-top: 35px;
+      display: block;
+      color: white;
+
+      &:hover {
+        color: white;
+        text-decoration: none;
+
+        .glyphicon {
+          box-shadow: 0 0 0 5px rgba(255, 255, 255, .6);
+        }
+      }
+
+      .glyphicon {
+        margin-left: 50px;
+        border: 1px none;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.p0 {
+  padding: 0;
+}
+
+.color-black {
+  color: $black;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+.product-show {
+  cursor: pointer;
+  border: none;
+  position: relative;
+
+  .top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    padding: 2px 7px;
+    background-color: $black;
+    color: white;
+    font-size: .85em;
+  }
+
+  .new {
+    @extend .top;
+    background-color: $red;
+  }
+
+  .caption {
+    .price {
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .title{
+      display: block;
+      margin-top: 5px;
+      color: $black;
+      padding: 5px 0;
+      font-size: 1.3em;
+
+      &:hover {
+        color: $gray;
+      }
+    }
+    .new-price {
+      @extend .price;
+      color: $red;
+    }
+    .old-price {
+      text-decoration: line-through;
+      display: inline-block;
+      padding-left: 15px;
+    }
+  }
+}
+
+.my-btn {
+  display: inline-block;
+  padding: 5px 10px;
+  text-transform: uppercase;
+}
+
+.btn-black {
+  border: 2px solid $black;
+  background-color: $black;
+
+  color: white;
+
+  .fa {
+    padding-right: 15px;
+    transition: 0s all;
+  }
+
+  &:hover {
+    background-color: white;
+    color: $black;
+  }
+}
+
+.post-img {
+  position: relative;
+  @extend .inner-border;
+}
+
+.post-item {
+  .caption {
+    .link-post {
+      font-size: 1.2em;
+      color: $black;
+
+      &:hover {
+        color: $gray;
+      }
+    }
+    .post-data {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.btn-white {
+  color: $black;
+  border: 1px solid $gray;
+  background-color: white;
+  &:hover {
+    background-color: $black;
+    color: white;
+    border: 1px solid $black;
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  display: flex;
+  justify-content: space-around;
+  height: 50px;
+  margin: 25px 0;
+
+  .copyright {
+    align-self: center;
+  }
+}
+
+.subscribe {
+  background-color: $red;
+  height: 200px;
+  display: flex;
+  align-items: center;
+
+  .content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .title {
+      color: white;
+      h3 {
+        margin-top: 0;
+      }
+    }
+    .form {
+      position: relative;
+      .subscribe-form {
+        height: 34px;
+        width: 200px;
+        padding: 5px 5px 5px 40px;
+      }
+      .fa {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+      }
+    }
+  }
+}
+
+.btn-red {
+  color: white;
+  background-color: $red;
+  border: 1px solid white;
+  &:hover {
+    background-color: $black;
+    border: 1px solid $black;
+  }
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  background-color: $black;
+}
+
+.main-nav ul.nav li a:hover {
+  color: white;
+}
+
+.main-nav ul.dropdown-menu li a:hover {
+  color: $black;
+}
