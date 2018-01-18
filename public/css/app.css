@@ -11732,7 +11732,7 @@ h2 {
   color: #8594a0;
 }
 
-.post-item .caption .post-data {
+.post-data {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -11762,9 +11762,18 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 footer {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -11850,6 +11859,91 @@ footer .copyright {
   color: #13191e;
 }
 
+.post-title {
+  font-size: 26px;
+}
+
+.post,
+.post-title,
+.post-image,
+.post-short-content {
+  margin-bottom: 30px;
+}
+
+.post .post-title {
+  color: #13191e;
+}
+
+.post .post-data {
+  width: 60%;
+}
+
+.post .post-short-content {
+  font-size: 18px;
+}
+
+.post .for-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.post .post-content {
+  font-size: 18px;
+  text-align: justify;
+}
+
+.breadcrumb li a {
+  color: #13191e;
+}
+
+.breadcrumb li a:hover {
+  color: #8594a0;
+}
+
+.breadcrumb li.active {
+  color: #8594a0;
+}
+
+h4 {
+  font-size: 22px;
+}
+
+.comments {
+  margin-bottom: 30px;
+}
+
+.comments .comments-title {
+  margin-bottom: 30px;
+}
+
+.comments .comment {
+  padding: 35px 0;
+  font-size: 18px;
+}
+
+.comments .comment .info {
+  color: #13191e;
+  font-size: 16px;
+  margin-bottom: 5px;
+  padding-bottom: 3px;
+}
+
+.comments .comment .info .author {
+  font-weight: bold;
+}
+
+.comments .comment-add h4 {
+  margin-bottom: 30px;
+}
+
+.form-group label {
+  color: #13191e;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;
@@ -11926,6 +12020,45 @@ footer .copyright {
   .nav-container .user-auth a {
     display: inline-block;
     margin: 0 15px;
+  }
+
+  h2,
+  h3,
+  h1,
+  h4,
+  h5,
+  h6 {
+    font-size: 24px;
+  }
+
+  .post {
+    margin-top: 25px;
+  }
+
+  .post .post-title {
+    font-size: 20px;
+  }
+
+  .post .post-short-content {
+    font-size: 14px;
+  }
+
+  .post .for-button {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+
+  .post .post-data {
+    width: 100%;
+  }
+
+  .comments .comment {
+    padding: 20px;
+  }
+
+  .comments .comment .info .author {
+    display: block;
   }
 }
 

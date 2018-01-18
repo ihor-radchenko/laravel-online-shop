@@ -28,7 +28,9 @@
 
 @include('templates.nav')
 
-@yield('content')
+<div class="main-content">
+    @yield('content')
+</div>
 
 <footer>
     <a href="/" class="logo">

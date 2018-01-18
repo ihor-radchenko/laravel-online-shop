@@ -36,4 +36,34 @@
     }
   }
 
+  h2, h3, h1, h4, h5, h6 {
+    font-size: 24px;
+  }
+
+  .post {
+    margin-top: 25px;
+    .post-title {
+      font-size: 20px;
+    }
+    .post-short-content {
+      font-size: 14px;
+    }
+    .for-button {
+      justify-content: center;
+    }
+    .post-data {
+      width: 100%;
+    }
+  }
+
+  .comments {
+    .comment {
+      padding: 20px;
+      .info {
+        .author {
+          display: block;
+        }
+      }
+    }
+  }
 }
