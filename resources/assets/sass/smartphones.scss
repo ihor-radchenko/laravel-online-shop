@@ -58,10 +58,72 @@
 
   .comments {
     .comment {
-      padding: 20px;
+      padding: 20px 0;
       .info {
         .author {
           display: block;
+        }
+      }
+    }
+  }
+
+  #accordion {
+    margin-top: 20px;
+  }
+
+  .review {
+    padding: 20px 0;
+  }
+
+  .btn-lg {
+    display: block;
+    width: 100%;
+  }
+
+  aside {
+    border: none;
+  }
+
+  .product-show {
+    margin: 10px 0;
+    .caption {
+      .title {
+        margin: 0;
+      }
+    }
+  }
+
+  .filter-btn {
+    margin-top: 15px;
+  }
+
+  .modal {
+    .modal-content {
+      .modal-header {
+        .close {
+          font-size: 75px;
+        }
+      }
+      .modal-body {
+        .product-sidebar {
+          ul {
+            padding: 0;
+
+            li {
+              font-size: 20px;
+
+              button {
+                .badge {
+                  font-size: 20px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .modal-footer {
+        button {
+          width: 40%;
         }
       }
     }
