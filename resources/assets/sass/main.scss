@@ -189,21 +189,22 @@ img {
 
     .button-more {
       margin-top: 35px;
-      display: block;
+      display: flex;
       color: white;
+      height: 35px;
+      align-items: center;
 
       &:hover {
         color: white;
         text-decoration: none;
 
-        .glyphicon {
-          box-shadow: 0 0 0 5px rgba(255, 255, 255, .6);
+        .fa {
+          font-size: 2.5em;
         }
       }
 
-      .glyphicon {
+      .fa {
         margin-left: 50px;
-        border: 1px none;
         border-radius: 50%;
       }
     }

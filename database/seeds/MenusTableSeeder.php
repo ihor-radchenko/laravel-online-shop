@@ -21,7 +21,7 @@ class MenusTableSeeder extends Seeder
             'alias' => 'exterior'
         ]);
         Menu::create([
-            'title' => 'Освещение',
+            'title' => 'Оптика',
             'alias' => 'lighting'
         ]);
         Menu::create([

@@ -11614,8 +11614,14 @@ img {
 
 .cat-img .inner .button-more {
   margin-top: 35px;
-  display: block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   color: white;
+  height: 35px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .cat-img .inner .button-more:hover {
@@ -11623,14 +11629,12 @@ img {
   text-decoration: none;
 }
 
-.cat-img .inner .button-more:hover .glyphicon {
-  -webkit-box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.6);
-          box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.6);
+.cat-img .inner .button-more:hover .fa {
+  font-size: 2.5em;
 }
 
-.cat-img .inner .button-more .glyphicon {
+.cat-img .inner .button-more .fa {
   margin-left: 50px;
-  border: 1px none;
   border-radius: 50%;
 }
 

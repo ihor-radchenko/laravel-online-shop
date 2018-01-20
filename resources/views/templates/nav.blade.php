@@ -18,7 +18,20 @@
                     <ul class="nav navbar-nav">
                         @isset($menu_navigation)
                             @foreach($menu_navigation as $nav)
-                                <li><a href="/{{ $nav->alias }}">{{ $nav->title }}</a><div class="bot-link"></div></li>
+                                @if($nav->categories->count() > 0)
+                                    <li class="dropdown">
+                                        <a href="/{{ $nav->alias }}" class="dropdown-toggle" data-toggle="dropdown">{{ $nav->title }} <span class="caret"></span></a><div class="bot-link"></div>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/{{ $nav->alias }}">{{ $nav->title }}</a></li>
+                                            <li class="divider"></li>
+                                            @foreach($nav->categories as $category)
+                                                <li><a href="/{{ $nav->alias }}/{{ $category->alias }}">{{ $category->title }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li><a href="/{{ $nav->alias }}">{{ $nav->title }}</a><div class="bot-link"></div></li>
+                                @endif
                             @endforeach
                         @endisset
                     </ul>

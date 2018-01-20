@@ -1,103 +1,23 @@
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-6 col-md-3 p0">
-            <div class="cat-img inner-border">
-                <img src="{{ asset('/img/categories/cat_1_lt_5.jpg') }}" alt="">
-                <div class="inner">
-                    <div class="category-name text-uppercase">Двигатель</div>
-                    <a href="" class="button-more">
-                        <span class="text-uppercase">Показать больше</span>
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
+    @isset($categories)
+        @foreach($categories->chunk(4) as $chunk)
+            <div class="row">
+                @foreach($chunk as $category)
+                    <div class="col-sm-6 col-md-3 p0">
+                        <div class="cat-img inner-border">
+                            <img src="{{ asset($category->img) }}" alt="">
+                            <div class="inner">
+                                <div class="category-name text-uppercase">{{ $category->title }}</div>
+                                <a href="/{{ $category->menu->alias }}/{{ $category->alias }}" class="button-more">
+                                    <span class="text-uppercase">Показать больше</span>
+                                    <i class="fa fa-arrow-circle-o-right fa-2x" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        </div>
-        <div class="col-sm-6 col-md-3 p0">
-            <div class="cat-img inner-border">
-                <img src="{{ asset('/img/categories/cat_1_lt_5.jpg') }}" alt="">
-                <div class="inner">
-                    <div class="category-name text-uppercase">Двигатель</div>
-                    <a href="" class="button-more">
-                        <span class="text-uppercase">Показать больше</span>
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3 p0">
-            <div class="cat-img inner-border">
-                <img src="{{ asset('/img/categories/cat_1_lt_5.jpg') }}" alt="">
-                <div class="inner">
-                    <div class="category-name text-uppercase">Двигатель</div>
-                    <a href="" class="button-more">
-                        <span class="text-uppercase">Показать больше</span>
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3 p0">
-            <div class="cat-img inner-border">
-                <img src="{{ asset('/img/categories/cat_1_lt_5.jpg') }}" alt="">
-                <div class="inner">
-                    <div class="category-name text-uppercase">Двигатель</div>
-                    <a href="" class="button-more">
-                        <span class="text-uppercase">Показать больше</span>
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6 col-md-3 p0">
-            <div class="cat-img inner-border">
-                <img src="{{ asset('/img/categories/cat_1_lt_5.jpg') }}" alt="">
-                <div class="inner">
-                    <div class="category-name text-uppercase">Двигатель</div>
-                    <a href="" class="button-more">
-                        <span class="text-uppercase">Показать больше</span>
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3 p0">
-            <div class="cat-img inner-border">
-                <img src="{{ asset('/img/categories/cat_1_lt_5.jpg') }}" alt="">
-                <div class="inner">
-                    <div class="category-name text-uppercase">Двигатель</div>
-                    <a href="" class="button-more">
-                        <span class="text-uppercase">Показать больше</span>
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3 p0">
-            <div class="cat-img inner-border">
-                <img src="{{ asset('/img/categories/cat_1_lt_5.jpg') }}" alt="">
-                <div class="inner">
-                    <div class="category-name text-uppercase">Двигатель</div>
-                    <a href="" class="button-more">
-                        <span class="text-uppercase">Показать больше</span>
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3 p0">
-            <div class="cat-img inner-border">
-                <img src="{{ asset('/img/categories/cat_1_lt_5.jpg') }}" alt="">
-                <div class="inner">
-                    <div class="category-name text-uppercase">Двигатель</div>
-                    <a href="" class="button-more">
-                        <span class="text-uppercase">Показать больше</span>
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+        @endforeach
+    @endisset
 </div>
