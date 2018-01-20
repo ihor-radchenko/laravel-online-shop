@@ -16,9 +16,11 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="#">Ссылка</a><div class="bot-link"></div></li>
-                        <li><a href="#">Ссылка</a><div class="bot-link"></div></li>
-                        <li><a href="#">Dropdown</a><div class="bot-link"></div></li>
+                        @isset($menu_navigation)
+                            @foreach($menu_navigation as $nav)
+                                <li><a href="/{{ $nav->alias }}">{{ $nav->title }}</a><div class="bot-link"></div></li>
+                            @endforeach
+                        @endisset
                     </ul>
                     <ul class="nav navbar-nav navbar-right hidden-xs">
                         <li class="dropdown">

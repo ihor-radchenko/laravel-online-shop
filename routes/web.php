@@ -11,6 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('products');
-});
+Route::get('/', 'IndexController@index')->name('home');

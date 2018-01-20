@@ -167,15 +167,16 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        AutoKit\Providers\AppServiceProvider::class,
+        AutoKit\Providers\AuthServiceProvider::class,
+        // AutoKit\Providers\BroadcastServiceProvider::class,
+        AutoKit\Providers\EventServiceProvider::class,
+        AutoKit\Providers\RouteServiceProvider::class,
 
     ],
 
