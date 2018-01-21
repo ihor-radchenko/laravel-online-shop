@@ -234,6 +234,13 @@ h2 {
   border: none;
   position: relative;
 
+  .img-wrapper {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .top {
     position: absolute;
     top: 0;

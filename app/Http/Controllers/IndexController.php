@@ -4,6 +4,7 @@ namespace AutoKit\Http\Controllers;
 
 use AutoKit\Category;
 use AutoKit\Menu;
+use AutoKit\Product;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -14,7 +15,8 @@ class IndexController extends Controller
             'main',
             [
                 'menu_navigation' => Menu::with('categories')->get(),
-                'categories' => Category::where('img', '<>', null)->with('menu')->get()
+                'categories' => Category::where('img', '<>', null)->with('menu')->get(),
+                'products' => Product::where('is_top', 1)->orWhere('is_new', 1)->get()
             ]);
     }
 }

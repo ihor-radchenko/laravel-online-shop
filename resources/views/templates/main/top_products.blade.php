@@ -5,58 +5,31 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-6 col-md-3">
-            <a class="thumbnail product-show">
-                <span class="top">Top</span>
-                <img src="{{ asset('\img\products\air_intake_hose_for_toyota_camry_2.2l_4cyl_1997_3__1.png') }}" alt="">
-                <div class="caption">
-                    <span class="price">600$</span>
-                    <span class="title">Jdfhsdjf asdfsaf</span>
-                    <button class="my-btn btn-black">
-                        <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
-                    </button>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <a class="thumbnail product-show">
-                <span class="top">Top</span>
-                <img src="{{ asset('\img\products\air_intake_hose_for_toyota_camry_2.2l_4cyl_1997_3__1.png') }}" alt="">
-                <div class="caption">
-                    <span class="price">600$</span>
-                    <span class="title">Jdfhsdjf asdfsaf</span>
-                    <button class="my-btn btn-black">
-                        <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
-                    </button>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <a class="thumbnail product-show">
-                <span class="top">Top</span>
-                <img src="{{ asset('\img\products\air_intake_hose_for_toyota_camry_2.2l_4cyl_1997_3__1.png') }}" alt="">
-                <div class="caption">
-                    <span class="new-price">600$</span>
-                    <span class="old-price">600$</span>
-                    <span class="title">Jdfhsdjf asdfsaf</span>
-                    <button class="my-btn btn-black">
-                        <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
-                    </button>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <a class="thumbnail product-show">
-                <span class="top">Top</span>
-                <img src="{{ asset('\img\products\air_intake_hose_for_toyota_camry_2.2l_4cyl_1997_3__1.png') }}" alt="">
-                <div class="caption">
-                    <span class="price">600$</span>
-                    <span class="title">Jdfhsdjf asdfsaf</span>
-                    <button class="my-btn btn-black">
-                        <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
-                    </button>
-                </div>
-            </a>
-        </div>
+        @isset($products)
+            @foreach($products as $product)
+                @if($product->is_top === 1)
+                    <div class="col-sm-6 col-md-3">
+                        <a href="" class="thumbnail product-show">
+                            <span class="top">Top</span>
+                            <div class="img-wrapper">
+                                <img src="{{ asset($product->img) }}" alt="">
+                            </div>
+                            <div class="caption">
+                                @if(! is_null($product->old_price))
+                                    <span class="new-price">${{ $product->price }}</span>
+                                    <span class="old-price">${{ $product->old_price }}</span>
+                                @else
+                                    <span class="price">${{ $product->price }}</span>
+                                @endif
+                                <span class="title">{{ $product->title }}</span>
+                                <button class="my-btn btn-black">
+                                    <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
+                                </button>
+                            </div>
+                        </a>
+                    </div>
+                @endif
+            @endforeach
+        @endisset
     </div>
 </div>

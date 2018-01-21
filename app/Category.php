@@ -15,6 +15,11 @@ class Category extends Model
         return $this->belongsTo('AutoKit\Menu');
     }
 
+    public function products()
+    {
+        return $this->hasMany('AutoKit\Product');
+    }
+
     public function getImgAttribute(string $value): string
     {
         return '/img/categories/' . $value;
