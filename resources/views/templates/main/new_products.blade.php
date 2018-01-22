@@ -5,8 +5,8 @@
 
 <div class="container">
     <div class="row">
-        @isset($products)
-            @foreach($products as $product)
+        @isset($new_products)
+            @foreach($new_products as $product)
                 @if($product->is_new === 1)
                     <div class="col-sm-6 col-md-3">
                         <a href="" class="thumbnail product-show">
