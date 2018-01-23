@@ -13,7 +13,7 @@
                             <img src="{{ asset($article->img) }}" alt="">
                         </div>
                         <div class="caption">
-                            <a href="/blog/{{ $article->alias }}" class="link-post">{{ $article->title }}</a>
+                            <a href="{{ $article->alias }}" class="link-post">{{ $article->title }}</a>
                             <p class="description hidden-xs">
                                 {{ $article->shortText }}
                             </p>
@@ -28,7 +28,7 @@
                                     <i class="fa fa-comment-o" aria-hidden="true"></i> 2
                                 </div>
                             </div>
-                            <a href="/blog/{{ $article->alias }}" class="my-btn btn-white">Прочесть</a>
+                            <a href="{{ $article->alias }}" class="my-btn btn-white">Прочесть</a>
                         </div>
                     </div>
                 </div>

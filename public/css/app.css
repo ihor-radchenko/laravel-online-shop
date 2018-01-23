@@ -11757,6 +11757,7 @@ h2 {
 
 .post-img {
   position: relative;
+  margin: 0 auto;
 }
 
 .post-item .caption .link-post {

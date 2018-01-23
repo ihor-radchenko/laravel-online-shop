@@ -14,8 +14,8 @@
 <header class="header">
     <div class="container">
         <div class="header-wrap">
-            <a href="/" class="logo">
-                <img src="{{ asset('/img/autokit.png') }}" alt="">
+            <a href="{{ route('home') }}" class="logo">
+                <img src="{{ asset('/img/autokit.png') }}" alt="logo">
             </a>
             <a class="nav-cart">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
@@ -33,8 +33,8 @@
 </div>
 
 <footer>
-    <a href="/" class="logo">
-        <img src="{{ asset('/img/autokit.png') }}" alt="">
+    <a href="{{ route('home') }}" class="logo">
+        <img src="{{ asset('/img/autokit.png') }}" alt="logo">
     </a>
     <h3 class="copyright color-black">
         Copyright {{ date('Y') }}

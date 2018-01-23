@@ -12,3 +12,7 @@
 */
 
 Route::get('/', 'IndexController@index')->name('home');
+
+Route::get('blog', 'BlogController@index')->name('blog');
+
+Route::get('blog/{alias}', 'BlogController@show')->name('article')->where('alias', '[a-z0-9-]+');

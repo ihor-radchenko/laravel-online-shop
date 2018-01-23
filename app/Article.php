@@ -36,6 +36,11 @@ class Article extends Model
         return '/img/posts/' . $value;
     }
 
+    public function getAliasAttribute(string $value): string
+    {
+        return '/blog/' . $value;
+    }
+
     public function getCreatedAttribute(): string
     {
         return \DateTime::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('M j, Y');
