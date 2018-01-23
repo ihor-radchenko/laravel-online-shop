@@ -28,7 +28,7 @@ class AddBrandRelationToProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             if (Schema::hasColumn('products' ,'brand_id')) {
-                $table->dropColumn('brand_id');
+                $table->dropForeign('products_brand_id_foreign');
             }
         });
     }
