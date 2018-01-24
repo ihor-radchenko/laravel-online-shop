@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Article whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Article whereUserId($value)
  * @mixin \Eloquent
+ * @property-read mixed $created
+ * @property-read \AutoKit\User $user
  */
 class Article extends Model
 {
@@ -36,19 +38,9 @@ class Article extends Model
         return '/img/posts/' . $value;
     }
 
-    public function getAliasAttribute(string $value): string
-    {
-        return '/blog/' . $value;
-    }
-
     public function getCreatedAttribute(): string
     {
         return \DateTime::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('M j, Y');
-    }
-
-    public function getShortTextAttribute(): string
-    {
-        return mb_substr($this->text, 0, 100) . '...';
     }
 
     public function user()

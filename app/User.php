@@ -24,6 +24,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Article[] $articles
  */
 class User extends Authenticatable
 {

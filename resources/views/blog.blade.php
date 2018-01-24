@@ -10,13 +10,13 @@
                     @foreach($articles as $article)
                         <div class="post">
                             <div class="post-title">
-                                <a href="{{ $article->alias }}" class="color-black">{{ $article->title }}</a>
+                                <a href="{{ route('article', ['alias' => $article->alias]) }}" class="color-black">{{ $article->title }}</a>
                             </div>
                             <div class="post-image">
                                 <img src="{{ asset($article->img) }}" alt="" class="img-responsive post-img">
                             </div>
                             <div class="post-short-content">
-                                {{ $article->shortText }}
+                                {{ str_limit($article->text) }}
                             </div>
                             <div class="post-data">
                                 <div class="create-data">
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                             <div class="for-button">
-                                <a href="{{ $article->alias }}" class="my-btn btn-white">Прочесть</a>
+                                <a href="{{ route('article', ['alias' => $article->alias]) }}" class="my-btn btn-white">Прочесть</a>
                             </div>
                         </div>
                     @endforeach

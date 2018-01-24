@@ -14,7 +14,7 @@ class BlogController extends Controller
             'blog',
             [
                 'menu_navigation' => Menu::with('categories')->get(),
-                'articles' => Article::with('user')->get()
+                'articles' => Article::with('user')->orderByDesc('id')->get()
             ]
         );
     }

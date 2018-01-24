@@ -23,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::pattern('alias', '[a-z0-9-]+');
 
         parent::boot();
     }

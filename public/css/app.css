@@ -11555,6 +11555,10 @@ img {
   color: #13191e;
 }
 
+.carousel .carousel-caption p {
+  font-size: 18px;
+}
+
 .carousel .carousel-caption a {
   background-color: #ee221d;
   text-transform: uppercase;
@@ -11757,7 +11761,6 @@ h2 {
 
 .post-img {
   position: relative;
-  margin: 0 auto;
 }
 
 .post-item .caption .link-post {

@@ -13,9 +13,9 @@
                             <img src="{{ asset($article->img) }}" alt="">
                         </div>
                         <div class="caption">
-                            <a href="{{ $article->alias }}" class="link-post">{{ $article->title }}</a>
+                            <a href="{{ route('article', ['alias' => $article->alias]) }}" class="link-post">{{ $article->title }}</a>
                             <p class="description hidden-xs">
-                                {{ $article->shortText }}
+                                {{ str_limit($article->text) }}
                             </p>
                             <div class="post-data">
                                 <div class="create-data">
@@ -28,7 +28,7 @@
                                     <i class="fa fa-comment-o" aria-hidden="true"></i> 2
                                 </div>
                             </div>
-                            <a href="{{ $article->alias }}" class="my-btn btn-white">Прочесть</a>
+                            <a href="{{ route('article', ['alias' => $article->alias]) }}" class="my-btn btn-white">Прочесть</a>
                         </div>
                     </div>
                 </div>
