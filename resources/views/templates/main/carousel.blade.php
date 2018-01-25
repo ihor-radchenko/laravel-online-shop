@@ -5,23 +5,19 @@
 
         <ol class="carousel-indicators">
             @for($i = 0; $i < $carousel->count(); $i++)
-                <li data-target="#carousel-example-generic" data-slide-to="{{ $i }}" @if($i === 0)class="active" @endif></li>
+                <li data-target="#carousel-example-generic" data-slide-to="{{ $i }}" {{ $i === 0 ? 'class=active' : '' }}></li>
             @endfor
         </ol>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             @foreach($carousel as $item)
-                <div class="item
-                    @if($loop->first)
-                            active
-                    @endif
-                ">
+                <div class="item {{ $loop->first ? 'active' : '' }}">
                     <img src="{{ asset($item->img) }}" alt="">
                     <div class="carousel-caption">
                         <h3>{!! $item->title !!}</h3>
                         <p>{!! $item->description !!}</p>
-                        <a>Купить сейчас</a>
+                        <a href="{{ $item->menu->alias }}">Купить сейчас</a>
                     </div>
                 </div>
             @endforeach

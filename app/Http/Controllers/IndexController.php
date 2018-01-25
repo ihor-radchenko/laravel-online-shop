@@ -17,7 +17,7 @@ class IndexController extends Controller
             'main',
             [
                 'menu_navigation' => Menu::with('categories')->get(),
-                'carousel' => Slider::all(),
+                'carousel' => Slider::with('menu')->get(),
                 'categories' => Category::whereNotNull('img')->with('menu')->take(8)->get(),
                 'top_products' => Product::where('is_top', 1)->inRandomOrder()->take(4)->get(),
                 'new_products' => Product::where('is_new', 1)->inRandomOrder()->take(4)->get(),

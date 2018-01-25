@@ -2,6 +2,7 @@
 @extends('layouts.master')
 
 @section('content')
+    {{ Breadcrumbs::render('blog') }}
     <h2 class="text-center color-black">Блог</h2>
     <div class="container">
         <div class="row">

@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Slider whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Slider whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $menu_id
+ * @property-read \AutoKit\Menu $menu
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Slider whereMenuId($value)
  */
 class Slider extends Model
 {
@@ -32,5 +35,10 @@ class Slider extends Model
     public function getImgAttribute(string $value): string
     {
         return '/img/carousel/' . $value;
+    }
+
+    public function menu()
+    {
+        return $this->belongsTo('AutoKit\Menu');
     }
 }

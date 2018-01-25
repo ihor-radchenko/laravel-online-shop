@@ -2,11 +2,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <ul class="breadcrumb hidden-xs">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li class="active">Accessories</li>
-    </ul>
+    {{ Breadcrumbs::render('article', $article) }}
     <div class="container">
         <div class="row">
             @isset($article)
