@@ -2,11 +2,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <ul class="breadcrumb hidden-xs">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li class="active">Accessories</li>
-    </ul>
+    {{ Breadcrumbs::render('products', $menu) }}
     <div class="container">
         <div class="row">
             <div class="col-sm-3 hidden-xs">
@@ -28,7 +24,7 @@
                         </button>
                     </div>
                 </div>
-                @include('templates.products.list')
+                @include('templates.products.grid')
             </div>
         </div>
     </div>

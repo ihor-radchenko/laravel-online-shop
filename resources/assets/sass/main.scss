@@ -233,6 +233,19 @@ h2 {
   }
 }
 
+.product-show-list {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  .product-img {
+    display: flex;
+    justify-content: center;
+    img {
+      max-height: 250px;
+    }
+  }
+}
+
 .product-show {
   cursor: pointer;
   border: none;

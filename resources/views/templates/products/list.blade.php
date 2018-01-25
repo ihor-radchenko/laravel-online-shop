@@ -1,69 +1,30 @@
 
-<div class="row product-show">
-    <div class="col-sm-5">
-        <img src="{{ asset('img/products/air_intake_hose_for_toyota_camry_2.2l_4cyl_1997_3__1.png') }}" alt="" class="image-response">
-    </div>
-    <div class="col-sm-7">
-        <div class="caption">
-            <div class="price">600$</div>
-            <a class="title">Jdfhsdjf asdfsaf</a>
-            <p class="short-content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cupiditate ducimus eveniet laudantium minima natus pariatur qui quod suscipit ut.
-            </p>
-            <button class="my-btn btn-black">
-                <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
-            </button>
+@isset($menu)
+    @foreach($menu->products as $product)
+        <div class="row product-show product-show-list">
+            <div class="col-sm-5 product-img">
+                <img src="{{ asset($product->img) }}" alt="" class="image-response">
+            </div>
+            <div class="col-sm-7">
+                <div class="caption">
+                    @if(! is_null($product->old_price))
+                        <span class="new-price">${{ $product->price }}</span>
+                        <span class="old-price">${{ $product->old_price }}</span>
+                    @else
+                        <span class="price">${{ $product->price }}</span>
+                    @endif
+                    <a class="title">{{ $product->title }}</a>
+                    <p class="short-content">
+                        {{ str_limit($product->description) }}
+                    </p>
+                    <button class="my-btn btn-black">
+                        <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="row product-show">
-    <div class="col-sm-5">
-        <img src="{{ asset('img/products/air_intake_hose_for_toyota_camry_2.2l_4cyl_1997_3__1.png') }}" alt="" class="image-response">
-    </div>
-    <div class="col-sm-7">
-        <div class="caption">
-            <div class="price">600$</div>
-            <a class="title">Jdfhsdjf asdfsaf</a>
-            <p class="short-content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cupiditate ducimus eveniet laudantium minima natus pariatur qui quod suscipit ut.
-            </p>
-            <button class="my-btn btn-black">
-                <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
-            </button>
-        </div>
-    </div>
-</div>
-<div class="row product-show">
-    <div class="col-sm-5">
-        <img src="{{ asset('img/products/air_intake_hose_for_toyota_camry_2.2l_4cyl_1997_3__1.png') }}" alt="" class="image-response">
-    </div>
-    <div class="col-sm-7">
-        <div class="caption">
-            <div class="price">600$</div>
-            <a class="title">Jdfhsdjf asdfsaf</a>
-            <p class="short-content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cupiditate ducimus eveniet laudantium minima natus pariatur qui quod suscipit ut.
-            </p>
-            <button class="my-btn btn-black">
-                <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
-            </button>
-        </div>
-    </div>
-</div>
-<div class="row product-show">
-    <div class="col-sm-5">
-        <img src="{{ asset('img/products/air_intake_hose_for_toyota_camry_2.2l_4cyl_1997_3__1.png') }}" alt="" class="image-response">
-    </div>
-    <div class="col-sm-7">
-        <div class="caption">
-            <div class="price">600$</div>
-            <a class="title">Jdfhsdjf asdfsaf</a>
-            <p class="short-content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cupiditate ducimus eveniet laudantium minima natus pariatur qui quod suscipit ut.
-            </p>
-            <button class="my-btn btn-black">
-                <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
-            </button>
-        </div>
-    </div>
-</div>
+    @endforeach
+    @if($menu->products->count() === 0)
+        <h2 class="color-black text-center">Товара нету</h2>
+    @endif
+@endisset

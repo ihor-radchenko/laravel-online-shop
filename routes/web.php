@@ -16,3 +16,5 @@ Route::get('/', 'IndexController@index')->name('home');
 Route::get('blog', 'BlogController@index')->name('blog');
 
 Route::get('blog/{alias}', 'BlogController@show')->name('article');
+
+Route::get('products/{parent_category}', 'ProductController@index')->name('products.index');

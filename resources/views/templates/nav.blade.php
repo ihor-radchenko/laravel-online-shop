@@ -20,9 +20,9 @@
                             @foreach($menu_navigation as $nav)
                                 @if($nav->categories->count() > 0)
                                     <li class="dropdown">
-                                        <a href="/{{ $nav->alias }}" class="dropdown-toggle" data-toggle="dropdown">{{ $nav->title }} <span class="caret"></span></a><div class="bot-link"></div>
+                                        <a href="{{ route('products.index', ['parent_category' => $nav->alias]) }}" class="dropdown-toggle" data-toggle="dropdown">{{ $nav->title }} <span class="caret"></span></a><div class="bot-link"></div>
                                         <ul class="dropdown-menu">
-                                            <li><a href="/{{ $nav->alias }}">{{ $nav->title }}</a></li>
+                                            <li><a href="{{ route('products.index', ['parent_category' => $nav->alias]) }}">{{ $nav->title }}</a></li>
                                             <li class="divider"></li>
                                             @foreach($nav->categories as $category)
                                                 <li><a href="/{{ $nav->alias }}/{{ $category->alias }}">{{ $category->title }}</a></li>

@@ -11658,6 +11658,29 @@ h2 {
   cursor: default;
 }
 
+.product-show-list {
+  height: 250px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.product-show-list .product-img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.product-show-list .product-img img {
+  max-height: 250px;
+}
+
 .product-show {
   cursor: pointer;
   border: none;

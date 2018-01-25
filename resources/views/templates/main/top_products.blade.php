@@ -9,7 +9,7 @@
             @foreach($top_products as $product)
                 @if($product->is_top === 1)
                     <div class="col-sm-6 col-md-3">
-                        <a href="" class="thumbnail product-show">
+                        <div class="thumbnail product-show">
                             <span class="top">Top</span>
                             <div class="img-wrapper">
                                 <img src="{{ asset($product->img) }}" alt="">
@@ -26,7 +26,7 @@
                                     <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
                                 </button>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 @endif
             @endforeach

@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Menu whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Menu whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Product[] $products
  */
 class Menu extends Model
 {
@@ -29,5 +30,10 @@ class Menu extends Model
     public function categories()
     {
         return $this->hasMany('AutoKit\Category');
+    }
+
+    public function products()
+    {
+        return $this->hasManyThrough('AutoKit\Product', 'AutoKit\Category');
     }
 }
