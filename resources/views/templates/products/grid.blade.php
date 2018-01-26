@@ -1,6 +1,6 @@
 
-@isset($menu)
-    @foreach($menu->products->chunk(3) as $row)
+@isset($products)
+    @foreach($products->chunk(3) as $row)
         <div class="row">
             @foreach($row as $product)
                 <div class="col-sm-4">
@@ -25,7 +25,7 @@
             @endforeach
         </div>
     @endforeach
-    @if($menu->products->count() === 0)
+    @if($products->count() === 0)
         <h2 class="color-black text-center">Товара нету</h2>
     @endif
 @endisset

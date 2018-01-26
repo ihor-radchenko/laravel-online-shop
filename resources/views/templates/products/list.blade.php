@@ -1,6 +1,6 @@
 
-@isset($menu)
-    @foreach($menu->products as $product)
+@isset($products)
+    @foreach($products as $product)
         <div class="row product-show product-show-list">
             <div class="col-sm-5 product-img">
                 <img src="{{ asset($product->img) }}" alt="" class="image-response">
@@ -24,7 +24,7 @@
             </div>
         </div>
     @endforeach
-    @if($menu->products->count() === 0)
+    @if($products->count() === 0)
         <h2 class="color-black text-center">Товара нету</h2>
     @endif
 @endisset
