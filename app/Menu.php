@@ -29,11 +29,11 @@ class Menu extends Model
 
     public function categories()
     {
-        return $this->hasMany('AutoKit\Category');
+        return $this->hasMany(Category::class);
     }
 
     public function products()
     {
-        return $this->hasManyThrough('AutoKit\Product', 'AutoKit\Category');
+        return $this->hasManyThrough(Product::class, Category::class);
     }
 }

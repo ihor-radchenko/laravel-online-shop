@@ -45,6 +45,6 @@ class Article extends Model
 
     public function user()
     {
-        return $this->belongsTo('AutoKit\User');
+        return $this->belongsTo(User::class);
     }
 }

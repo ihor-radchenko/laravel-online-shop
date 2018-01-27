@@ -6,7 +6,7 @@
         @isset($categories)
             <ul>
                 @foreach($categories as $category)
-                    <li><button class="btn-link">{{ $category->title }} <span class="badge">{{ $category->products_count }}</span></button></li>
+                    <li><a href="{{ route('products.category', ['parent_category' => $category->menu->alias, 'category' => $category->alias]) }}" class="btn-link">{{ $category->title }} <span class="badge">{{ $category->products_count }}</span></a></li>
                 @endforeach
             </ul>
         @endisset
@@ -14,11 +14,13 @@
     <hr>
     <div class="product-sidebar">
         <h4 class="color-black">Бренд</h4>
-        <ul>
-            @foreach($products as $product)
-                <li><button class="btn-link">{{ $product->brand->title }} <span class="badge">{{ $product->brand->products->count() }}</span></button></li>
-            @endforeach
-        </ul>
+        @isset($menu)
+            <ul>
+                @foreach($menu->products as $product)
+                    <li><a class="btn-link">{{ $product->brand->title }} <span class="badge">{{ $product->brand->products->count() }}</span></a></li>
+                @endforeach
+            </ul>
+        @endisset
     </div>
     <hr>
 </aside>

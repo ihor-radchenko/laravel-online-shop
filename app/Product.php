@@ -45,12 +45,12 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo('AutoKit\Category');
+        return $this->belongsTo(Category::class);
     }
 
     public function brand()
     {
-        return $this->belongsTo('AutoKit\Brand');
+        return $this->belongsTo(Brand::class);
     }
 
     public function getImgAttribute(string $value): string

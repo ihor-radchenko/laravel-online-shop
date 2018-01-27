@@ -39,6 +39,6 @@ class Slider extends Model
 
     public function menu()
     {
-        return $this->belongsTo('AutoKit\Menu');
+        return $this->belongsTo(Menu::class);
     }
 }

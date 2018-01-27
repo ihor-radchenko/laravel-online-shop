@@ -14,7 +14,15 @@ Breadcrumbs::register('article', function ($breadcrumbs, $article) {
     $breadcrumbs->push($article->title, route('article', $article->alias));
 });
 
-Breadcrumbs::register('products', function ($breadcrumbs, $menu) {
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push($menu->title, route('article', $menu->alias));
+Breadcrumbs::register('products', function ($breadcrumbs, $category) {
+    if ($category->menu) {
+        $breadcrumbs->parent('products', $category->menu);
+        $breadcrumbs->push(
+            $category->title,
+            route('products.category', ['parent_category' => $category->menu->alias, 'category' => $category->alias])
+        );
+    } else {
+        $breadcrumbs->parent('home');
+        $breadcrumbs->push($category->title, route('products.index', $category->alias));
+    }
 });

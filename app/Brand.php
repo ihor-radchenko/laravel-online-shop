@@ -28,6 +28,6 @@ class Brand extends Model
 
     public function products()
     {
-        return $this->hasMany('AutoKit\Product');
+        return $this->hasMany(Product::class);
     }
 }

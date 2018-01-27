@@ -33,12 +33,12 @@ class Category extends Model
 
     public function menu()
     {
-        return $this->belongsTo('AutoKit\Menu');
+        return $this->belongsTo(Menu::class);
     }
 
     public function products()
     {
-        return $this->hasMany('AutoKit\Product');
+        return $this->hasMany(Product::class);
     }
 
     public function getImgAttribute(string $value): string

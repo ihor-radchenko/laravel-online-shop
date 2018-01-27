@@ -12029,6 +12029,7 @@ aside {
           justify-content: space-between;
   color: #8594a0;
   width: 100%;
+  padding: 3px 8px;
 }
 
 .product-sidebar ul li .btn-link:hover {

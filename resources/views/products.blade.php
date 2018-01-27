@@ -2,7 +2,7 @@
 @extends('layouts.master')
 
 @section('content')
-    {{ Breadcrumbs::render('products', $menu) }}
+    {{ Breadcrumbs::render('products', $breadcrumb) }}
     <div class="container">
         <div class="row">
             <div class="col-sm-3 hidden-xs">
