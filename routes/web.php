@@ -18,6 +18,7 @@ Route::get('blog', 'BlogController@index')->name('blog');
 Route::get('blog/{alias}', 'BlogController@show')->name('article');
 
 Route::prefix('products')->group(function () {
+    Route::get('brand/{alias}', 'ProductController@showByBrand')->name('products.brand');
     Route::get('{parent_category}', 'ProductController@index')->name('products.index');
     Route::get('{parent_category}/{category}', 'ProductController@showByCategory')->name('products.category');
 });
