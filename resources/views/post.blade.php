@@ -11,7 +11,7 @@
                         <div class="post-title">{{ $article->title }}</div>
                         <div class="post-data">
                             <div class="create-data">
-                                <i class="fa fa-calendar" aria-hidden="true"></i> {{ $article->created }}
+                                <i class="fa fa-calendar" aria-hidden="true"></i> {{ $article->created_at->format('M j, Y') }}
                             </div>
                             <div class="author">
                                 <i class="fa fa-user-o" aria-hidden="true"></i> by {{ $article->user->name }}

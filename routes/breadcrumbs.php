@@ -26,3 +26,8 @@ Breadcrumbs::register('products', function ($breadcrumbs, $category) {
         $breadcrumbs->push($category->title, route('products.index', $category->alias));
     }
 });
+
+Breadcrumbs::register('product', function ($breadcrumbs, $product) {
+    $breadcrumbs->parent('products', $product->category);
+    $breadcrumbs->push($product->title, route('product', ['id' => $product->id]));
+});

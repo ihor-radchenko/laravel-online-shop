@@ -338,6 +338,11 @@ h2 {
   }
 }
 
+.post-image {
+  display: flex;
+  justify-content: center;
+}
+
 .post-img {
   position: relative;
   @extend .inner-border;
@@ -582,4 +587,10 @@ aside {
       color: $black;
     }
   }
+}
+
+.my-btn:disabled {
+  background-color: dimgray;
+  color: white;
+  border-color: #999;
 }

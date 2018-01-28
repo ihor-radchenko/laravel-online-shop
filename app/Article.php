@@ -38,11 +38,6 @@ class Article extends Model
         return '/img/posts/' . $value;
     }
 
-    public function getCreatedAttribute(): string
-    {
-        return \DateTime::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('M j, Y');
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);

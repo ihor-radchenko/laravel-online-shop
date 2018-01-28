@@ -26,6 +26,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::pattern('alias', '[a-z0-9-]+');
         Route::pattern('parent_category', '[a-z-]+');
         Route::pattern('category', '[a-z-]+');
+        Route::pattern('id', '[0-9]+');
 
         parent::boot();
     }

@@ -53,4 +53,15 @@ class ProductController extends Controller
             ]
         );
     }
+
+    public function show(Product $id)
+    {
+        return view(
+            'product',
+            [
+                'menu_navigation' => Menu::with('categories')->get(),
+                'product' => $id
+            ]
+        );
+    }
 }

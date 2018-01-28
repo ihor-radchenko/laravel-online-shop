@@ -11783,6 +11783,15 @@ h2 {
   color: #13191e;
 }
 
+.post-image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .post-img {
   position: relative;
 }
@@ -12077,6 +12086,12 @@ aside {
 
 .products-options button:hover {
   color: #13191e;
+}
+
+.my-btn:disabled {
+  background-color: dimgray;
+  color: white;
+  border-color: #999;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {

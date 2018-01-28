@@ -22,3 +22,5 @@ Route::prefix('products')->group(function () {
     Route::get('{parent_category}', 'ProductController@index')->name('products.index');
     Route::get('{parent_category}/{category}', 'ProductController@showByCategory')->name('products.category');
 });
+
+Route::get('product/{id}', 'ProductController@show')->name('product');

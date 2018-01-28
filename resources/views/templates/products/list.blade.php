@@ -5,6 +5,11 @@
             <div class="col-sm-5 product-img">
                 <img src="{{ asset($product->img) }}" alt="" class="image-response">
             </div>
+            @if($product->is_top)
+                <span class="top">Top</span>
+            @elseif($product->is_new)
+                <span class="new">New</span>
+            @endif
             <div class="col-sm-7">
                 <div class="caption">
                     @if(! is_null($product->old_price))
@@ -13,7 +18,7 @@
                     @else
                         <span class="price">${{ $product->price }}</span>
                     @endif
-                    <a class="title">{{ $product->title }}</a>
+                    <a href="{{ route('product', ['id' => $product->id]) }}" class="title">{{ $product->title }}</a>
                     <p class="short-content">
                         {{ str_limit($product->description) }}
                     </p>
