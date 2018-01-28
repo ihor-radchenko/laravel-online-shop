@@ -25,7 +25,7 @@
                                     <i class="fa fa-user-o" aria-hidden="true"></i> by {{ $article->user->name }}
                                 </div>
                                 <div class="comments">
-                                    <i class="fa fa-comment-o" aria-hidden="true"></i> 2
+                                    <i class="fa fa-comment-o" aria-hidden="true"></i> {{ $article->comments_count }}
                                 </div>
                             </div>
                             <a href="{{ route('article', ['alias' => $article->alias]) }}" class="my-btn btn-white">Прочесть</a>

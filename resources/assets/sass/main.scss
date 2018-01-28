@@ -339,8 +339,9 @@ h2 {
 }
 
 .post-image {
-  display: flex;
-  justify-content: center;
+  img {
+    margin: 0 auto;
+  }
 }
 
 .post-img {
@@ -593,4 +594,8 @@ aside {
   background-color: dimgray;
   color: white;
   border-color: #999;
+}
+
+textarea {
+  overflow: hidden;
 }

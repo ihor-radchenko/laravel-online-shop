@@ -14,7 +14,7 @@
                                 <a href="{{ route('article', ['alias' => $article->alias]) }}" class="color-black">{{ $article->title }}</a>
                             </div>
                             <div class="post-image">
-                                <img src="{{ asset($article->img) }}" alt="" class="img-responsive post-img">
+                                <img src="{{ asset($article->img) }}" alt="" class="img-responsive">
                             </div>
                             <div class="post-short-content">
                                 {{ str_limit($article->text) }}
@@ -27,7 +27,7 @@
                                     <i class="fa fa-user-o" aria-hidden="true"></i> by {{ $article->user->name }}
                                 </div>
                                 <div class="comments">
-                                    <i class="fa fa-comment-o" aria-hidden="true"></i> 2
+                                    <i class="fa fa-comment-o" aria-hidden="true"></i> {{ $article->comments_count }}
                                 </div>
                             </div>
                             <div class="for-button">

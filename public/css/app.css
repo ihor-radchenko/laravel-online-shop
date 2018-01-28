@@ -11783,13 +11783,8 @@ h2 {
   color: #13191e;
 }
 
-.post-image {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+.post-image img {
+  margin: 0 auto;
 }
 
 .post-img {
@@ -12092,6 +12087,10 @@ aside {
   background-color: dimgray;
   color: white;
   border-color: #999;
+}
+
+textarea {
+  overflow: hidden;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {

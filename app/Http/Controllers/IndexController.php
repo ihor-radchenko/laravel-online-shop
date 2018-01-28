@@ -21,7 +21,7 @@ class IndexController extends Controller
                 'categories' => Category::whereNotNull('img')->with('menu')->take(8)->get(),
                 'top_products' => Product::where('is_top', 1)->inRandomOrder()->take(4)->get(),
                 'new_products' => Product::where('is_new', 1)->inRandomOrder()->take(4)->get(),
-                'articles' => Article::with('user')->orderByDesc('id')->take(3)->get()
+                'articles' => Article::with('user')->withCount('comments')->orderByDesc('id')->take(3)->get()
             ]);
     }
 }
