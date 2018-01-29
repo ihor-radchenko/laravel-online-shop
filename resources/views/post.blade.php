@@ -17,7 +17,7 @@
                                 <i class="fa fa-user-o" aria-hidden="true"></i> by {{ $article->user->name }}
                             </div>
                             <div class="comments">
-                                <i class="fa fa-comment-o" aria-hidden="true"></i> {{ $article->comments_count }}
+                                <i class="fa fa-comment-o" aria-hidden="true"></i> {{ $article->comments->count() }}
                             </div>
                         </div>
                         <div class="post-image">

@@ -2,6 +2,7 @@
 
 namespace AutoKit;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -40,5 +41,13 @@ class Slider extends Model
     public function menu()
     {
         return $this->belongsTo(Menu::class);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCarousel(): Collection
+    {
+        return self::with('menu')->get();
     }
 }

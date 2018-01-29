@@ -13,6 +13,9 @@
             </div>
             <hr>
         @endforeach
+        @if($comments->isEmpty())
+            <h4 class="color-black text-center">Коментариев еще нету</h4>
+        @endif
     @endisset
     <div class="comment-add">
         <h4 class="color-black">Оставте ответ</h4>

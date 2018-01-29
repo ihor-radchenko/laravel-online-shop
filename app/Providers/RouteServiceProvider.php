@@ -2,6 +2,10 @@
 
 namespace AutoKit\Providers;
 
+use AutoKit\Article;
+use AutoKit\Brand;
+use AutoKit\Category;
+use AutoKit\Menu;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -23,10 +27,27 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Route::pattern('alias', '[a-z0-9-]+');
-        Route::pattern('parent_category', '[a-z-]+');
+        Route::pattern('article', '[a-z0-9-]+');
+        Route::pattern('brand', '[a-z0-9-]+');
+        Route::pattern('menu', '[a-z-]+');
         Route::pattern('category', '[a-z-]+');
-        Route::pattern('id', '[0-9]+');
+        Route::pattern('product', '[0-9]+');
+
+        Route::bind('article', function ($value) {
+            return Article::whereAlias($value)->first() ?? abort(404);
+        });
+
+        Route::bind('brand', function ($value) {
+            return Brand::whereAlias($value)->first() ?? abort(404);
+        });
+
+        Route::bind('menu', function ($value) {
+            return Menu::whereAlias($value)->first() ?? abort(404);
+        });
+
+        Route::bind('category', function ($value) {
+            return Category::whereAlias($value)->first() ?? abort(404);
+        });
 
         parent::boot();
     }

@@ -2,6 +2,7 @@
 
 namespace AutoKit;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -44,5 +45,22 @@ class Category extends Model
     public function getImgAttribute(string $value): string
     {
         return '/img/categories/' . $value;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getForMainPage(): Collection
+    {
+        return self::whereNotNull('img')->with('menu')->take(8)->get();
+    }
+
+    /**
+     * @param Menu $menu
+     * @return Collection
+     */
+    public function getWhereMenu(Menu $menu): Collection
+    {
+        return self::whereMenuId($menu->id)->with('menu')->withCount('products')->get();
     }
 }

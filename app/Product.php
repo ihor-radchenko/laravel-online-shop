@@ -2,6 +2,7 @@
 
 namespace AutoKit;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -56,5 +57,41 @@ class Product extends Model
     public function getImgAttribute(string $value): string
     {
         return '/img/products/' . $value;
+    }
+
+    /**
+     * @param string $field is_top|is_new
+     * @return Collection
+     */
+    public function getForMainPageWhere(string $field): Collection
+    {
+        return self::where($field, 1)->inRandomOrder()->take(4)->get();
+    }
+
+    /**
+     * @param Menu $menu
+     * @return Collection
+     */
+    public function getWhereMenu(Menu $menu): Collection
+    {
+        return self::whereIn('category_id',  Category::select('id')->whereMenuId($menu->id)->get())->orderByDesc('id')->get();
+    }
+
+    /**
+     * @param Category $category
+     * @return Collection
+     */
+    public function getWhereCategory(Category $category): Collection
+    {
+        return self::whereCategoryId($category->id)->orderByDesc('id')->get();
+    }
+
+    /**
+     * @param Brand $brand
+     * @return Collection
+     */
+    public function getWhereBrand(Brand $brand): Collection
+    {
+        return self::whereBrandId($brand->id)->orderByDesc('id')->get();
     }
 }

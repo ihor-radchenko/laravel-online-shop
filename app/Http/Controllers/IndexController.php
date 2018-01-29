@@ -4,24 +4,42 @@ namespace AutoKit\Http\Controllers;
 
 use AutoKit\Article;
 use AutoKit\Category;
-use AutoKit\Menu;
 use AutoKit\Product;
-use AutoKit\Slider;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+    /**
+     * @var Category
+     */
+    protected $category;
+
+    /**
+     * @var Product
+     */
+    protected $product;
+
+    /**
+     * @var Article
+     */
+    protected $article;
+
+    public function __construct(Category $category, Product $product, Article $article)
+    {
+        $this->category = $category;
+        $this->product = $product;
+        $this->article = $article;
+    }
+
     public function index()
     {
         return view(
             'main',
             [
-                'menu_navigation' => Menu::with('categories')->get(),
-                'carousel' => Slider::with('menu')->get(),
-                'categories' => Category::whereNotNull('img')->with('menu')->take(8)->get(),
-                'top_products' => Product::where('is_top', 1)->inRandomOrder()->take(4)->get(),
-                'new_products' => Product::where('is_new', 1)->inRandomOrder()->take(4)->get(),
-                'articles' => Article::with('user')->withCount('comments')->orderByDesc('id')->take(3)->get()
+                'categories' => $this->category->getForMainPage(),
+                'top_products' => $this->product->getForMainPageWhere('is_top'),
+                'new_products' => $this->product->getForMainPageWhere('is_new'),
+                'articles' => $this->article->getLastForMainPage()
             ]);
     }
 }

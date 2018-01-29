@@ -4,30 +4,38 @@ namespace AutoKit\Http\Controllers;
 
 use AutoKit\Article;
 use AutoKit\Comment;
-use AutoKit\Menu;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index()
+    /**
+     * @var Article
+     */
+    protected $article;
+
+    /**
+     * @var Comment
+     */
+    protected $comment;
+
+    public function __construct(Article $article, Comment $comment)
     {
-        return view(
-            'blog',
-            [
-                'menu_navigation' => Menu::with('categories')->get(),
-                'articles' => Article::with('user')->withCount('comments')->orderByDesc('id')->get()
-            ]
-        );
+        $this->article = $article;
+        $this->comment = $comment;
     }
 
-    public function show(string $alias)
+    public function index()
+    {
+        return view('blog', ['articles' => $this->article->getForBlog()]);
+    }
+
+    public function show(Article $article)
     {
         return view(
             'post',
             [
-                'menu_navigation' => Menu::with('categories')->get(),
-                'article' => Article::whereAlias($alias)->withCount('comments')->with('user')->first(),
-                'comments' => Comment::whereArticleId(Article::whereAlias($alias)->first()->id)->with('user')->get()
+                'article' => $article->load('user'),
+                'comments' => $this->comment->getForArticle($article)
             ]
         );
     }

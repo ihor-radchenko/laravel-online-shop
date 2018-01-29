@@ -2,6 +2,7 @@
 
 namespace AutoKit;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -35,5 +36,21 @@ class Menu extends Model
     public function products()
     {
         return $this->hasManyThrough(Product::class, Category::class);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getNavBar(): Collection
+    {
+        return self::with('categories')->get();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getWithCountProducts(): Collection
+    {
+        return self::withCount('products')->get();
     }
 }

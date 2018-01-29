@@ -2,6 +2,7 @@
 
 namespace AutoKit;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -41,5 +42,14 @@ class Comment extends Model
     public function article()
     {
         return $this->belongsTo(Article::class);
+    }
+
+    /**
+     * @param Article $article
+     * @return Collection
+     */
+    public function getForArticle(Article $article): Collection
+    {
+        return self::whereArticleId($article->id)->with('user')->get();
     }
 }

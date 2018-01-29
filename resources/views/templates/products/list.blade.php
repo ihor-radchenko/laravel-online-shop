@@ -29,7 +29,7 @@
             </div>
         </div>
     @endforeach
-    @if($products->count() === 0)
+    @if($products->isEmpty())
         <h2 class="color-black text-center">Товара нету</h2>
     @endif
 @endisset

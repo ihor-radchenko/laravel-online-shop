@@ -15,12 +15,12 @@ Route::get('/', 'IndexController@index')->name('home');
 
 Route::get('blog', 'BlogController@index')->name('blog');
 
-Route::get('blog/{alias}', 'BlogController@show')->name('article');
+Route::get('blog/{article}', 'BlogController@show')->name('article');
 
 Route::prefix('products')->group(function () {
-    Route::get('brand/{alias}', 'ProductController@showByBrand')->name('products.brand');
-    Route::get('{parent_category}', 'ProductController@index')->name('products.index');
-    Route::get('{parent_category}/{category}', 'ProductController@showByCategory')->name('products.category');
+    Route::get('brand/{brand}', 'ProductController@showByBrand')->name('products.brand');
+    Route::get('{menu}', 'ProductController@index')->name('products.index');
+    Route::get('{menu}/{category}', 'ProductController@showByCategory')->name('products.category');
 });
 
-Route::get('product/{id}', 'ProductController@show')->name('product');
+Route::get('product/{product}', 'ProductController@show')->name('product');

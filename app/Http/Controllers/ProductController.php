@@ -10,58 +10,76 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index(string $parentCategory)
+    /**
+     * @var Product
+     */
+    protected $product;
+
+    /**
+     * @var Category
+     */
+    protected $category;
+
+    /**
+     * @var Menu
+     */
+    protected $menu;
+
+    /**
+     * @var Brand
+     */
+    protected $brand;
+
+    public function __construct(Product $product, Category $category, Menu $menu, Brand $brand)
     {
-        $menu = Menu::whereAlias($parentCategory)->with('products.brand')->first();
+        $this->product = $product;
+        $this->category = $category;
+        $this->menu = $menu;
+        $this->brand = $brand;
+    }
+
+    public function index(Menu $menu)
+    {
         return view(
             'products',
             [
-                'menu_navigation' => Menu::with('categories')->get(),
-                'breadcrumb' => $menu,
-                'products' => Product::whereIn('category_id',  Category::select('id')->whereMenuId($menu->id)->get())->orderByDesc('id')->get(),
-                'categories' => Category::whereMenuId($menu->id)->with('menu')->withCount('products')->get(),
+                'breadcrumb' => $menu->load('products.brand'),
+                'products' => $this->product->getWhereMenu($menu),
+                'categories' => $this->category->getWhereMenu($menu),
                 'productsBrand' => $menu->products
             ]
         );
     }
 
-    public function showByCategory(string $parentCategory, string $category)
+    public function showByCategory(Menu $menu, Category $category)
     {
-        $menu = Menu::whereAlias($parentCategory)->with('products.brand')->first();
+        $menu->load('products.brand');
         return view(
             'products',
             [
-                'menu_navigation' => Menu::with('categories')->get(),
-                'breadcrumb' => Category::whereAlias($category)->with('menu')->first(),
-                'products' => Product::whereCategoryId(Category::whereAlias($category)->first()->id)->orderByDesc('id')->get(),
-                'categories' => Category::whereMenuId($menu->id)->with('menu')->withCount('products')->get(),
+                'breadcrumb' => $category->load('menu'),
+                'products' => $this->product->getWhereCategory($category),
+                'categories' => $this->category->getWhereMenu($menu),
                 'productsBrand' => $menu->products
             ]
         );
     }
 
-    public function showByBrand(string $brand)
+    public function showByBrand(Brand $brand)
     {
         return view(
             'products',
             [
-                'menu_navigation' => Menu::with('categories')->get(),
-                'breadcrumb' => Brand::whereAlias($brand)->first(),
-                'products' => Product::whereBrandId(Brand::whereAlias($brand)->first()->id)->orderByDesc('id')->get(),
-                'menus' => Menu::withCount('products')->get(),
-                'brands' => Brand::withCount('products')->get()
+                'breadcrumb' => $brand,
+                'products' => $this->product->getWhereBrand($brand),
+                'menus' => $this->menu->getWithCountProducts(),
+                'brands' => $this->brand->getWithCountProducts()
             ]
         );
     }
 
-    public function show(Product $id)
+    public function show(Product $product)
     {
-        return view(
-            'product',
-            [
-                'menu_navigation' => Menu::with('categories')->get(),
-                'product' => $id
-            ]
-        );
+        return view('product', ['product' => $product]);
     }
 }

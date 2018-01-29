@@ -2,6 +2,7 @@
 
 namespace AutoKit;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -29,5 +30,13 @@ class Brand extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getWithCountProducts(): Collection
+    {
+        return self::withCount('products')->get();
     }
 }

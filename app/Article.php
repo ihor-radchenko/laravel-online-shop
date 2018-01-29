@@ -2,6 +2,7 @@
 
 namespace AutoKit;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -47,5 +48,18 @@ class Article extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLastForMainPage(): Collection
+    {
+        return self::with('user')->withCount('comments')->orderByDesc('id')->take(3)->get();
+    }
+
+    public function getForBlog(): Collection
+    {
+        return self::with('user')->withCount('comments')->orderByDesc('id')->get();
     }
 }
