@@ -80,6 +80,6 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return view('product', ['product' => $product]);
+        return view('product', ['product' => $product->load('reviews.user')]);
     }
 }

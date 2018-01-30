@@ -11,7 +11,7 @@
                     @foreach($articles as $article)
                         <div class="post">
                             <div class="post-title">
-                                <a href="{{ route('article', ['alias' => $article->alias]) }}" class="color-black">{{ $article->title }}</a>
+                                <a href="{{ route('article', ['article' => $article->alias]) }}" class="color-black">{{ $article->title }}</a>
                             </div>
                             <div class="post-image">
                                 <img src="{{ asset($article->img) }}" alt="" class="img-responsive">
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="for-button">
-                                <a href="{{ route('article', ['alias' => $article->alias]) }}" class="my-btn btn-white">Прочесть</a>
+                                <a href="{{ route('article', ['article' => $article->alias]) }}" class="my-btn btn-white">Прочесть</a>
                             </div>
                         </div>
                     @endforeach

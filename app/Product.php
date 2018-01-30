@@ -54,6 +54,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
     public function getImgAttribute(string $value): string
     {
         return '/img/products/' . $value;
@@ -65,7 +70,7 @@ class Product extends Model
      */
     public function getForMainPageWhere(string $field): Collection
     {
-        return self::where($field, 1)->inRandomOrder()->take(4)->get();
+        return self::where($field, 1)->with('reviews')->inRandomOrder()->take(4)->get();
     }
 
     /**
@@ -74,7 +79,7 @@ class Product extends Model
      */
     public function getWhereMenu(Menu $menu): Collection
     {
-        return self::whereIn('category_id',  Category::select('id')->whereMenuId($menu->id)->get())->orderByDesc('id')->get();
+        return self::whereIn('category_id',  Category::select('id')->whereMenuId($menu->id)->get())->with('reviews')->orderByDesc('id')->get();
     }
 
     /**
@@ -83,7 +88,7 @@ class Product extends Model
      */
     public function getWhereCategory(Category $category): Collection
     {
-        return self::whereCategoryId($category->id)->orderByDesc('id')->get();
+        return self::whereCategoryId($category->id)->with('reviews')->orderByDesc('id')->get();
     }
 
     /**
@@ -92,6 +97,6 @@ class Product extends Model
      */
     public function getWhereBrand(Brand $brand): Collection
     {
-        return self::whereBrandId($brand->id)->orderByDesc('id')->get();
+        return self::whereBrandId($brand->id)->with('reviews')->orderByDesc('id')->get();
     }
 }

@@ -13,7 +13,7 @@
                             <img src="{{ asset($article->img) }}" alt="">
                         </div>
                         <div class="caption">
-                            <a href="{{ route('article', ['alias' => $article->alias]) }}" class="link-post">{{ $article->title }}</a>
+                            <a href="{{ route('article', ['article' => $article->alias]) }}" class="link-post">{{ $article->title }}</a>
                             <p class="description hidden-xs">
                                 {{ str_limit($article->text) }}
                             </p>
@@ -28,7 +28,7 @@
                                     <i class="fa fa-comment-o" aria-hidden="true"></i> {{ $article->comments_count }}
                                 </div>
                             </div>
-                            <a href="{{ route('article', ['alias' => $article->alias]) }}" class="my-btn btn-white">Прочесть</a>
+                            <a href="{{ route('article', ['article' => $article->alias]) }}" class="my-btn btn-white">Прочесть</a>
                         </div>
                     </div>
                 </div>

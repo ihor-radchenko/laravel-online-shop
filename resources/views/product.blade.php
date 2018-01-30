@@ -43,6 +43,17 @@
                                 <button class="my-btn btn-black btn-lg" {{ ! $product->quantity ? 'disabled' : '' }}>
                                     <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
                                 </button>
+                                <div class="rating">
+                                    <div class="stars">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <span class="glyphicon glyphicon-star{{ ($i <= round($product->reviews->avg('rating'), 1)) ? '' : '-empty'}}"></span>
+                                        @endfor
+                                    </div>
+                                    <div class="avg-rating">{{ round($product->reviews->avg('rating'), 1) }}</div>
+                                    <div class="count">
+                                        {{ $product->reviews->count() }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

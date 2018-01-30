@@ -1,0 +1,25 @@
+
+input.star {
+  display: none;
+}
+
+.star-cont {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+label.star {
+  color: $red;
+  font-size: 1.5em;
+  margin: 0 2px;
+}
+
+input.star:checked ~ label.star:before {
+  content: '\e006';
+}
+
+label.star:before {
+  content: '\e007';
+  font-family: "Glyphicons Halflings";
+}

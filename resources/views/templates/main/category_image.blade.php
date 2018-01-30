@@ -9,7 +9,7 @@
                             <img src="{{ asset($category->img) }}" alt="">
                             <div class="inner">
                                 <div class="category-name text-uppercase">{{ $category->title }}</div>
-                                <a href="/{{ $category->menu->alias }}/{{ $category->alias }}" class="button-more">
+                                <a href="{{ route('products.category', ['menu' => $category->menu->alias, 'category' => $category->alias]) }}" class="button-more">
                                     <span class="text-uppercase">Показать больше</span>
                                     <i class="fa fa-arrow-circle-o-right fa-2x" aria-hidden="true"></i>
                                 </a>

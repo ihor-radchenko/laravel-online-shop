@@ -252,6 +252,22 @@ h2 {
   border: none;
   position: relative;
 
+  .rating {
+    color: $red;
+    margin-top: 20px;
+    display: flex;
+    font-size: 1.3em;
+
+    .avg-rating {
+      margin-left: 5px;
+      font-size: .8em;
+    }
+
+    .count {
+      margin-left: 25px;
+    }
+  }
+
   .img-wrapper {
     height: 250px;
     display: flex;
@@ -572,6 +588,9 @@ aside {
   }
   .content {
     font-size: 16px;
+  }
+  .rating {
+    color: $red;
   }
 }
 

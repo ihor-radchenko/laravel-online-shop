@@ -8,7 +8,6 @@
 
 namespace AutoKit\Http\ViewComposers;
 
-
 use AutoKit\Slider;
 use Illuminate\View\View;
 

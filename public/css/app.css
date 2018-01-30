@@ -11688,6 +11688,24 @@ h2 {
   position: relative;
 }
 
+.product-show .rating {
+  color: #ee221d;
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1.3em;
+}
+
+.product-show .rating .avg-rating {
+  margin-left: 5px;
+  font-size: .8em;
+}
+
+.product-show .rating .count {
+  margin-left: 25px;
+}
+
 .product-show .img-wrapper {
   height: 250px;
   display: -webkit-box;
@@ -12062,6 +12080,10 @@ aside {
   font-size: 16px;
 }
 
+.review .rating {
+  color: #ee221d;
+}
+
 .products-options {
   background-color: #f5f5f5;
   border-radius: 4px;
@@ -12267,5 +12289,37 @@ textarea {
   .modal .modal-content .modal-footer button {
     width: 40%;
   }
+}
+
+input.star {
+  display: none;
+}
+
+.star-cont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+label.star {
+  color: #ee221d;
+  font-size: 1.5em;
+  margin: 0 2px;
+}
+
+input.star:checked ~ label.star:before {
+  content: '\E006';
+}
+
+label.star:before {
+  content: '\E007';
+  font-family: "Glyphicons Halflings";
 }
 
