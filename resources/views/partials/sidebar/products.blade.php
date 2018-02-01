@@ -1,8 +1,8 @@
 
 <aside>
-    <h2 class="color-black text-center hidden-xs">Магазин</h2>
+    <h2 class="color-black text-center hidden-xs">@lang('page.shop')</h2>
     <div class="product-sidebar">
-        <h4 class="color-black">Категории</h4>
+        <h4 class="color-black">@lang('page.categories')</h4>
         <ul>
             @if(isset($categories))
                 @foreach($categories as $category)
@@ -17,7 +17,7 @@
     </div>
     <hr>
     <div class="product-sidebar">
-        <h4 class="color-black">Бренд</h4>
+        <h4 class="color-black">@lang('page.brands')</h4>
         <ul>
             @if(isset($productsBrand))
                 @foreach($productsBrand as $product)

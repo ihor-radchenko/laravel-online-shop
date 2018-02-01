@@ -6,6 +6,7 @@ use AutoKit\Brand;
 use AutoKit\Category;
 use AutoKit\Menu;
 use AutoKit\Product;
+use AutoKit\Review;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -30,12 +31,18 @@ class ProductController extends Controller
      */
     protected $brand;
 
-    public function __construct(Product $product, Category $category, Menu $menu, Brand $brand)
+    /**
+     * @var Review
+     */
+    protected $review;
+
+    public function __construct(Product $product, Category $category, Menu $menu, Brand $brand, Review $review)
     {
         $this->product = $product;
         $this->category = $category;
         $this->menu = $menu;
         $this->brand = $brand;
+        $this->review = $review;
     }
 
     public function index(Menu $menu)
@@ -80,6 +87,6 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return view('product', ['product' => $product->load('reviews.user')]);
+        return view('product', ['product' => $product, 'reviews' => $this->review->getForProduct($product)]);
     }
 }

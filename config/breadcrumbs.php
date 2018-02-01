@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Choose a view to display when Breadcrumbs::render() is called.
-    | Built in templates are:
+    | Built in partials are:
     |
     | - 'breadcrumbs::bootstrap4' - Twitter Bootstrap v4
     | - 'breadcrumbs::bootstrap3' - Twitter Bootstrap v3

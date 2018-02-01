@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <hr>
-                    @include('templates.comments')
+                    @include('partials.comments')
                 </div>
             @endisset
         </div>

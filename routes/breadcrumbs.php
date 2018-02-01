@@ -1,12 +1,12 @@
 <?php
 
 Breadcrumbs::register('home', function ($breadcrumbs) {
-    $breadcrumbs->push('Главная', route('home'));
+    $breadcrumbs->push(Lang::get('breadcrumbs.home'), route('home'));
 });
 
 Breadcrumbs::register('blog', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
-    $breadcrumbs->push('Блог', route('blog'));
+    $breadcrumbs->push(Lang::get('breadcrumbs.blog'), route('blog'));
 });
 
 Breadcrumbs::register('article', function ($breadcrumbs, $article) {

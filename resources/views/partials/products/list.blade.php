@@ -23,12 +23,12 @@
                         {{ str_limit($product->description) }}
                     </p>
                     <button class="my-btn btn-black">
-                        <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
+                        <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> @lang('button.add_to_cart')
                     </button>
                     <div class="rating">
                         <div class="stars">
                             @for($i = 1; $i <= 5; $i++)
-                                <span class="glyphicon glyphicon-star{{ ($i <= round($product->reviews->avg('rating'), 1)) ? '' : '-empty'}}"></span>
+                                <span class="glyphicon glyphicon-star{{ ($i <= round($product->reviews->avg('rating'))) ? '' : '-empty'}}"></span>
                             @endfor
                         </div>
                         <div class="avg-rating">{{ round($product->reviews->avg('rating'), 1) }}</div>
@@ -41,6 +41,6 @@
         </div>
     @endforeach
     @if($products->isEmpty())
-        <h2 class="color-black text-center">Товара нету</h2>
+        <h2 class="color-black text-center">@lang('page.products_empty')</h2>
     @endif
 @endisset

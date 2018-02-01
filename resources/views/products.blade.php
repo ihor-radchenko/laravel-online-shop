@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3 hidden-xs">
-                @include('templates.sidebar.products')
+                @include('partials.sidebar.products')
             </div>
             <div class="col-sm-9 products-block">
                 <div class="row">
@@ -20,11 +20,11 @@
                     </div>
                     <div class="col-xs-12 visible-xs">
                         <button class="my-btn btn-black btn-lg filter-btn" data-toggle="modal" data-target="#myModal">
-                            Фильтр
+                            @lang('button.filter')
                         </button>
                     </div>
                 </div>
-                @include('templates.products.grid')
+                @include('partials.products.grid')
             </div>
         </div>
     </div>
@@ -38,11 +38,11 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
-                        @include('templates.sidebar.products')
+                        @include('partials.sidebar.products')
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="my-btn btn-white" data-dismiss="modal">Закрыть</button>
-                        <button type="button" class="my-btn btn-black">Фильтр</button>
+                        <button type="button" class="my-btn btn-white" data-dismiss="modal">@lang('button.close')</button>
+                        <button type="button" class="my-btn btn-black">@lang('button.filter')</button>
                     </div>
                 </div>
             </div>

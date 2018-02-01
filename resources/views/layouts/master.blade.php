@@ -18,15 +18,13 @@
                 <img src="{{ asset('/img/autokit.png') }}" alt="logo">
             </a>
             <a class="nav-cart">
-                <span class="glyphicon glyphicon-shopping-cart"></span>
-                Моя корзина
-                <span class="cart-count">0</span>
+                <span class="glyphicon glyphicon-shopping-cart"></span>@lang('page.my_cart')<span class="cart-count">0</span>
             </a>
         </div>
     </div>
 </header>
 
-@include('templates.nav')
+@include('partials.nav')
 
 <div class="main-content">
     @yield('content')

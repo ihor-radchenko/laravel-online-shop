@@ -19,13 +19,13 @@
                         <div class="col-sm-7">
                             <div class="caption">
                                 @if($product->quantity >= 10)
-                                    <div class="stock text-success">В наличии <i class="fa fa-check" aria-hidden="true"></i></div>
+                                    <div class="stock text-success">@lang('page.in_stock') <i class="fa fa-check" aria-hidden="true"></i></div>
                                 @elseif($product->quantity > 0 && $product->quantity < 10)
-                                    <div class="stock text-warning">Заканчиваеться <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
+                                    <div class="stock text-warning">@lang('page.ends') <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
                                 @else
-                                    <div class="stock text-danger">Нет в наличии <i class="fa fa-times" aria-hidden="true"></i></div>
+                                    <div class="stock text-danger">@lang('page.no_stock') <i class="fa fa-times" aria-hidden="true"></i></div>
                                 @endif
-                                <div class="count color-black">На складе: {{ $product->quantity }}</div>
+                                <div class="count color-black">@lang('page.on_warehouse') {{ $product->quantity }}</div>
                                 <h2 class="title">{{ $product->title }}</h2>
                                 @if(! is_null($product->old_price))
                                     <span class="new-price">${{ $product->price }}</span>
@@ -33,27 +33,27 @@
                                 @else
                                     <span class="price">${{ $product->price }}</span>
                                 @endif
-                                <p class="short-content">
-                                    Для нас большая честь представить вам наши продукты. Мы предоставляем автозапчасти, и наша главная цель - удовлетворить всех наших клиентов
-                                </p>
+                                <p class="short-content">@lang('page.product_welcome')</p>
                                 <div class="qty">
-                                    <label for="qty" class="color-black">Количество</label>
+                                    <label for="qty" class="color-black">@lang('page.quantity')</label>
                                     <input type="number" id="qty" value="1" class="text-center color-black" max="{{ $product->quantity }}" min="1" {{ ! $product->quantity ? 'disabled' : '' }}>
                                 </div>
                                 <button class="my-btn btn-black btn-lg" {{ ! $product->quantity ? 'disabled' : '' }}>
-                                    <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
+                                    <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> @lang('button.add_to_cart')
                                 </button>
-                                <div class="rating">
-                                    <div class="stars">
-                                        @for($i = 1; $i <= 5; $i++)
-                                            <span class="glyphicon glyphicon-star{{ ($i <= round($product->reviews->avg('rating'), 1)) ? '' : '-empty'}}"></span>
-                                        @endfor
+                                @isset($reviews)
+                                    <div class="rating">
+                                        <div class="stars">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <span class="glyphicon glyphicon-star{{ ($i <= round($reviews->avg('rating'))) ? '' : '-empty'}}"></span>
+                                            @endfor
+                                        </div>
+                                        <div class="avg-rating">{{ round($reviews->avg('rating'), 1) }}</div>
+                                        <div class="count">
+                                            {{ $reviews->count() }}
+                                        </div>
                                     </div>
-                                    <div class="avg-rating">{{ round($product->reviews->avg('rating'), 1) }}</div>
-                                    <div class="count">
-                                        {{ $product->reviews->count() }}
-                                    </div>
-                                </div>
+                                @endisset
                             </div>
                         </div>
                     </div>
@@ -61,9 +61,9 @@
                         <div class="col-sm-12 hidden-xs">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#details" data-toggle="tab">Детали</a></li>
-                                <li><a href="#more-informations" data-toggle="tab">Больше информации</a></li>
-                                <li><a href="#reviews" data-toggle="tab">Отзывы</a></li>
+                                <li class="active"><a href="#details" data-toggle="tab">@lang('page.details')</a></li>
+                                <li><a href="#more-informations" data-toggle="tab">@lang('page.more_info')</a></li>
+                                <li><a href="#reviews" data-toggle="tab">@lang('page.reviews')</a></li>
                             </ul>
 
                             <!-- Tab panes -->
@@ -72,10 +72,10 @@
                                     {{ $product->description }}
                                 </div>
                                 <div class="tab-pane" id="more-informations">
-                                    @include('templates.product.more_informations')
+                                    @include('partials.product.more_informations')
                                 </div>
                                 <div class="tab-pane" id="reviews">
-                                    @include('templates.product.reviews')
+                                    @include('partials.product.reviews')
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                                Детали
+                                                @lang('page.details')
                                             </a>
                                         </h4>
                                     </div>
@@ -99,13 +99,13 @@
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                                Больше информации
+                                                @lang('page.more_info')
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            @include('templates.product.more_informations')
+                                            @include('partials.product.more_informations')
                                         </div>
                                     </div>
                                 </div>
@@ -113,13 +113,13 @@
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                                Отзывы
+                                                @lang('page.reviews')
                                             </a>
                                         </h4>
                                     </div>
                                     <div id="collapseThree" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            @include('templates.product.reviews')
+                                            @include('partials.product.reviews')
                                         </div>
                                     </div>
                                 </div>

@@ -3,7 +3,7 @@
 
 @section('content')
     {{ Breadcrumbs::render('blog') }}
-    <h2 class="text-center color-black">Блог</h2>
+    <h2 class="text-center color-black">@lang('page.blog')</h2>
     <div class="container">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="for-button">
-                                <a href="{{ route('article', ['article' => $article->alias]) }}" class="my-btn btn-white">Прочесть</a>
+                                <a href="{{ route('article', ['article' => $article->alias]) }}" class="my-btn btn-white">@lang('button.read')</a>
                             </div>
                         </div>
                     @endforeach

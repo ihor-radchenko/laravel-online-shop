@@ -15711,7 +15711,7 @@ if (token) {
      * [sourceURLs](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
      * for easier debugging.
      *
-     * For more information on precompiling templates see
+     * For more information on precompiling partials see
      * [lodash's custom builds documentation](https://lodash.com/custom-builds).
      *
      * For more information on Chrome extension sandboxes see
@@ -15796,7 +15796,7 @@ if (token) {
      * compiled({ 'user': 'mustache' });
      * // => 'hello mustache!'
      *
-     * // Use the `source` property to inline compiled templates for meaningful
+     * // Use the `source` property to inline compiled partials for meaningful
      * // line numbers in error messages and stack traces.
      * fs.writeFileSync(path.join(process.cwd(), 'jst.js'), '\
      *   var JST = {\
@@ -15904,7 +15904,7 @@ if (token) {
       });
 
       // Provide the compiled function's source by its `toString` method or
-      // the `source` property as a convenience for inlining compiled templates.
+      // the `source` property as a convenience for inlining compiled partials.
       result.source = source;
       if (isError(result)) {
         throw result;
@@ -33824,7 +33824,7 @@ function extractPropsFromVNodeData (
             " \"" + key + "\". " +
             "Note that HTML attributes are case-insensitive and camelCased " +
             "props need to use their kebab-case equivalents when using in-DOM " +
-            "templates. You should probably use \"" + altKey + "\" instead of \"" + key + "\"."
+            "partials. You should probably use \"" + altKey + "\" instead of \"" + key + "\"."
           );
         }
       }
@@ -34214,7 +34214,7 @@ function eventsMixin (Vue) {
           "Event \"" + lowerCaseEvent + "\" is emitted in component " +
           (formatComponentName(vm)) + " but the handler is registered for \"" + event + "\". " +
           "Note that HTML attributes are case-insensitive and you cannot use " +
-          "v-on to listen to camelCase events when using in-DOM templates. " +
+          "v-on to listen to camelCase events when using in-DOM partials. " +
           "You should probably use \"" + (hyphenate(event)) + "\" instead of \"" + event + "\"."
         );
       }
@@ -34440,7 +34440,7 @@ function mountComponent (
         vm.$options.el || el) {
         warn(
           'You are using the runtime-only build of Vue where the template ' +
-          'compiler is not available. Either pre-compile the templates into ' +
+          'compiler is not available. Either pre-compile the partials into ' +
           'render functions, or use the compiler-included build.',
           vm
         );
@@ -35562,7 +35562,7 @@ function renderStatic (
   tree = cached[index] = this.$options.staticRenderFns[index].call(
     this._renderProxy,
     null,
-    this // for render fns generated for functional component templates
+    this // for render fns generated for functional component partials
   );
   markStatic(tree, ("__static__" + index), false);
   return tree
@@ -36125,7 +36125,7 @@ function initRender (vm) {
   // bind the createElement fn to this instance
   // so that we get proper render context inside it.
   // args order: tag, data, children, normalizationType, alwaysNormalize
-  // internal version is used by render functions compiled from templates
+  // internal version is used by render functions compiled from partials
   vm._c = function (a, b, c, d) { return createElement(vm, a, b, c, d, false); };
   // normalization is always applied for the public version, used in
   // user-written render functions.
@@ -40350,7 +40350,7 @@ var isNonPhrasingTag = makeMap(
 // Regular Expressions for parsing tags and attributes
 var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
 // could use https://www.w3.org/TR/1999/REC-xml-names-19990114/#NT-QName
-// but for Vue templates we can enforce a simple charset
+// but for Vue partials we can enforce a simple charset
 var ncname = '[a-zA-Z_][\\w\\-\\.]*';
 var qnameCapture = "((?:" + ncname + "\\:)?" + ncname + ")";
 var startTagOpen = new RegExp(("^<" + qnameCapture));
@@ -40760,7 +40760,7 @@ function parse (
         element.forbidden = true;
         "development" !== 'production' && warn$2(
           'Templates should only be responsible for mapping the state to the ' +
-          'UI. Avoid placing tags with side-effects in your templates, such as ' +
+          'UI. Avoid placing tags with side-effects in your partials, such as ' +
           "<" + tag + ">" + ', as they will not be parsed.'
         );
       }
@@ -42272,7 +42272,7 @@ function createCompileToFunctionFn (compile) {
             'environment with Content Security Policy that prohibits unsafe-eval. ' +
             'The template compiler cannot work in this environment. Consider ' +
             'relaxing the policy to allow unsafe-eval or pre-compiling your ' +
-            'templates into render functions.'
+            'partials into render functions.'
           );
         }
       }

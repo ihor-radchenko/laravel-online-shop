@@ -10,7 +10,7 @@
                             <div class="inner">
                                 <div class="category-name text-uppercase">{{ $category->title }}</div>
                                 <a href="{{ route('products.category', ['menu' => $category->menu->alias, 'category' => $category->alias]) }}" class="button-more">
-                                    <span class="text-uppercase">Показать больше</span>
+                                    <span class="text-uppercase">@lang('button.show_more')</span>
                                     <i class="fa fa-arrow-circle-o-right fa-2x" aria-hidden="true"></i>
                                 </a>
                             </div>

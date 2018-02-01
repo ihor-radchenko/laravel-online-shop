@@ -39,8 +39,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-o fa-lg" aria-hidden="true"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i> Зарегистрироваться</a></li>
-                                <li><a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Войти</a></li>
+                                <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i> @lang('auth.signup')</a></li>
+                                <li><a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @lang('auth.signin')</a></li>
                             </ul>
                         </li>
                     </ul>

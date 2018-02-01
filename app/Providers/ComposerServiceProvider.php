@@ -17,7 +17,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('layouts.master', NavComposer::class);
-        View::composer('templates.main.carousel', SliderComposer::class);
+        View::composer('partials.main.carousel', SliderComposer::class);
     }
 
     /**

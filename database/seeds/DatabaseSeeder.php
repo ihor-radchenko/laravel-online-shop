@@ -1,5 +1,6 @@
 <?php
 
+use AutoKit\Review;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ArticlesTableSeeder::class);
         $this->call(SlidersTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
-        $this->call(ReviewsTableSeeder::class);
+//        $this->call(ReviewsTableSeeder::class);
+        factory(Review::class, 500)->create();
     }
 }

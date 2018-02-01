@@ -26,6 +26,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Article[] $articles
  * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Comment[] $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Review[] $reviews
  */
 class User extends Authenticatable
 {

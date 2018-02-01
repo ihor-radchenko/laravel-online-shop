@@ -1,7 +1,5 @@
 
-<h2 class="text-center color-black">
-    Топ продаж
-</h2>
+<h2 class="text-center color-black">@lang('page.top')</h2>
 
 <div class="container">
     <div class="row">
@@ -23,12 +21,12 @@
                                 @endif
                                 <a href="{{ route('product', ['product' => $product->id]) }}" class="title">{{ $product->title }}</a>
                                 <button class="my-btn btn-black">
-                                    <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> Добавить в корзину
+                                    <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> @lang('button.add_to_cart')
                                 </button>
                                 <div class="rating">
                                     <div class="stars">
                                         @for($i = 1; $i <= 5; $i++)
-                                            <span class="glyphicon glyphicon-star{{ ($i <= round($product->reviews->avg('rating'), 1)) ? '' : '-empty'}}"></span>
+                                            <span class="glyphicon glyphicon-star{{ ($i <= round($product->reviews->avg('rating'))) ? '' : '-empty'}}"></span>
                                         @endfor
                                     </div>
                                     <div class="avg-rating">{{ round($product->reviews->avg('rating'), 1) }}</div>

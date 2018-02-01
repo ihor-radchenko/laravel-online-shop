@@ -17,7 +17,7 @@
                     <div class="carousel-caption">
                         <h3>{!! $item->title !!}</h3>
                         <p>{!! $item->description !!}</p>
-                        <a href="{{ route('products.index', ['menu' => $item->menu->alias]) }}">Купить сейчас</a>
+                        <a href="{{ route('products.index', ['menu' => $item->menu->alias]) }}">@lang('button.shop_now')</a>
                     </div>
                 </div>
             @endforeach

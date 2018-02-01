@@ -1,7 +1,5 @@
 
-<h2 class="text-center color-black">
-    Из блога
-</h2>
+<h2 class="text-center color-black">@lang('page.from_blog')</h2>
 
 <div class="container">
     <div class="row">
@@ -28,7 +26,7 @@
                                     <i class="fa fa-comment-o" aria-hidden="true"></i> {{ $article->comments_count }}
                                 </div>
                             </div>
-                            <a href="{{ route('article', ['article' => $article->alias]) }}" class="my-btn btn-white">Прочесть</a>
+                            <a href="{{ route('article', ['article' => $article->alias]) }}" class="my-btn btn-white">@lang('button.show')</a>
                         </div>
                     </div>
                 </div>
