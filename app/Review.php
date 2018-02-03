@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Review extends Model
 {
+    protected $perPage = 5;
+
     protected $fillable = [
         'title', 'text', 'rating', 'name', 'user_id', 'product_id'
     ];
@@ -47,10 +49,11 @@ class Review extends Model
 
     /**
      * @param Product $product
+     * @param integer $offset
      * @return Collection
      */
-    public function getForProduct(Product $product): Collection
+    public function getForProduct(Product $product, int $offset = 0): Collection
     {
-        return self::whereProductId($product->id)->with('user')->orderByDesc('id')->get();
+        return self::whereProductId($product->id)->with('user')->orderByDesc('id')->offset($offset * $this->perPage)->take($this->perPage)->get();
     }
 }

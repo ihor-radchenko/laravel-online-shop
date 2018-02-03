@@ -41,19 +41,17 @@
                                 <button class="my-btn btn-black btn-lg" {{ ! $product->quantity ? 'disabled' : '' }}>
                                     <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> @lang('button.add_to_cart')
                                 </button>
-                                @isset($reviews)
-                                    <div class="rating">
-                                        <div class="stars">
-                                            @for($i = 1; $i <= 5; $i++)
-                                                <span class="glyphicon glyphicon-star{{ ($i <= round($reviews->avg('rating'))) ? '' : '-empty'}}"></span>
-                                            @endfor
-                                        </div>
-                                        <div class="avg-rating">{{ round($reviews->avg('rating'), 1) }}</div>
-                                        <div class="count">
-                                            {{ $reviews->count() }}
-                                        </div>
+                                <div class="rating">
+                                    <div class="stars">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <span class="glyphicon glyphicon-star{{ ($i <= round($product->reviews->avg('rating'))) ? '' : '-empty'}}"></span>
+                                        @endfor
                                     </div>
-                                @endisset
+                                    <div class="avg-rating">{{ round($product->reviews->avg('rating'), 1) }}</div>
+                                    <div class="count">
+                                        {{ $product->reviews->count() }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -129,5 +127,22 @@
                 </div>
             </div>
         </div>
+    @endisset
+
+    <div class="popup">
+        <div class="popup-container">
+            <h4 class="color-black">@lang('ajax.error')</h4>
+            <button class="my-btn btn-red btn-block closePopup">@lang('button.close')</button>
+        </div>
+    </div>
+
+@endsection
+
+@section('js')
+    @isset($product)
+        <script>
+            let count = '{{ $product->reviews->count() }}';
+            const maxOffset = count / 5;
+        </script>
     @endisset
 @endsection

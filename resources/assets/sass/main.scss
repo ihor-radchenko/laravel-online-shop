@@ -618,3 +618,28 @@ aside {
 textarea {
   overflow: hidden;
 }
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  .my-btn {
+    width: 161px;
+  }
+}
+
+.popup {
+  background-color: rgba(0, 0, 0, .5);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  .popup-container {
+    background-color: white;
+    max-width: 500px;
+    min-height: 150px;
+    padding: 25px;
+    margin: 15% auto;
+  }
+}

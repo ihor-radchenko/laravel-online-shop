@@ -2,27 +2,20 @@
 <div class="reviews">
     <h3 class="color-black">@lang('page.reviews_head')</h3>
     @isset($reviews)
-        @foreach($reviews as $review)
-            <div class="review">
-                <div class="title color-black">{{ $review->title }}</div>
-                <div class="rating">
-                    @for($i = 1; $i <= 5; $i++)
-                        <span class="glyphicon glyphicon-star{{ ($i <= $review->rating) ? '' : '-empty'}}"></span>
-                    @endfor
-                </div>
-                <div class="content">
-                    {{ $review->text }}
-                </div>
-                <div class="info">
-                    <span class="author color-black"><b>{{ $review->user->name or $review->name }}</b></span> @lang('page.write') {{ $review->created_at->format('j/n/y H:i:s') }}
-                </div>
-            </div>
-            <hr>
-        @endforeach
+        <div class="reviews-list">
+            @include('partials.product.review')
+        </div>
         @if ($reviews->isEmpty())
             <h4 class="color-black text-center">@lang('page.reviews_empty')</h4>
         @endif
     @endisset
+
+    <div class="center-container">
+        <button class="my-btn btn-black" id="showMoreReviews" data-route="{{ route('product', ['product' => $product->id]) }}" data-load="@lang('button.load')" data-text="@lang('button.show_more')">
+            @lang('button.show_more')
+        </button>
+    </div>
+
     <div class="add-review">
         <h3 class="color-black">@lang('page.add_reviews')</h3>
         <form action="">
