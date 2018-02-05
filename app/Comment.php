@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Comment extends Model
 {
+    protected $perPage = 5;
+
     protected $fillable = [
         'name', 'email', 'user_id', 'article_id', 'text'
     ];
@@ -46,10 +48,16 @@ class Comment extends Model
 
     /**
      * @param Article $article
+     * @param int $offset
      * @return Collection
      */
-    public function getForArticle(Article $article): Collection
+    public function getForArticle(Article $article, int $offset = 0): Collection
     {
-        return self::whereArticleId($article->id)->with('user')->get();
+        return self::whereArticleId($article->id)->with('user')->orderBy('id')->take($this->perPage)->offset($offset * $this->perPage)->get();
+    }
+
+    public function getMaxOffset(Article $article): float
+    {
+        return $article->comments->count() / $this->perPage;
     }
 }

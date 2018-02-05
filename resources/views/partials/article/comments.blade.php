@@ -2,21 +2,21 @@
 <div class="comments">
     <div class="comments-title"><h4 class="color-black">@lang('page.comments_head')</h4></div>
     @isset($comments)
-        @foreach($comments as $comment)
-            <div class="comment">
-                <div class="info">
-                    <span class="author">{{ $comment->user->name or $comment->name }}</span> @lang('page.write') {{ $comment->created_at->format('M j, Y H:i:s') }}
-                </div>
-                <div class="content">
-                    {{ $comment->text }}
-                </div>
-            </div>
-            <hr>
-        @endforeach
         @if($comments->isEmpty())
             <h4 class="color-black text-center">@lang('page.comments_empty')</h4>
+        @else
+            <div class="comments-list">
+                @include('partials.article.comment')
+            </div>
         @endif
     @endisset
+
+    <div class="center-container">
+        <button class="my-btn btn-black" id="showMoreComments" data-route="{{ route('article', ['article' => $article->alias]) }}" data-load="@lang('button.load')" data-text="@lang('button.show_more')">
+            @lang('button.show_more')
+        </button>
+    </div>
+
     <div class="comment-add">
         <h4 class="color-black">@lang('page.comments_add')</h4>
         <form action="">

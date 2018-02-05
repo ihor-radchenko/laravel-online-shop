@@ -4,7 +4,7 @@ return [
     'send' => 'Отправить',
 
     'name' => 'Имя',
-    'brief' => 'Вкратце',
+    'brief' => 'Заголовок',
     'review' => 'Отзыв',
     'email' => 'Email',
     'comment' => 'Комментарий'

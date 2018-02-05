@@ -49,6 +49,15 @@ class Review extends Model
 
     /**
      * @param Product $product
+     * @return float
+     */
+    public function getMaxOffset(Product $product): float
+    {
+        return $product->reviews->count() / $this->perPage;
+    }
+
+    /**
+     * @param Product $product
      * @param integer $offset
      * @return Collection
      */

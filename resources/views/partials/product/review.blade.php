@@ -12,7 +12,7 @@
                 {{ $review->text }}
             </div>
             <div class="info">
-                <span class="author color-black"><b>{{ $review->user->name or $review->name }}</b></span> @lang('page.write') {{ $review->created_at->format('j/n/y H:i:s') }}
+                <span class="author color-black"><b>{{ $review->user->name or $review->name }}</b></span> @lang('page.write') {{ $review->created_at->format('j/n/y') }}
             </div>
         </div>
         <hr>

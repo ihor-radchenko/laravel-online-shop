@@ -10,6 +10,7 @@ require('./bootstrap');
 require('./main');
 
 require('./reviews');
+require('./comments');
 
 /*
 window.Vue = require('vue');

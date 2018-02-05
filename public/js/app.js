@@ -765,6 +765,7 @@ __webpack_require__(9);
 __webpack_require__(35);
 
 __webpack_require__(36);
+__webpack_require__(53);
 
 /*
 window.Vue = require('vue');
@@ -31766,6 +31767,53 @@ $(document).ready(function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */
+/***/ (function(module, exports) {
+
+
+$(document).ready(function () {
+    var offset = 1;
+    $('#showMoreComments').click(function () {
+        var btn = $(this);
+        btn.text(btn.data('load')).attr('disabled', true);
+        $.ajax({
+            url: btn.data('route'),
+            type: 'GET',
+            data: { page: offset++ },
+            dataType: 'html',
+            success: function success(response) {
+                $(response).hide().appendTo(".comments-list").fadeIn(1000);
+                if (offset >= maxOffset) {
+                    btn.remove();
+                } else {
+                    btn.text(btn.data('text')).attr('disabled', false);
+                }
+            },
+            error: function error() {
+                $('.popup').fadeIn('slow');
+                btn.text(btn.data('text')).attr('disabled', false);
+                offset--;
+            }
+        });
+    });
+});
 
 /***/ })
 /******/ ]);

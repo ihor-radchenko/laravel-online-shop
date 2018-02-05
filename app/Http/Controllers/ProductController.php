@@ -85,11 +85,17 @@ class ProductController extends Controller
         );
     }
 
-    public function show(Request $request,Product $product)
+    public function show(Request $request, Product $product)
     {
         if ($request->ajax()) {
             return view('partials.product.review', ['reviews' => $this->review->getForProduct($product, $request->page)]);
         }
-        return view('product', ['product' => $product->load('reviews'), 'reviews' => $this->review->getForProduct($product)]);
+        return view('product',
+            [
+                'product' => $product->load('reviews'),
+                'reviews' => $this->review->getForProduct($product),
+                'maxOffset' => $this->review->getMaxOffset($product)
+            ]
+        );
     }
 }

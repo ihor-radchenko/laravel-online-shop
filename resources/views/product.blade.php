@@ -129,20 +129,14 @@
         </div>
     @endisset
 
-    <div class="popup">
-        <div class="popup-container">
-            <h4 class="color-black">@lang('ajax.error')</h4>
-            <button class="my-btn btn-red btn-block closePopup">@lang('button.close')</button>
-        </div>
-    </div>
+    @include('partials.ajax.error')
 
 @endsection
 
 @section('js')
-    @isset($product)
+    @isset($maxOffset)
         <script>
-            let count = '{{ $product->reviews->count() }}';
-            const maxOffset = count / 5;
+            const maxOffset = '{{ $maxOffset }}';
         </script>
     @endisset
 @endsection

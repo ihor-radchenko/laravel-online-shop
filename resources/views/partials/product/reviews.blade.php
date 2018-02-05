@@ -2,11 +2,12 @@
 <div class="reviews">
     <h3 class="color-black">@lang('page.reviews_head')</h3>
     @isset($reviews)
-        <div class="reviews-list">
-            @include('partials.product.review')
-        </div>
         @if ($reviews->isEmpty())
             <h4 class="color-black text-center">@lang('page.reviews_empty')</h4>
+        @else
+            <div class="reviews-list">
+                @include('partials.product.review')
+            </div>
         @endif
     @endisset
 

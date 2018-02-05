@@ -12140,8 +12140,8 @@ textarea {
 
 .popup .popup-container {
   background-color: white;
-  width: 500px;
-  height: 150px;
+  max-width: 500px;
+  min-height: 150px;
   padding: 25px;
   margin: 15% auto;
 }

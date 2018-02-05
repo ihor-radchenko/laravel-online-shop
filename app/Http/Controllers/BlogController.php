@@ -29,13 +29,17 @@ class BlogController extends Controller
         return view('blog', ['articles' => $this->article->getForBlog()]);
     }
 
-    public function show(Article $article)
+    public function show(Request $request, Article $article)
     {
+        if ($request->ajax()) {
+            return view('partials.article.comment', ['comments' => $this->comment->getForArticle($article, $request->page)]);
+        }
         return view(
             'post',
             [
                 'article' => $article->load('user'),
-                'comments' => $this->comment->getForArticle($article)
+                'comments' => $this->comment->getForArticle($article),
+                'maxOffset' => $this->comment->getMaxOffset($article)
             ]
         );
     }

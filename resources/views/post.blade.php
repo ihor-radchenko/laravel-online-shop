@@ -28,9 +28,18 @@
                         </div>
                     </div>
                     <hr>
-                    @include('partials.comments')
+                    @include('partials.article.comments')
                 </div>
             @endisset
         </div>
     </div>
+    @include('partials.ajax.error')
+@endsection
+
+@section('js')
+    @isset($maxOffset)
+        <script>
+            const maxOffset = '{{ $maxOffset }}'
+        </script>
+    @endisset
 @endsection
