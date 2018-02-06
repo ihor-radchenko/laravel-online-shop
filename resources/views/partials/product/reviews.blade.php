@@ -1,6 +1,7 @@
 
 <div class="reviews">
     <h3 class="color-black">@lang('page.reviews_head')</h3>
+    <div class="forAddReview"></div>
     @isset($reviews)
         @if ($reviews->isEmpty())
             <h4 class="color-black text-center">@lang('page.reviews_empty')</h4>
@@ -19,7 +20,7 @@
 
     <div class="add-review">
         <h3 class="color-black">@lang('page.add_reviews')</h3>
-        <form action="">
+        <form action="{{ route('review.store', ['product' => $product->id]) }}" id="formCreateReview">
             <div class="form-group">
                 <div class="stars">
                     <div class="star-cont">
@@ -38,17 +39,21 @@
             </div>
             <div class="form-group">
                 <label for="name">@lang('form.name')</label>
-                <input type="text" class="form-control" id="name" required minlength="2" maxlength="255">
+                <input type="text" class="form-control" id="name" required minlength="2" maxlength="255" name="name">
             </div>
             <div class="form-group">
                 <label for="title">@lang('form.brief')</label>
-                <input type="text" class="form-control" id="title" required maxlength="255">
+                <input type="text" class="form-control" id="title" required maxlength="255" name="title">
             </div>
             <div class="form-group">
                 <label for="text">@lang('form.review')</label>
-                <textarea name="" id="text" rows="4" class="form-control" required></textarea>
+                <textarea name="text" id="text" rows="4" class="form-control" required></textarea>
             </div>
-            <button type="submit" class="my-btn btn-black">@lang('form.send')</button>
+            <input type="hidden" name="product_id" value="{{ $product->id }}" id="productId">
+            {{ csrf_field() }}
+            <button type="submit" class="my-btn btn-black" id="createReview" data-text="@lang('form.send')" data-load="@lang('form.sending')">
+                @lang('form.send')
+            </button>
         </form>
     </div>
 </div>

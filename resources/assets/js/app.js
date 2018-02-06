@@ -7,13 +7,7 @@
 
 require('./bootstrap');
 
-require('./main');
-
-require('./reviews');
-require('./comments');
-
-/*
-window.Vue = require('vue');
+/*window.Vue = require('vue');
 
 /!**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -25,5 +19,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 const app = new Vue({
     el: '#app'
-});
-*/
+});*/
+
+require('./main');
+
+require('./reviews');
+require('./comments');

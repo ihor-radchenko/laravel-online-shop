@@ -34,12 +34,7 @@
         </div>
     </div>
     @include('partials.ajax.error')
-@endsection
-
-@section('js')
     @isset($maxOffset)
-        <script>
-            const maxOffset = '{{ $maxOffset }}'
-        </script>
+        <input type="hidden" value="{{ $maxOffset }}" id="maxOffset">
     @endisset
 @endsection

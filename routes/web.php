@@ -23,4 +23,8 @@ Route::prefix('products')->group(function () {
     Route::get('{menu}/{category}', 'ProductController@showByCategory')->name('products.category');
 });
 
-Route::get('product/{product}', 'ProductController@show')->name('product');
+
+Route::prefix('product')->group(function () {
+    Route::get('{product}', 'ProductController@show')->name('product');
+    Route::post('{product}/review', 'ReviewController@store')->name('review.store');
+});

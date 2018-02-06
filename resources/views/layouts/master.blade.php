@@ -39,7 +39,6 @@
         Copyright {{ date('Y') }}
     </h3>
 </footer>
-@yield('js')
 <script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>

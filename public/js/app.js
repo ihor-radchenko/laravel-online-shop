@@ -746,7 +746,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(8);
-module.exports = __webpack_require__(37);
+module.exports = __webpack_require__(38);
 
 
 /***/ }),
@@ -762,13 +762,7 @@ module.exports = __webpack_require__(37);
 
 __webpack_require__(9);
 
-__webpack_require__(35);
-
-__webpack_require__(36);
-__webpack_require__(53);
-
-/*
-window.Vue = require('vue');
+/*window.Vue = require('vue');
 
 /!**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -780,8 +774,12 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 const app = new Vue({
     el: '#app'
-});
-*/
+});*/
+
+__webpack_require__(35);
+
+__webpack_require__(36);
+__webpack_require__(37);
 
 /***/ }),
 /* 9 */
@@ -31717,12 +31715,11 @@ module.exports = function spread(callback) {
 /* 35 */
 /***/ (function(module, exports) {
 
-/*
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-});*/
+});
 
 $(document).ready(function () {
     $('.popup .popup-container .closePopup').click(function () {
@@ -31737,6 +31734,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     var offset = 1;
+    var maxOffset = $("#maxOffset").val();
     $('#showMoreReviews').click(function () {
         var btn = $(this);
         btn.text(btn.data('load')).attr('disabled', true);
@@ -31760,36 +31758,42 @@ $(document).ready(function () {
             }
         });
     });
+    $("#createReview").click(function (e) {
+        e.preventDefault();
+        var btn = $(this);
+        btn.text(btn.data('load')).attr('disabled', true);
+        $.ajax({
+            url: $("#formCreateReview").attr('action'),
+            type: 'POST',
+            dataType: 'html',
+            data: {
+                name: $("#name").val(),
+                title: $("#title").val(),
+                text: $("#text").val(),
+                rating: $("input[name=rating]:checked").val(),
+                product_id: $("#productId").val(),
+                _token: $("input[name=_token]").val()
+            },
+            success: function success(response) {
+                $(response).hide().appendTo(".forAddReview").fadeIn(1000);
+                btn.text(btn.data('text')).attr('disabled', false);
+            },
+            error: function error() {
+                $('.popup').fadeIn('slow');
+                btn.text(btn.data('text')).attr('disabled', false);
+            }
+        });
+    });
 });
 
 /***/ }),
 /* 37 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */
-/***/ (function(module, exports) {
-
 
 $(document).ready(function () {
     var offset = 1;
+    var maxOffset = $("#maxOffset").val();
     $('#showMoreComments').click(function () {
         var btn = $(this);
         btn.text(btn.data('load')).attr('disabled', true);
@@ -31814,6 +31818,12 @@ $(document).ready(function () {
         });
     });
 });
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

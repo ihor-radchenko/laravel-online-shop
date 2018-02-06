@@ -12146,6 +12146,10 @@ textarea {
   margin: 15% auto;
 }
 
+#createReview {
+  width: 110px;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;

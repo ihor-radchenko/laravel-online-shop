@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
     var offset = 1;
+    var maxOffset = $("#maxOffset").val();
     $('#showMoreComments').click(function () {
         var btn = $(this);
         btn.text(btn.data('load')).attr('disabled', true);
