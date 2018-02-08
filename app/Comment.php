@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
- * @property string $email
+ * @property string $emails
  * @property int|null $user_id
  * @property int $article_id
  * @property string $text
@@ -33,7 +33,7 @@ class Comment extends Model
     protected $perPage = 5;
 
     protected $fillable = [
-        'name', 'email', 'user_id', 'article_id', 'text'
+        'name', 'emails', 'user_id', 'article_id', 'text'
     ];
 
     public function user()

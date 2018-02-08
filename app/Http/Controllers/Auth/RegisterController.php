@@ -2,10 +2,13 @@
 
 namespace AutoKit\Http\Controllers\Auth;
 
+use AutoKit\Mail\UserRegistered;
 use AutoKit\User;
 use AutoKit\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Lang;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -48,9 +51,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|min:2',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6|confirmed|max:255',
         ]);
     }
 
@@ -62,10 +65,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'confirm_token' => str_random(32)
         ]);
+        Mail::to($user)->send(new UserRegistered($user));
+        session()->flash('message', Lang::get('flash.confirm_email'));
+        return $user;
     }
 }

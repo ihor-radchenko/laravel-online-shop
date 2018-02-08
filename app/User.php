@@ -27,10 +27,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Article[] $articles
  * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Comment[] $comments
  * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Review[] $reviews
+ * @property int $verified
+ * @property string|null $confirm_token
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereConfirmToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereVerified($value)
  */
 class User extends Authenticatable
 {
     use Notifiable;
+
+    protected const EMAIL_CONFIRMED = true;
+    protected const EMAIL_NOT_CONFIRMED = false;
+    protected const TOKEN_EXPIRED = null;
 
     /**
      * The attributes that are mass assignable.
@@ -38,7 +46,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'confirm_token', 'verified'
     ];
 
     /**
@@ -63,5 +71,13 @@ class User extends Authenticatable
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function confirmEmail()
+    {
+        $this->verified = self::EMAIL_CONFIRMED;
+        $this->confirm_token = self::TOKEN_EXPIRED;
+        $this->save();
+        return $this;
     }
 }

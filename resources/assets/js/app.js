@@ -23,5 +23,4 @@ const app = new Vue({
 
 require('./main');
 
-require('./reviews');
-require('./comments');
+require('./ajax');

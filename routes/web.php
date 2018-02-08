@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'IndexController@index')->name('home');
+Route::get('/', 'IndexController@index')->name('main');
 
 Route::get('blog', 'BlogController@index')->name('blog');
 
@@ -26,5 +26,10 @@ Route::prefix('products')->group(function () {
 
 Route::prefix('product')->group(function () {
     Route::get('{product}', 'ProductController@show')->name('product');
-    Route::post('{product}/review', 'ReviewController@store')->name('review.store');
 });
+
+Route::post('review/add', 'ReviewController@store')->name('review.store');
+
+Auth::routes();
+Route::get('/confirm/{token}', 'Auth\EmailConfirmController@confirmEmail')->name('confirm');
+Route::get('/home', 'HomeController@index')->name('home');

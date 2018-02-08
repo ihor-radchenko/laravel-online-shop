@@ -6,6 +6,7 @@ use AutoKit\Article;
 use AutoKit\Brand;
 use AutoKit\Category;
 use AutoKit\Menu;
+use AutoKit\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -47,6 +48,10 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('category', function ($value) {
             return Category::whereAlias($value)->first() ?? abort(404);
+        });
+
+        Route::bind('token', function ($value) {
+            return User::whereConfirmToken($value)->first() ?? abort(404);
         });
 
         parent::boot();

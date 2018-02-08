@@ -39,8 +39,23 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-o fa-lg" aria-hidden="true"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i> @lang('auth.signup')</a></li>
-                                <li><a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @lang('auth.signin')</a></li>
+                                @guest
+                                    <li><a href="{{ route('register') }}"><i class="fa fa-user-plus" aria-hidden="true"></i> @lang('auth.signup')</a></li>
+                                    <li><a href="{{ route('login') }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @lang('auth.signin')</a></li>
+                                @else
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="
+                                                event.preventDefault();
+                                                document.getElementById('logout-form').submit();
+                                            "
+                                        >
+                                            <i class="fa fa-user-times"></i> @lang('auth.logout')</a>
+                                    </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                @endguest
                             </ul>
                         </li>
                     </ul>

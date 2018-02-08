@@ -15,7 +15,7 @@
 <header class="header">
     <div class="container">
         <div class="header-wrap">
-            <a href="{{ route('home') }}" class="logo">
+            <a href="{{ route('main') }}" class="logo">
                 <img src="{{ asset('/img/autokit.png') }}" alt="logo">
             </a>
             <a class="nav-cart">
@@ -32,7 +32,7 @@
 </div>
 
 <footer>
-    <a href="{{ route('home') }}" class="logo">
+    <a href="{{ route('main') }}" class="logo">
         <img src="{{ asset('/img/autokit.png') }}" alt="logo">
     </a>
     <h3 class="copyright color-black">

@@ -746,7 +746,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(8);
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(37);
 
 
 /***/ }),
@@ -779,7 +779,6 @@ const app = new Vue({
 __webpack_require__(35);
 
 __webpack_require__(36);
-__webpack_require__(37);
 
 /***/ }),
 /* 9 */
@@ -31715,16 +31714,9 @@ module.exports = function spread(callback) {
 /* 35 */
 /***/ (function(module, exports) {
 
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
 
-$(document).ready(function () {
-    $('.popup .popup-container .closePopup').click(function () {
-        $('.popup').fadeOut('slow');
-    });
+$('.popup .popup-container .closePopup').click(function () {
+    $('.popup').fadeOut('slow');
 });
 
 /***/ }),
@@ -31732,95 +31724,90 @@ $(document).ready(function () {
 /***/ (function(module, exports) {
 
 
-$(document).ready(function () {
-    var offset = 1;
-    var maxOffset = $("#maxOffset").val();
-    $('#showMoreReviews').click(function () {
-        var btn = $(this);
-        btn.text(btn.data('load')).attr('disabled', true);
-        $.ajax({
-            url: btn.data('route'),
-            type: 'GET',
-            data: { page: offset++ },
-            dataType: 'html',
-            success: function success(response) {
-                $(response).hide().appendTo(".reviews-list").fadeIn(1000);
-                if (offset >= maxOffset) {
-                    btn.remove();
-                } else {
-                    btn.text(btn.data('text')).attr('disabled', false);
-                }
-            },
-            error: function error() {
-                $('.popup').fadeIn('slow');
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+var offset = 1;
+var maxOffset = $("#maxOffset").val();
+
+$('#showMoreReviews').click(function () {
+    var btn = $(this);
+    btn.text(btn.data('load')).attr('disabled', true);
+    $.ajax({
+        url: btn.data('route'),
+        type: 'GET',
+        data: { page: offset++ },
+        dataType: 'html',
+        success: function success(response) {
+            $(response).hide().appendTo(".reviews-list").fadeIn(1000);
+            if (offset >= maxOffset) {
+                btn.remove();
+            } else {
                 btn.text(btn.data('text')).attr('disabled', false);
-                offset--;
             }
-        });
+        },
+        error: function error() {
+            $('.popup').fadeIn('slow');
+            btn.text(btn.data('text')).attr('disabled', false);
+            offset--;
+        }
     });
-    $("#createReview").click(function (e) {
-        e.preventDefault();
-        var btn = $(this);
-        btn.text(btn.data('load')).attr('disabled', true);
-        $.ajax({
-            url: $("#formCreateReview").attr('action'),
-            type: 'POST',
-            dataType: 'html',
-            data: {
-                name: $("#name").val(),
-                title: $("#title").val(),
-                text: $("#text").val(),
-                rating: $("input[name=rating]:checked").val(),
-                product_id: $("#productId").val(),
-                _token: $("input[name=_token]").val()
-            },
-            success: function success(response) {
-                $(response).hide().appendTo(".forAddReview").fadeIn(1000);
-                btn.text(btn.data('text')).attr('disabled', false);
-            },
-            error: function error() {
-                $('.popup').fadeIn('slow');
+});
+$("#createReview").click(function (e) {
+    e.preventDefault();
+    var btn = $(this);
+    btn.text(btn.data('load')).attr('disabled', true);
+    $.ajax({
+        url: $("#formCreateReview").attr('action'),
+        type: 'POST',
+        dataType: 'html',
+        data: {
+            name: $("#name").val(),
+            title: $("#title").val(),
+            text: $("#text").val(),
+            rating: $("input[name=rating]:checked").val(),
+            product_id: $("#productId").val(),
+            _token: $("input[name=_token]").val()
+        },
+        success: function success(response) {
+            $(response).hide().appendTo(".forAddReview").fadeIn(1000);
+            btn.text(btn.data('text')).attr('disabled', false);
+        },
+        error: function error() {
+            $('.popup').fadeIn('slow');
+            btn.text(btn.data('text')).attr('disabled', false);
+        }
+    });
+});
+$('#showMoreComments').click(function () {
+    var btn = $(this);
+    btn.text(btn.data('load')).attr('disabled', true);
+    $.ajax({
+        url: btn.data('route'),
+        type: 'GET',
+        data: { page: offset++ },
+        dataType: 'html',
+        success: function success(response) {
+            $(response).hide().appendTo(".comments-list").fadeIn(1000);
+            if (offset >= maxOffset) {
+                btn.remove();
+            } else {
                 btn.text(btn.data('text')).attr('disabled', false);
             }
-        });
+        },
+        error: function error() {
+            $('.popup').fadeIn('slow');
+            btn.text(btn.data('text')).attr('disabled', false);
+            offset--;
+        }
     });
 });
 
 /***/ }),
 /* 37 */
-/***/ (function(module, exports) {
-
-
-$(document).ready(function () {
-    var offset = 1;
-    var maxOffset = $("#maxOffset").val();
-    $('#showMoreComments').click(function () {
-        var btn = $(this);
-        btn.text(btn.data('load')).attr('disabled', true);
-        $.ajax({
-            url: btn.data('route'),
-            type: 'GET',
-            data: { page: offset++ },
-            dataType: 'html',
-            success: function success(response) {
-                $(response).hide().appendTo(".comments-list").fadeIn(1000);
-                if (offset >= maxOffset) {
-                    btn.remove();
-                } else {
-                    btn.text(btn.data('text')).attr('disabled', false);
-                }
-            },
-            error: function error() {
-                $('.popup').fadeIn('slow');
-                btn.text(btn.data('text')).attr('disabled', false);
-                offset--;
-            }
-        });
-    });
-});
-
-/***/ }),
-/* 38 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

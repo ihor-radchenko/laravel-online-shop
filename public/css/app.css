@@ -12150,6 +12150,10 @@ textarea {
   width: 110px;
 }
 
+.margin-top25 {
+  margin-top: 25px;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;
