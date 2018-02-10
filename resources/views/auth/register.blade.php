@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container">
+<div class="container margin-top25">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default margin-top25">
+            <div class="panel panel-default">
                 <div class="panel-heading"><h4 class="color-black">@lang('page.register')</h4></div>
 
                 <div class="panel-body">

@@ -22,7 +22,7 @@ Breadcrumbs::register('products', function ($breadcrumbs, $category) {
             route('products.category', ['parent_category' => $category->menu->alias, 'category' => $category->alias])
         );
     } else {
-        $breadcrumbs->parent('home');
+        $breadcrumbs->parent('main');
         $breadcrumbs->push($category->title, route('products.index', $category->alias));
     }
 });

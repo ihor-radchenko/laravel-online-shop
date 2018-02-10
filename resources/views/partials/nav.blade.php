@@ -44,13 +44,9 @@
                                     <li><a href="{{ route('login') }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @lang('auth.signin')</a></li>
                                 @else
                                     <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="
-                                                event.preventDefault();
-                                                document.getElementById('logout-form').submit();
-                                            "
-                                        >
-                                            <i class="fa fa-user-times"></i> @lang('auth.logout')</a>
+                                        <a href="{{ route('logout') }}" id="btnLogout">
+                                            <i class="fa fa-user-times"></i> @lang('auth.logout')
+                                        </a>
                                     </li>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}

@@ -47,10 +47,8 @@
                                             <span class="glyphicon glyphicon-star{{ ($i <= round($product->reviews->avg('rating'))) ? '' : '-empty'}}"></span>
                                         @endfor
                                     </div>
-                                    <div class="avg-rating">{{ round($product->reviews->avg('rating'), 1) }}</div>
-                                    <div class="count">
-                                        {{ $product->reviews->count() }}
-                                    </div>
+                                    <div class="avg-rating" id="avgRating">{{ round($product->reviews->avg('rating'), 1) }}</div>
+                                    <div class="count" id="countRating">{{ $product->reviews->count() }}</div>
                                 </div>
                             </div>
                         </div>
