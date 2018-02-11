@@ -12109,6 +12109,7 @@ aside {
   background-color: dimgray;
   color: white;
   border-color: #999;
+  cursor: not-allowed;
 }
 
 textarea {
@@ -12146,7 +12147,8 @@ textarea {
   margin: 15% auto;
 }
 
-#createReview {
+#createReview,
+#createComment {
   width: 110px;
 }
 

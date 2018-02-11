@@ -28,7 +28,8 @@ Route::prefix('product')->group(function () {
     Route::get('{product}', 'ProductController@show')->name('product');
 });
 
-Route::post('review/add', 'ReviewController@store')->name('review.store');
+Route::post('review', 'ReviewController@store')->name('review.store');
+Route::post('comment', 'CommentController@store')->name('comment.store');
 
 Auth::routes();
 Route::get('/confirm/{token}', 'Auth\EmailConfirmController@confirmEmail')->name('confirm');

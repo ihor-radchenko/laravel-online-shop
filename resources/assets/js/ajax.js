@@ -96,10 +96,49 @@ $('#showMoreComments').click(function () {
     });
 });
 
+$("#createComment").click(function (e) {
+    e.preventDefault();
+
+    var btn = $(this);
+    var form = $("#formCreateComment");
+    var countDOM = $('#countComments');
+    hideErrorByForm(form);
+    btn.text(btn.data('load')).attr('disabled', true);
+
+    $.ajax({
+        url: form.attr('action'),
+        type: 'POST',
+        data: {
+            name: $("#name").val(),
+            email: $("#email").val(),
+            text: $("#text").val(),
+            article_id: $("#articleId").val(),
+            _token: $("input[name=_token]").val()
+        },
+        success: function (response) {
+            $(response).hide().appendTo(".forAddComment").fadeIn(1000);
+
+            let count = +countDOM.text();
+            countDOM.text(++count);
+
+            btn.text(btn.data('text')).attr('disabled', false);
+        },
+        error: function (jqXHR) {
+            if (jqXHR.status === 422) {
+                let response = $.parseJSON(jqXHR.responseText).errors;
+                showErrorByForm(response);
+            } else {
+                $('.popup').fadeIn('slow');
+            }
+            btn.text(btn.data('text')).attr('disabled', false);
+        }
+    });
+});
+
 function showAjaxErrorMessage(arrayWithMessages, selectorGroup) {
     var list = "";
     for (let i = 0; i < arrayWithMessages.length; i++) {
-        list += "<li>" + arrayWithMessages[i] + "</li>"
+        list += "<li><strong>" + arrayWithMessages[i] + "</strong></li>"
     }
     $(selectorGroup).addClass('has-error').children(".help-block").empty().append(list);
 }

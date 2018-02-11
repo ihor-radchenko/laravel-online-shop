@@ -11,11 +11,9 @@ class ReviewController extends Controller
 {
     public function store(ReviewRequest $request)
     {
-        if (Auth::check()) {
-            $review = $request->user()->reviews()->create($request->all());
-        } else {
-            $review = Review::create($request->all());
-        }
+        $review = Auth::check()
+            ? $request->user()->reviews()->create($request->all())
+            : Review::create($request->all());
         return view('partials.product.review', ['review' => $review]);
     }
 }

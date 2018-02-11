@@ -1,12 +1,13 @@
 
 <div class="comments">
     <div class="comments-title"><h4 class="color-black">@lang('page.comments_head')</h4></div>
+    <div class="forAddComment"></div>
     @isset($comments)
         @if($comments->isEmpty())
             <h4 class="color-black text-center">@lang('page.comments_empty')</h4>
         @else
             <div class="comments-list">
-                @include('partials.article.comment')
+                @include('partials.article.comments_list')
             </div>
         @endif
     @endisset
@@ -19,20 +20,35 @@
 
     <div class="comment-add">
         <h4 class="color-black">@lang('page.comments_add')</h4>
-        <form action="">
-            <div class="form-group">
+        <form action="{{ route('comment.store') }}" id="formCreateComment">
+            <div class="form-group" id="group-name">
                 <label for="name">@lang('form.name')</label>
-                <input type="text" class="form-control" id="name" required minlength="2" maxlength="255">
+                <input type="text" class="form-control" id="name" required minlength="2" maxlength="255"
+                    @auth
+                        value="{{ Auth::user()->name }}" disabled
+                    @endauth
+                >
+                <ul class="help-block"></ul>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="group-email">
                 <label for="email">@lang('form.email')</label>
-                <input type="email" class="form-control" id="email" required minlength="5" maxlength="255">
+                <input type="email" class="form-control" id="email" required maxlength="255"
+                    @auth
+                        value="{{ Auth::user()->email }}" disabled
+                    @endauth
+                >
+                <ul class="help-block"></ul>
             </div>
-            <div class="form-group">
-                <label for="comment">@lang('form.comment')</label>
-                <textarea name="text" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+            <div class="form-group" id="group-text">
+                <label for="text">@lang('form.comment')</label>
+                <textarea name="text" id="text" cols="30" rows="5" class="form-control" required></textarea>
+                <ul class="help-block"></ul>
             </div>
-            <button type="submit" class="my-btn btn-black">@lang('form.send')</button>
+            {{ csrf_field() }}
+            <input type="hidden" name="article_id" value="{{ $article->id }}" id="articleId">
+            <button type="submit" class="my-btn btn-black" data-text="@lang('form.send')" data-load="@lang('form.sending')" id="createComment">
+                @lang('form.send')
+            </button>
         </form>
     </div>
 </div>

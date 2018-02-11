@@ -7,7 +7,7 @@
             <h4 class="color-black text-center">@lang('page.reviews_empty')</h4>
         @else
             <div class="reviews-list">
-                @each('partials.product.review', $reviews, 'review')
+                @include('partials.product.reviews_list')
             </div>
         @endif
     @endisset
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group" id="group-name">
                 <label for="name">@lang('form.name')</label>
-                <input type="text" class="form-control" id="name"  name="name"
+                <input type="text" class="form-control" id="name"  name="name" required minlength="2" maxlength="255"
                     @auth
                         value="{{ Auth::user()->name }}" disabled
                     @endauth
@@ -48,12 +48,12 @@
             </div>
             <div class="form-group" id="group-title">
                 <label for="title">@lang('form.brief')</label>
-                <input type="text" class="form-control" id="title" name="title">
+                <input type="text" class="form-control" id="title" name="title" required maxlength="255">
                 <ul class="help-block"></ul>
             </div>
             <div class="form-group" id="group-text">
                 <label for="text">@lang('form.review')</label>
-                <textarea name="text" id="text" rows="4" class="form-control" ></textarea>
+                <textarea name="text" id="text" rows="4" class="form-control" required></textarea>
                 <ul class="help-block"></ul>
             </div>
             <input type="hidden" name="product_id" value="{{ $product->id }}" id="productId">

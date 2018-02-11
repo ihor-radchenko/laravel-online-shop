@@ -32,7 +32,7 @@ class BlogController extends Controller
     public function show(Request $request, Article $article)
     {
         if ($request->ajax()) {
-            return view('partials.article.comment', ['comments' => $this->comment->getForArticle($article, $request->page)]);
+            return view('partials.article.comments_list', ['comments' => $this->comment->getForArticle($article, $request->page)]);
         }
         return view(
             'post',

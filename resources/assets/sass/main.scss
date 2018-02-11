@@ -613,6 +613,7 @@ aside {
   background-color: dimgray;
   color: white;
   border-color: #999;
+  cursor: not-allowed;
 }
 
 textarea {
@@ -644,7 +645,7 @@ textarea {
   }
 }
 
-#createReview {
+#createReview, #createComment {
   width: 110px;
 }
 

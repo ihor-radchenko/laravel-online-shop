@@ -33,7 +33,7 @@ class Comment extends Model
     protected $perPage = 5;
 
     protected $fillable = [
-        'name', 'emails', 'user_id', 'article_id', 'text'
+        'name', 'email', 'user_id', 'article_id', 'text'
     ];
 
     public function user()

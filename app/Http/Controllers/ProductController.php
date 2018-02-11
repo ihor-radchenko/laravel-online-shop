@@ -88,7 +88,7 @@ class ProductController extends Controller
     public function show(Request $request, Product $product)
     {
         if ($request->ajax()) {
-            return view('partials.product.review', ['reviews' => $this->review->getForProduct($product, $request->page)]);
+            return view('partials.product.reviews_list', ['reviews' => $this->review->getForProduct($product, $request->page)]);
         }
         return view('product',
             [
