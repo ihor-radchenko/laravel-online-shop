@@ -31888,6 +31888,25 @@ function hideErrorByForm(formElem) {
     });
 }
 
+function getProducts(url) {
+    $.ajax({
+        url: url,
+        success: function success(response) {
+            $(".products-list").empty().append(response);
+        },
+        error: function error(jqXHR) {
+            $('.popup').fadeIn('slow');
+        }
+    });
+}
+
+$(document).on('click', '.pagination a', function (e) {
+    e.preventDefault();
+    var url = $(this).attr('href');
+    getProducts(url);
+    window.history.pushState('', '', url);
+});
+
 /***/ }),
 /* 37 */
 /***/ (function(module, exports) {

@@ -41,6 +41,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
+    protected $perPage = 6;
+
     protected $fillable = [
         'title', 'price', 'old_price', 'quantity', 'description', 'is_top', 'is_new', 'img', 'category_id', 'brand_id'
     ];
@@ -76,28 +78,28 @@ class Product extends Model
 
     /**
      * @param Menu $menu
-     * @return Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getWhereMenu(Menu $menu): Collection
+    public function getWhereMenu(Menu $menu)
     {
-        return self::whereIn('category_id',  Category::select('id')->whereMenuId($menu->id)->get())->with('reviews')->orderByDesc('id')->get();
+        return self::whereIn('category_id',  Category::select('id')->whereMenuId($menu->id)->get())->with('reviews')->orderByDesc('id')->paginate();
     }
 
     /**
      * @param Category $category
-     * @return Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getWhereCategory(Category $category): Collection
+    public function getWhereCategory(Category $category)
     {
-        return self::whereCategoryId($category->id)->with('reviews')->orderByDesc('id')->get();
+        return self::whereCategoryId($category->id)->with('reviews')->orderByDesc('id')->paginate();
     }
 
     /**
      * @param Brand $brand
-     * @return Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getWhereBrand(Brand $brand): Collection
+    public function getWhereBrand(Brand $brand)
     {
-        return self::whereBrandId($brand->id)->with('reviews')->orderByDesc('id')->get();
+        return self::whereBrandId($brand->id)->with('reviews')->orderByDesc('id')->paginate();
     }
 }

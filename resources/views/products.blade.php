@@ -24,7 +24,9 @@
                         </button>
                     </div>
                 </div>
-                @include('partials.products.grid')
+                <div class="products-list margin-top25">
+                    @include('partials.products.grid')
+                </div>
             </div>
         </div>
     </div>
@@ -48,5 +50,5 @@
             </div>
         </div>
     </div>
-
+@include('partials.ajax.error')
 @endsection

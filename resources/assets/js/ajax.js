@@ -157,3 +157,22 @@ function hideErrorByForm(formElem) {
         }
     });
 }
+
+function getProducts(url) {
+    $.ajax({
+        url: url,
+        success: function (response) {
+            $(".products-list").empty().append(response);
+        },
+        error: function (jqXHR) {
+            $('.popup').fadeIn('slow');
+        }
+    });
+}
+
+$(document).on('click', '.pagination a', function (e) {
+    e.preventDefault();
+    let url = $(this).attr('href');
+    getProducts(url);
+    window.history.pushState('', '', url);
+});

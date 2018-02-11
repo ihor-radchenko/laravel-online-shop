@@ -44,4 +44,5 @@
     @if($products->isEmpty())
         <h2 class="color-black text-center">@lang('page.products_empty')</h2>
     @endif
+    {{ $products->links() }}
 @endisset
