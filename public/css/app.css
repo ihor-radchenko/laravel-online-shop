@@ -12156,6 +12156,53 @@ textarea {
   margin-top: 25px;
 }
 
+.pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pagination .active span {
+  background-color: #13191e;
+  color: white;
+  border: none;
+}
+
+.pagination .active span:hover {
+  background-color: #13191e;
+  color: white;
+}
+
+.pagination li {
+  display: block;
+  margin: 0 5px;
+}
+
+.pagination li:first-child a,
+.pagination li:first-child span,
+.pagination li:last-child a,
+.pagination li:last-child span {
+  border-radius: 0;
+}
+
+.pagination li a {
+  background-color: white;
+  border: none;
+  color: #13191e;
+}
+
+.pagination li a:hover {
+  background-color: #13191e;
+  color: white;
+}
+
+.pagination li span {
+  border: none;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;

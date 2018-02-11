@@ -652,3 +652,38 @@ textarea {
 .margin-top25 {
   margin-top: 25px;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  .active {
+    span {
+      background-color: $black;
+      color: white;
+      border: none;
+      &:hover {
+        background-color: $black;
+        color: white;
+      }
+    }
+  }
+  li {
+    display: block;
+    margin: 0 5px;
+    &:first-child a, &:first-child span, &:last-child a, &:last-child span {
+      border-radius: 0;
+    }
+    a {
+      background-color: white;
+      border: none;
+      color: $black;
+      &:hover {
+        background-color: $black;
+        color: white;
+      }
+    }
+    span {
+      border: none;
+    }
+  }
+}

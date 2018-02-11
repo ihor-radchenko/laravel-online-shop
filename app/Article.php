@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Article extends Model
 {
+    protected $perPage = 3;
+
     protected $fillable = [
         'title', 'alias', 'text', 'user_id', 'img'
     ];
@@ -58,8 +60,8 @@ class Article extends Model
         return self::with('user')->withCount('comments')->orderByDesc('id')->take(3)->get();
     }
 
-    public function getForBlog(): Collection
+    public function getForBlog()
     {
-        return self::with('user')->withCount('comments')->orderByDesc('id')->get();
+        return self::with('user')->withCount('comments')->orderByDesc('id')->paginate();
     }
 }
