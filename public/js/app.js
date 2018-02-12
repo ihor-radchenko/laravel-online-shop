@@ -780,6 +780,8 @@ __webpack_require__(35);
 
 __webpack_require__(36);
 
+__webpack_require__(53);
+
 /***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -31724,6 +31726,17 @@ $('#btnLogout').click(function (e) {
     $('#logout-form').submit();
 });
 
+$(window).scroll(function () {
+    if ($(this).scrollTop() > $(this).height()) {
+        $('.go-top').addClass('active');
+    } else {
+        $('.go-top').removeClass('active');
+    }
+});
+$('.go-top').click(function () {
+    $('html, body').stop().animate({ scrollTop: 0 }, 'slow', 'swing');
+});
+
 /***/ }),
 /* 36 */
 /***/ (function(module, exports) {
@@ -31892,9 +31905,11 @@ function getProducts(url) {
     $.ajax({
         url: url,
         success: function success(response) {
+            $('.load').addClass('disabled');
             $(".products-list").empty().append(response);
         },
-        error: function error(jqXHR) {
+        error: function error() {
+            $('.load').addClass('disabled');
             $('.popup').fadeIn('slow');
         }
     });
@@ -31902,6 +31917,7 @@ function getProducts(url) {
 
 $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
+    $('.load').removeClass('disabled');
     var url = $(this).attr('href');
     getProducts(url);
     window.history.pushState('', '', url);
@@ -31912,6 +31928,30 @@ $(document).on('click', '.pagination a', function (e) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */
+/***/ (function(module, exports) {
+
+
+$(window).on('load', function () {
+    $('.preload').fadeOut('slow');
+});
 
 /***/ })
 /******/ ]);

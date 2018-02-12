@@ -12,6 +12,13 @@
 </head>
 <body>
 
+<div class="preload">
+    <div class="loader">
+        <div class="inner"></div>
+        <div class="outer"></div>
+    </div>
+</div>
+
 <header class="header">
     <div class="container">
         <div class="header-wrap">
@@ -39,6 +46,7 @@
         Copyright {{ date('Y') }}
     </h3>
 </footer>
+<div class="go-top" title="@lang('page.go_top')"><i class="fa fa-arrow-up"></i></div>
 <script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>

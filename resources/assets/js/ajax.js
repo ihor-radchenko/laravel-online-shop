@@ -162,9 +162,11 @@ function getProducts(url) {
     $.ajax({
         url: url,
         success: function (response) {
+            $('.load').addClass('disabled');
             $(".products-list").empty().append(response);
         },
-        error: function (jqXHR) {
+        error: function () {
+            $('.load').addClass('disabled');
             $('.popup').fadeIn('slow');
         }
     });
@@ -172,6 +174,7 @@ function getProducts(url) {
 
 $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
+    $('.load').removeClass('disabled');
     let url = $(this).attr('href');
     getProducts(url);
     window.history.pushState('', '', url);

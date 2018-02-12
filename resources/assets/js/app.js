@@ -24,3 +24,5 @@ const app = new Vue({
 require('./main');
 
 require('./ajax');
+
+require ('./preloader');
