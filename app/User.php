@@ -2,6 +2,7 @@
 
 namespace AutoKit;
 
+use AutoKit\Events\UserRegistered;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -47,6 +48,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password', 'confirm_token', 'verified'
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => UserRegistered::class
     ];
 
     /**

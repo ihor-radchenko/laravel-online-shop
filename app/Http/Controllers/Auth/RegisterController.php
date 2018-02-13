@@ -65,14 +65,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user =  User::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'confirm_token' => str_random(32)
         ]);
-        Mail::to($user)->send(new UserRegistered($user));
-        session()->flash('message', Lang::get('flash.confirm_email'));
-        return $user;
     }
 }

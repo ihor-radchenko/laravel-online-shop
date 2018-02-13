@@ -769,3 +769,24 @@ textarea {
     right: 25px;
   }
 }
+
+.popupMessage {
+  width: 500px;
+  min-height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  position: fixed;
+  bottom: 35px;
+  right: -500px;
+  color: $black;
+  border: 1px solid $gray;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 3px 3px 5px $gray;
+  cursor: pointer;
+  padding: 0 10px;
+  z-index: 15;
+  &.active {
+    right: 30px;
+  }
+}

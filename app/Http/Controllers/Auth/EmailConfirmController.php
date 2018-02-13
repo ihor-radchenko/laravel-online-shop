@@ -3,6 +3,7 @@
 namespace AutoKit\Http\Controllers\Auth;
 
 use Auth;
+use AutoKit\Events\ConfirmEmail;
 use AutoKit\User;
 use Illuminate\Http\Request;
 use AutoKit\Http\Controllers\Controller;
@@ -13,7 +14,7 @@ class EmailConfirmController extends Controller
     public function confirmEmail(User $user)
     {
         Auth::login($user->confirmEmail());
-        session()->flash('message', Lang::get('flash.confirm_success'));
+        event(new ConfirmEmail($user));
         return view('home');
     }
 }

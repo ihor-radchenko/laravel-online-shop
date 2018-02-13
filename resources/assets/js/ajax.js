@@ -44,6 +44,7 @@ $("#createReview").click(function (e) {
     $.ajax({
         url: form.attr('action'),
         type: 'POST',
+        dataType: 'json',
         data: {
             name: $("#name").val(),
             title: $("#title").val(),
@@ -53,7 +54,8 @@ $("#createReview").click(function (e) {
             _token: $("input[name=_token]").val()
         },
         success: function (response) {
-            $(response).hide().appendTo(".forAddReview").fadeIn(1000);
+            $(response.content).hide().appendTo(".forAddReview").fadeIn(1000);
+            showAjaxCompleteAddMessage(response.message);
 
             let count = +countDOM.text();
             countDOM.text(++count);
@@ -108,6 +110,7 @@ $("#createComment").click(function (e) {
     $.ajax({
         url: form.attr('action'),
         type: 'POST',
+        dataType: 'json',
         data: {
             name: $("#name").val(),
             email: $("#email").val(),
@@ -116,7 +119,8 @@ $("#createComment").click(function (e) {
             _token: $("input[name=_token]").val()
         },
         success: function (response) {
-            $(response).hide().appendTo(".forAddComment").fadeIn(1000);
+            $(response.content).hide().appendTo(".forAddComment").fadeIn(1000);
+            showAjaxCompleteAddMessage(response.message);
 
             let count = +countDOM.text();
             countDOM.text(++count);
@@ -134,6 +138,17 @@ $("#createComment").click(function (e) {
         }
     });
 });
+
+function showAjaxCompleteAddMessage(text) {
+    var top = $(".go-top");
+    var popup = $(".popupMessage");
+    top.removeClass('active');
+    popup.html(text).addClass('active');
+    setTimeout(function () {
+        popup.removeClass('active');
+        top.addClass('active');
+    }, 5000)
+}
 
 function showAjaxErrorMessage(arrayWithMessages, selectorGroup) {
     var list = "";

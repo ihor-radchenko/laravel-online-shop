@@ -13,8 +13,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'AutoKit\Events\Event' => [
-            'AutoKit\Listeners\EventListener',
+        'AutoKit\Events\UserRegistered' => [
+            'AutoKit\Listeners\SendConfirmEmail',
+            'AutoKit\Listeners\CongratRegisteredUserMessage'
+        ],
+        'AutoKit\Events\ConfirmEmail' => [
+            'AutoKit\Listeners\CongratEmailConfirmMessage'
         ],
     ];
 

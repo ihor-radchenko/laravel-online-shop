@@ -746,7 +746,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(8);
-module.exports = __webpack_require__(37);
+module.exports = __webpack_require__(38);
 
 
 /***/ }),
@@ -780,7 +780,7 @@ __webpack_require__(35);
 
 __webpack_require__(36);
 
-__webpack_require__(53);
+__webpack_require__(37);
 
 /***/ }),
 /* 9 */
@@ -31787,6 +31787,7 @@ $("#createReview").click(function (e) {
     $.ajax({
         url: form.attr('action'),
         type: 'POST',
+        dataType: 'json',
         data: {
             name: $("#name").val(),
             title: $("#title").val(),
@@ -31796,7 +31797,8 @@ $("#createReview").click(function (e) {
             _token: $("input[name=_token]").val()
         },
         success: function success(response) {
-            $(response).hide().appendTo(".forAddReview").fadeIn(1000);
+            $(response.content).hide().appendTo(".forAddReview").fadeIn(1000);
+            showAjaxCompleteAddMessage(response.message);
 
             var count = +countDOM.text();
             countDOM.text(++count);
@@ -31851,6 +31853,7 @@ $("#createComment").click(function (e) {
     $.ajax({
         url: form.attr('action'),
         type: 'POST',
+        dataType: 'json',
         data: {
             name: $("#name").val(),
             email: $("#email").val(),
@@ -31859,7 +31862,8 @@ $("#createComment").click(function (e) {
             _token: $("input[name=_token]").val()
         },
         success: function success(response) {
-            $(response).hide().appendTo(".forAddComment").fadeIn(1000);
+            $(response.content).hide().appendTo(".forAddComment").fadeIn(1000);
+            showAjaxCompleteAddMessage(response.message);
 
             var count = +countDOM.text();
             countDOM.text(++count);
@@ -31877,6 +31881,17 @@ $("#createComment").click(function (e) {
         }
     });
 });
+
+function showAjaxCompleteAddMessage(text) {
+    var top = $(".go-top");
+    var popup = $(".popupMessage");
+    top.removeClass('active');
+    popup.html(text).addClass('active');
+    setTimeout(function () {
+        popup.removeClass('active');
+        top.addClass('active');
+    }, 5000);
+}
 
 function showAjaxErrorMessage(arrayWithMessages, selectorGroup) {
     var list = "";
@@ -31927,31 +31942,16 @@ $(document).on('click', '.pagination a', function (e) {
 /* 37 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */
-/***/ (function(module, exports) {
-
 
 $(window).on('load', function () {
     $('.preload').fadeOut('slow');
 });
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

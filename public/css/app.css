@@ -12350,6 +12350,29 @@ textarea {
   right: 25px;
 }
 
+.popupMessage {
+  width: 500px;
+  min-height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  position: fixed;
+  bottom: 35px;
+  right: -500px;
+  color: #13191e;
+  border: 1px solid #8594a0;
+  border-radius: 5px;
+  background-color: white;
+  -webkit-box-shadow: 3px 3px 5px #8594a0;
+          box-shadow: 3px 3px 5px #8594a0;
+  cursor: pointer;
+  padding: 0 10px;
+  z-index: 15;
+}
+
+.popupMessage.active {
+  right: 30px;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;

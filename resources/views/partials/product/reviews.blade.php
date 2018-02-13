@@ -64,3 +64,4 @@
         </form>
     </div>
 </div>
+@include('partials.ajax.message')
