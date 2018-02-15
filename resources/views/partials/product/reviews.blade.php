@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="form-group" id="group-name">
-                <label for="name">@lang('form.name')</label>
+                <label for="name" class="control-label">@lang('form.name')</label>
                 <input type="text" class="form-control" id="name"  name="name" required minlength="2" maxlength="255"
                     @auth
                         value="{{ Auth::user()->name }}" disabled
@@ -47,12 +47,12 @@
                 <ul class="help-block"></ul>
             </div>
             <div class="form-group" id="group-title">
-                <label for="title">@lang('form.brief')</label>
+                <label for="title" class="control-label">@lang('form.brief')</label>
                 <input type="text" class="form-control" id="title" name="title" required maxlength="255">
                 <ul class="help-block"></ul>
             </div>
             <div class="form-group" id="group-text">
-                <label for="text">@lang('form.review')</label>
+                <label for="text" class="control-label">@lang('form.review')</label>
                 <textarea name="text" id="text" rows="4" class="form-control" required></textarea>
                 <ul class="help-block"></ul>
             </div>

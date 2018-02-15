@@ -5,6 +5,7 @@ namespace AutoKit\Http\Controllers\Auth;
 use AutoKit\Mail\UserRegistered;
 use AutoKit\User;
 use AutoKit\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Lang;
@@ -70,6 +71,15 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'confirm_token' => str_random(32)
+        ]);
+    }
+
+    public function checkEmail(Request $request)
+    {
+        $hasUser = !!User::whereEmail($request->email)->first();
+        return response()->json([
+            'hasUser' => $hasUser,
+            'message' => $hasUser ? Lang::get('validation.unique', ['attribute' => 'email']) : ''
         ]);
     }
 }

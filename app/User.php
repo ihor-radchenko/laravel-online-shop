@@ -2,6 +2,7 @@
 
 namespace AutoKit;
 
+use AutoKit\Events\ConfirmEmail;
 use AutoKit\Events\UserRegistered;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -83,6 +84,7 @@ class User extends Authenticatable
         $this->verified = self::EMAIL_CONFIRMED;
         $this->confirm_token = self::TOKEN_EXPIRED;
         $this->save();
+        event(new ConfirmEmail($this));
         return $this;
     }
 }

@@ -26,10 +26,12 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">@lang('form.email')</label>
+                            <label for="registeredUserEmail" class="col-md-4 control-label">
+                                @lang('form.email')
+                            </label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required maxlength="255">
+                                <input id="registeredUserEmail" type="email" class="form-control" name="email" value="{{ old('email') }}" required maxlength="255" data-route="{{ route('check.email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">

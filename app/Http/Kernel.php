@@ -2,6 +2,7 @@
 
 namespace AutoKit\Http;
 
+use AutoKit\Http\Middleware\AjaxRequest;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -57,5 +58,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \AutoKit\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'ajax' => AjaxRequest::class,
     ];
 }

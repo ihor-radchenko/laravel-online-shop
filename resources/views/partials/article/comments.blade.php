@@ -22,7 +22,7 @@
         <h4 class="color-black">@lang('page.comments_add')</h4>
         <form action="{{ route('comment.store') }}" id="formCreateComment">
             <div class="form-group" id="group-name">
-                <label for="name">@lang('form.name')</label>
+                <label for="name" class="control-label">@lang('form.name')</label>
                 <input type="text" class="form-control" id="name" required minlength="2" maxlength="255"
                     @auth
                         value="{{ Auth::user()->name }}" disabled
@@ -31,7 +31,7 @@
                 <ul class="help-block"></ul>
             </div>
             <div class="form-group" id="group-email">
-                <label for="email">@lang('form.email')</label>
+                <label for="email" class="control-label">@lang('form.email')</label>
                 <input type="email" class="form-control" id="email" required maxlength="255"
                     @auth
                         value="{{ Auth::user()->email }}" disabled
@@ -40,7 +40,7 @@
                 <ul class="help-block"></ul>
             </div>
             <div class="form-group" id="group-text">
-                <label for="text">@lang('form.comment')</label>
+                <label for="text" class="control-label">@lang('form.comment')</label>
                 <textarea name="text" id="text" cols="30" rows="5" class="form-control" required></textarea>
                 <ul class="help-block"></ul>
             </div>

@@ -28,9 +28,13 @@ Route::prefix('product')->group(function () {
     Route::get('{product}', 'ProductController@show')->name('product');
 });
 
-Route::post('review', 'ReviewController@store')->name('review.store');
-Route::post('comment', 'CommentController@store')->name('comment.store');
-
 Auth::routes();
+
+Route::middleware('ajax')->group(function () {
+    Route::get('check/email', 'Auth\RegisterController@checkEmail')->name('check.email');
+    Route::post('review', 'ReviewController@store')->name('review.store');
+    Route::post('comment', 'CommentController@store')->name('comment.store');
+});
+
 Route::get('/confirm/{token}', 'Auth\EmailConfirmController@confirmEmail')->name('confirm');
 Route::get('/home', 'HomeController@index')->name('home');
