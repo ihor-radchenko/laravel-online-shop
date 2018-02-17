@@ -64,6 +64,9 @@ class Product extends Model
 
     public function getImgAttribute(string $value): string
     {
+        if (preg_match('~^http~', $value)) {
+            return $value;
+        }
         return '/img/products/' . $value;
     }
 
@@ -73,7 +76,11 @@ class Product extends Model
      */
     public function getForMainPageWhere(string $field): Collection
     {
-        return self::where($field, 1)->with('reviews')->inRandomOrder()->take(4)->get();
+        return self::where($field, 1)
+            ->with('reviews')
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
     }
 
     /**
@@ -82,7 +89,15 @@ class Product extends Model
      */
     public function getWhereMenu(Menu $menu)
     {
-        return self::whereIn('category_id',  Category::select('id')->whereMenuId($menu->id)->get())->with('reviews')->orderByDesc('id')->paginate();
+        return self::whereIn(
+            'category_id',
+            Category::select('id')
+                ->whereMenuId($menu->id)
+                ->get()
+        )
+            ->with('reviews')
+            ->orderByDesc('id')
+            ->paginate();
     }
 
     /**
@@ -91,7 +106,10 @@ class Product extends Model
      */
     public function getWhereCategory(Category $category)
     {
-        return self::whereCategoryId($category->id)->with('reviews')->orderByDesc('id')->paginate();
+        return self::whereCategoryId($category->id)
+            ->with('reviews')
+            ->orderByDesc('id')
+            ->paginate();
     }
 
     /**
@@ -100,6 +118,9 @@ class Product extends Model
      */
     public function getWhereBrand(Brand $brand)
     {
-        return self::whereBrandId($brand->id)->with('reviews')->orderByDesc('id')->paginate();
+        return self::whereBrandId($brand->id)
+            ->with('reviews')
+            ->orderByDesc('id')
+            ->paginate();
     }
 }

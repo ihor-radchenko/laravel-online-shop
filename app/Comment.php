@@ -53,7 +53,12 @@ class Comment extends Model
      */
     public function getForArticle(Article $article, int $offset = 0): Collection
     {
-        return self::whereArticleId($article->id)->with('user')->orderBy('id')->take($this->perPage)->offset($offset * $this->perPage)->get();
+        return self::whereArticleId($article->id)
+            ->with('user')
+            ->orderBy('id')
+            ->take($this->perPage)
+            ->offset($offset * $this->perPage)
+            ->get();
     }
 
     public function getMaxOffset(Article $article): float

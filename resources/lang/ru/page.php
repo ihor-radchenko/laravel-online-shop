@@ -4,7 +4,7 @@ return [
     'my_cart' => 'Моя корзина',
     'shop' => 'Магазин',
     'categories' => 'Категории',
-    'brands' => 'Бранд',
+    'brands' => 'Бренд',
 
     'from_blog' => 'Из блога',
     'blog' => 'Блог',

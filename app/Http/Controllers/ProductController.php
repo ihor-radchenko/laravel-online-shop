@@ -53,10 +53,10 @@ class ProductController extends Controller
         return view(
             'products',
             [
-                'breadcrumb' => $menu->load('products.brand'),
+                'breadcrumb' => $menu->load('products'),
                 'products' => $this->product->getWhereMenu($menu),
                 'categories' => $this->category->getWhereMenu($menu),
-                'productsBrand' => $menu->products
+                'brands' => $this->brand->getForMenuWithCountProducts($menu)
             ]
         );
     }
@@ -73,7 +73,7 @@ class ProductController extends Controller
                 'breadcrumb' => $category->load('menu'),
                 'products' => $this->product->getWhereCategory($category),
                 'categories' => $this->category->getWhereMenu($menu),
-                'productsBrand' => $menu->products
+                'brands' => $this->brand->getForMenuWithCountProducts($menu)
             ]
         );
     }

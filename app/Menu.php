@@ -43,7 +43,8 @@ class Menu extends Model
      */
     public function getNavBar(): Collection
     {
-        return self::with('categories')->get();
+        return self::with('categories')
+            ->get();
     }
 
     /**
@@ -51,6 +52,8 @@ class Menu extends Model
      */
     public function getWithCountProducts(): Collection
     {
-        return self::withCount('products')->get();
+        return self::withCount('products')
+            ->has('products')
+            ->get();
     }
 }

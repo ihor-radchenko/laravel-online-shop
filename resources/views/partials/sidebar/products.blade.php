@@ -19,11 +19,7 @@
     <div class="product-sidebar">
         <h4 class="color-black">@lang('page.brands')</h4>
         <ul>
-            @if(isset($productsBrand))
-                @foreach($productsBrand as $product)
-                    <li><a href="{{ route('products.brand', ['brand' => $product->brand->alias]) }}" class="btn-link">{{ $product->brand->title }} <span class="badge">{{ $product->brand->products->count() }}</span></a></li>
-                @endforeach
-            @elseif(isset($brands))
+            @if(isset($brands))
                 @foreach($brands as $brand)
                     <li><a href="{{ route('products.brand', ['brand' => $brand->alias]) }}" class="btn-link">{{ $brand->title }} <span class="badge">{{ $brand->products->count() }}</span></a></li>
                 @endforeach

@@ -8,6 +8,6 @@ $factory->define(AutoKit\Review::class, function (Faker $faker) {
         'text' => $faker->text(rand(10, 200)),
         'rating' => $faker->numberBetween(1, 5),
         'name' => $faker->name(),
-        'product_id' => $faker->numberBetween(1, 9)
+        'product_id' => $faker->numberBetween(1, 509)
     ];
 });

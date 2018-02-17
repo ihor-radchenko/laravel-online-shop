@@ -37,6 +37,18 @@ class Brand extends Model
      */
     public function getWithCountProducts(): Collection
     {
-        return self::withCount('products')->get();
+        return self::withCount('products')
+            ->get();
+    }
+
+    /**
+     * @param Menu $menu
+     * @return Collection
+     */
+    public function getForMenuWithCountProducts(Menu $menu): Collection
+    {
+        return self::whereIn('id', $menu->products->pluck('brand_id'))
+            ->withCount('products')
+            ->get();
     }
 }

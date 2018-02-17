@@ -57,11 +57,18 @@ class Article extends Model
      */
     public function getLastForMainPage(): Collection
     {
-        return self::with('user')->withCount('comments')->orderByDesc('id')->take(3)->get();
+        return self::with('user')
+            ->withCount('comments')
+            ->orderByDesc('id')
+            ->take(3)
+            ->get();
     }
 
     public function getForBlog()
     {
-        return self::with('user')->withCount('comments')->orderByDesc('id')->paginate();
+        return self::with('user')
+            ->withCount('comments')
+            ->orderByDesc('id')
+            ->paginate();
     }
 }

@@ -63,6 +63,11 @@ class Review extends Model
      */
     public function getForProduct(Product $product, int $offset = 0): Collection
     {
-        return self::whereProductId($product->id)->with('user')->orderByDesc('id')->offset($offset * $this->perPage)->take($this->perPage)->get();
+        return self::whereProductId($product->id)
+            ->with('user')
+            ->orderByDesc('id')
+            ->offset($offset * $this->perPage)
+            ->take($this->perPage)
+            ->get();
     }
 }

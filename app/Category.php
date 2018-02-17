@@ -52,7 +52,10 @@ class Category extends Model
      */
     public function getForMainPage(): Collection
     {
-        return self::whereNotNull('img')->with('menu')->take(8)->get();
+        return self::whereNotNull('img')
+            ->with('menu')
+            ->take(8)
+            ->get();
     }
 
     /**
@@ -61,6 +64,9 @@ class Category extends Model
      */
     public function getWhereMenu(Menu $menu): Collection
     {
-        return self::whereMenuId($menu->id)->with('menu')->withCount('products')->get();
+        return self::whereMenuId($menu->id)
+            ->with('menu')
+            ->withCount('products')
+            ->get();
     }
 }
