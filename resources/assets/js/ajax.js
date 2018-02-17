@@ -25,7 +25,7 @@ $('#showMoreReviews').click(function () {
             }
         },
         error: function () {
-            $('.popup').fadeIn('slow');
+            $('.popup').show();
             btn.text(btn.data('text')).attr('disabled', false);
             offset--;
         }
@@ -67,7 +67,7 @@ $("#createReview").click(function (e) {
                 let response = $.parseJSON(jqXHR.responseText).errors;
                 showErrorByForm(response);
             } else {
-                $('.popup').fadeIn('slow');
+                $('.popup').show();
             }
             btn.text(btn.data('text')).attr('disabled', false);
         }
@@ -91,7 +91,7 @@ $('#showMoreComments').click(function () {
             }
         },
         error: function () {
-            $('.popup').fadeIn('slow');
+            $('.popup').show();
             btn.text(btn.data('text')).attr('disabled', false);
             offset--;
         }
@@ -132,7 +132,7 @@ $("#createComment").click(function (e) {
                 let response = $.parseJSON(jqXHR.responseText).errors;
                 showErrorByForm(response);
             } else {
-                $('.popup').fadeIn('slow');
+                $('.popup').show();
             }
             btn.text(btn.data('text')).attr('disabled', false);
         }
@@ -202,7 +202,7 @@ function getProducts(url) {
         },
         error: function () {
             $('.load').addClass('disabled');
-            $('.popup').fadeIn('slow');
+            $('.popup').show();
         }
     });
 }
@@ -210,7 +210,19 @@ function getProducts(url) {
 $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
     $('.load').removeClass('disabled');
-    let url = $(this).attr('href');
+    let url = $(this).attr('href') + '&type=' + $(".showType.active").data('show');
+    getProducts(url);
+    window.history.pushState('', '', url);
+});
+
+const buttons = $(".showType");
+buttons.click(function () {
+    buttons.each(function () {
+        $(this).removeClass('active');
+    });
+    $(this).addClass('active');
+    $('.load').removeClass('disabled');
+    let url = $('.pagination .active').data('url') + '&type=' + $(this).data('show');
     getProducts(url);
     window.history.pushState('', '', url);
 });

@@ -13,8 +13,8 @@
                     <div class="col-sm-12 hidden-xs">
                         <div class="products-options">
                             <div class="products-layouts">
-                                <button class="product-grid"><i class="fa fa-th fa-lg" aria-hidden="true"></i></button>
-                                <button class="product-list"><i class="fa fa-th-list fa-lg" aria-hidden="true"></i></button>
+                                <button class="showType active" id="product-grid" data-show="grid"><i class="fa fa-th fa-lg" aria-hidden="true"></i></button>
+                                <button class="showType" id="product-list" data-show="list"><i class="fa fa-th-list fa-lg" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>

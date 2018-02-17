@@ -48,7 +48,9 @@ class ProductController extends Controller
     public function index(Request $request, Menu $menu)
     {
         if ($request->ajax()) {
-            return view('partials.products.grid', ['products' => $this->product->getWhereMenu($menu)]);
+            return view(
+                'partials.products.' . $request->type ?? 'grid',
+                ['products' => $this->product->getWhereMenu($menu)]);
         }
         return view(
             'products',
@@ -64,7 +66,9 @@ class ProductController extends Controller
     public function showByCategory(Request $request, Menu $menu, Category $category)
     {
         if ($request->ajax()) {
-            return view('partials.products.grid', ['products' => $this->product->getWhereCategory($category)]);
+            return view(
+                'partials.products.' . $request->type ?? 'grid',
+                ['products' => $this->product->getWhereCategory($category)]);
         }
         $menu->load('products.brand');
         return view(
@@ -81,7 +85,9 @@ class ProductController extends Controller
     public function showByBrand(Request $request, Brand $brand)
     {
         if ($request->ajax()) {
-            return view('partials.products.grid', ['products' => $this->product->getWhereBrand($brand)]);
+            return view(
+                'partials.products.' . $request->type ?? 'grid',
+                ['products' => $this->product->getWhereBrand($brand)]);
         }
         return view(
             'products',

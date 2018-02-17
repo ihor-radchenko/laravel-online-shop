@@ -31768,7 +31768,7 @@ $('#showMoreReviews').click(function () {
             }
         },
         error: function error() {
-            $('.popup').fadeIn('slow');
+            $('.popup').show();
             btn.text(btn.data('text')).attr('disabled', false);
             offset--;
         }
@@ -31810,7 +31810,7 @@ $("#createReview").click(function (e) {
                 var response = $.parseJSON(jqXHR.responseText).errors;
                 showErrorByForm(response);
             } else {
-                $('.popup').fadeIn('slow');
+                $('.popup').show();
             }
             btn.text(btn.data('text')).attr('disabled', false);
         }
@@ -31834,7 +31834,7 @@ $('#showMoreComments').click(function () {
             }
         },
         error: function error() {
-            $('.popup').fadeIn('slow');
+            $('.popup').show();
             btn.text(btn.data('text')).attr('disabled', false);
             offset--;
         }
@@ -31875,7 +31875,7 @@ $("#createComment").click(function (e) {
                 var response = $.parseJSON(jqXHR.responseText).errors;
                 showErrorByForm(response);
             } else {
-                $('.popup').fadeIn('slow');
+                $('.popup').show();
             }
             btn.text(btn.data('text')).attr('disabled', false);
         }
@@ -31945,7 +31945,7 @@ function getProducts(url) {
         },
         error: function error() {
             $('.load').addClass('disabled');
-            $('.popup').fadeIn('slow');
+            $('.popup').show();
         }
     });
 }
@@ -31953,7 +31953,19 @@ function getProducts(url) {
 $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
     $('.load').removeClass('disabled');
-    var url = $(this).attr('href');
+    var url = $(this).attr('href') + '&type=' + $(".showType.active").data('show');
+    getProducts(url);
+    window.history.pushState('', '', url);
+});
+
+var buttons = $(".showType");
+buttons.click(function () {
+    buttons.each(function () {
+        $(this).removeClass('active');
+    });
+    $(this).addClass('active');
+    $('.load').removeClass('disabled');
+    var url = $('.pagination .active').data('url') + '&type=' + $(this).data('show');
     getProducts(url);
     window.history.pushState('', '', url);
 });

@@ -4,8 +4,8 @@
         @include('partials.loader')
         @foreach($products as $product)
             <div class="row product-show product-show-list">
-                <div class="col-sm-5 product-img">
-                    <img src="{{ asset($product->img) }}" alt="" class="image-response">
+                <div class="col-sm-5 img-wrapper">
+                    <img src="{{ asset($product->img) }}" alt="">
                 </div>
                 @if($product->is_top)
                     <span class="top">Top</span>
