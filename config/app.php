@@ -177,7 +177,9 @@ return [
         // AutoKit\Providers\BroadcastServiceProvider::class,
         AutoKit\Providers\EventServiceProvider::class,
         AutoKit\Providers\RouteServiceProvider::class,
-        \AutoKit\Providers\ComposerServiceProvider::class
+        \AutoKit\Providers\ComposerServiceProvider::class,
+        \AutoKit\Providers\RepositoryServiceProvider::class,
+        \AutoKit\Providers\CartServiceProvider::class
 
     ],
 
