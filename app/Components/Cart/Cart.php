@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ihor
- * Date: 17.02.2018
- * Time: 18:07
- */
 
 namespace AutoKit\Components\Cart;
 
@@ -75,5 +69,17 @@ class Cart
     public function totalQuantity(): int
     {
         return $this->all()->sum('quantity');
+    }
+
+    public function count(): int
+    {
+        return $this->all()->count();
+    }
+
+    public function totalPrice(): float
+    {
+        return $this->all()->reduce(function ($carry, $item) {
+            return $carry + $item->quantity * $item->product->price;
+        });
     }
 }

@@ -41,3 +41,5 @@ Route::middleware('ajax')->group(function () {
 
 Route::get('/confirm/{token}', 'Auth\EmailConfirmController@confirmEmail')->name('confirm');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('cart', 'CartController@index')->name('cart');

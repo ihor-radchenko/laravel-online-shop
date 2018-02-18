@@ -21,7 +21,7 @@
         <ul>
             @if(isset($brands))
                 @foreach($brands as $brand)
-                    <li><a href="{{ route('products.brand', ['brand' => $brand->alias]) }}" class="btn-link">{{ $brand->title }} <span class="badge">{{ $brand->products->count() }}</span></a></li>
+                    <li><a href="{{ route('products.brand', ['brand' => $brand->alias]) }}" class="btn-link">{{ $brand->title }} <span class="badge">{{ $brand->products_count }}</span></a></li>
                 @endforeach
             @endif
         </ul>

@@ -197,10 +197,12 @@ function getProducts(url) {
     $.ajax({
         url: url,
         success: function (response) {
+            $('.pagination li').removeClass('disabled');
             $('.load').addClass('disabled');
             $(".products-list").empty().append(response);
         },
         error: function () {
+            $('.pagination li').removeClass('disabled');
             $('.load').addClass('disabled');
             $('.popup').show();
         }
@@ -209,6 +211,7 @@ function getProducts(url) {
 
 $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
+    $('.pagination li').removeClass('active').addClass('disabled');
     $('.load').removeClass('disabled');
     let url = $(this).attr('href') + '&type=' + $(".showType.active").data('show');
     getProducts(url);

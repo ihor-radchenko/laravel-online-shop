@@ -70,6 +70,21 @@ class Product extends Model
         return '/img/products/' . $value;
     }
 
+    public function outOfStock(): bool
+    {
+        return $this->quantity === 0;
+    }
+
+    public function hasLowStock(): bool
+    {
+        return $this->quantity > 0 && $this->quantity < 10;
+    }
+
+    public function hasStock(int $quantity): bool
+    {
+        return $this->quantity >= $quantity;
+    }
+
     /**
      * @param string $field is_top|is_new
      * @return Collection

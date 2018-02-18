@@ -47,8 +47,25 @@ class Brand extends Model
      */
     public function getForMenuWithCountProducts(Menu $menu): Collection
     {
-        return self::whereIn('id', $menu->products->pluck('brand_id'))
-            ->withCount('products')
+        return self::whereIn('brands.id', $menu->products->pluck('brand_id')->unique())
+            ->withCount(['products' => function ($query) use ($menu) {
+                $query
+                    ->join('categories', 'categories.id', '=', 'products.category_id')
+                    ->where('categories.menu_id', $menu->id);
+            }])
+            ->get();
+    }
+
+    /**
+     * @param Category $category
+     * @return Collection
+     */
+    public function getForCategoryWithCountProducts(Category $category): Collection
+    {
+        return self::whereIn('brands.id', $category->products->pluck('brand_id')->unique())
+            ->withCount(['products' => function ($query) use ($category) {
+                $query->where('category_id', $category->id);
+            }])
             ->get();
     }
 }

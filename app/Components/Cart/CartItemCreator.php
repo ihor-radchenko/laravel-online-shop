@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ihor
- * Date: 18.02.2018
- * Time: 7:47
- */
 
 namespace AutoKit\Components\Cart;
 

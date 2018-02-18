@@ -77,7 +77,7 @@ class ProductController extends Controller
                 'breadcrumb' => $category->load('menu'),
                 'products' => $this->product->getWhereCategory($category),
                 'categories' => $this->category->getWhereMenu($menu),
-                'brands' => $this->brand->getForMenuWithCountProducts($menu)
+                'brands' => $this->brand->getForCategoryWithCountProducts($category)
             ]
         );
     }

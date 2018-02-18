@@ -31942,10 +31942,12 @@ function getProducts(url) {
     $.ajax({
         url: url,
         success: function success(response) {
+            $('.pagination li').removeClass('disabled');
             $('.load').addClass('disabled');
             $(".products-list").empty().append(response);
         },
         error: function error() {
+            $('.pagination li').removeClass('disabled');
             $('.load').addClass('disabled');
             $('.popup').show();
         }
@@ -31954,6 +31956,7 @@ function getProducts(url) {
 
 $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
+    $('.pagination li').removeClass('active').addClass('disabled');
     $('.load').removeClass('disabled');
     var url = $(this).attr('href') + '&type=' + $(".showType.active").data('show');
     getProducts(url);
@@ -31978,6 +31981,8 @@ buttons.click(function () {
 
 
 $(document).on("click", ".addItemToCart", function () {
+    var btns = $(".addItemToCart");
+    btns.attr('disabled', true);
     var btn = $(this);
     var quantity = $("#qty");
     $.ajax({
@@ -31988,9 +31993,11 @@ $(document).on("click", ".addItemToCart", function () {
             quantity: quantity.val() ? quantity.val() : 1
         },
         success: function success(response) {
+            btns.attr('disabled', false);
             $("#cartCount").text(response.totalQuantity);
         },
         error: function error() {
+            btns.attr('disabled', false);
             $('.popup').show();
         }
     });

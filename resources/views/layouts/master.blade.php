@@ -25,8 +25,9 @@
             <a href="{{ route('main') }}" class="logo">
                 <img src="{{ asset('/img/autokit.png') }}" alt="logo">
             </a>
-            <a class="nav-cart">
-                <span class="glyphicon glyphicon-shopping-cart"></span>@lang('page.my_cart')
+            <a href="{{ route('cart') }}" class="nav-cart">
+                <i class="fa fa-shopping-cart"></i>
+                @lang('page.my_cart')
                 <span class="cart-count" id="cartCount">{{ $cart->totalQuantity() }}</span>
             </a>
         </div>

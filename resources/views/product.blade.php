@@ -18,12 +18,12 @@
                         @endif
                         <div class="col-sm-7">
                             <div class="caption">
-                                @if($product->quantity >= 10)
-                                    <div class="stock text-success">@lang('page.in_stock') <i class="fa fa-check" aria-hidden="true"></i></div>
-                                @elseif($product->quantity > 0 && $product->quantity < 10)
+                                @if($product->outOfStock())
+                                    <div class="stock text-danger">@lang('page.no_stock') <i class="fa fa-times" aria-hidden="true"></i></div>
+                                @elseif($product->hasLowStock())
                                     <div class="stock text-warning">@lang('page.ends') <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
                                 @else
-                                    <div class="stock text-danger">@lang('page.no_stock') <i class="fa fa-times" aria-hidden="true"></i></div>
+                                    <div class="stock text-success">@lang('page.in_stock') <i class="fa fa-check" aria-hidden="true"></i></div>
                                 @endif
                                 <div class="count color-black">@lang('page.on_warehouse') {{ $product->quantity }}</div>
                                 <h2 class="title">{{ $product->title }}</h2>

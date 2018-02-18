@@ -18,6 +18,11 @@ class CartController extends Controller
         $this->cart = $cart;
     }
 
+    public function index()
+    {
+        return view('cart');
+    }
+
     public function add(Request $request)
     {
         $this->cart->add(Product::find($request->product), $request->quantity);
