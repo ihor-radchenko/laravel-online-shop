@@ -26,8 +26,8 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(RepositoryContract::class, function () {
-            if (env('SHOPPING_CART') === 'session') {
-                return new SessionRepository('cart');
+            if (config('shopping_cart.driver') === 'session') {
+                return new SessionRepository;
             }
             return null;
         });

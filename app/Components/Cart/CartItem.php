@@ -27,9 +27,4 @@ class CartItem
         $this->product = $product;
         $this->quantity = $quantity;
     }
-
-    public static function make(Product $product, int $quantity)
-    {
-        return new self($product, $quantity);
-    }
 }

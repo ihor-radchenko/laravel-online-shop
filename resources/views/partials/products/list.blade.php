@@ -24,9 +24,7 @@
                         <p class="short-content">
                             {{ str_limit($product->description) }}
                         </p>
-                        <button class="my-btn btn-black">
-                            <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> @lang('button.add_to_cart')
-                        </button>
+                        @include('partials.buttons.add_to_cart')
                         <div class="rating">
                             <div class="stars">
                                 @for($i = 1; $i <= 5; $i++)

@@ -9,6 +9,8 @@ return [
     'from_blog' => 'Из блога',
     'blog' => 'Блог',
 
+    'copyright' => 'Copyright',
+
     'products_empty' => 'Товара нету',
     'new' => 'Новинки',
     'top' => 'Топ продаж',

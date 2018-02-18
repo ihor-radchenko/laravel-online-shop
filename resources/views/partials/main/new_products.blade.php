@@ -20,9 +20,7 @@
                                     <span class="price">${{ $product->price }}</span>
                                 @endif
                                 <a href="{{ route('product', ['product' => $product->id]) }}" class="title">{{ $product->title }}</a>
-                                <button class="my-btn btn-black">
-                                    <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> @lang('button.add_to_cart')
-                                </button>
+                                @include('partials.buttons.add_to_cart')
                                 <div class="rating">
                                     <div class="stars">
                                         @for($i = 1; $i <= 5; $i++)

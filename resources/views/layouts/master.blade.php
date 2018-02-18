@@ -26,7 +26,8 @@
                 <img src="{{ asset('/img/autokit.png') }}" alt="logo">
             </a>
             <a class="nav-cart">
-                <span class="glyphicon glyphicon-shopping-cart"></span>@lang('page.my_cart')<span class="cart-count">0</span>
+                <span class="glyphicon glyphicon-shopping-cart"></span>@lang('page.my_cart')
+                <span class="cart-count" id="cartCount">{{ $cart->totalQuantity() }}</span>
             </a>
         </div>
     </div>
@@ -43,7 +44,7 @@
         <img src="{{ asset('/img/autokit.png') }}" alt="logo">
     </a>
     <h3 class="copyright color-black">
-        Copyright {{ date('Y') }}
+        @lang('page.copyright') {{ date('Y') }}
     </h3>
 </footer>
 <div class="go-top" title="@lang('page.go_top')"><i class="fa fa-arrow-up"></i></div>

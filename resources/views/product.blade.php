@@ -38,9 +38,7 @@
                                     <label for="qty" class="color-black">@lang('page.quantity')</label>
                                     <input type="number" id="qty" value="1" class="text-center color-black" max="{{ $product->quantity }}" min="1" {{ ! $product->quantity ? 'disabled' : '' }}>
                                 </div>
-                                <button class="my-btn btn-black btn-lg" {{ ! $product->quantity ? 'disabled' : '' }}>
-                                    <i class="fa fa-cart-plus fa-lg" aria-hidden="true"></i> @lang('button.add_to_cart')
-                                </button>
+                                @include('partials.buttons.add_to_cart', ['size' => 'btn-lg'])
                                 <div class="rating">
                                     <div class="stars">
                                         @for($i = 1; $i <= 5; $i++)

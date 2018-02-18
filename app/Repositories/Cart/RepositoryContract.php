@@ -8,19 +8,20 @@
 
 namespace AutoKit\Repositories\Cart;
 
+use AutoKit\Components\Cart\CartItem;
 use Illuminate\Support\Collection;
 
 interface RepositoryContract
 {
-    public function get($key);
+    public function get(int $key);
 
-    public function set($key, $value);
+    public function set(int $key, CartItem $value);
 
     public function all(): Collection;
 
-    public function exists($key): bool;
+    public function exists(int $key): bool;
 
-    public function unset($key);
+    public function unset(int $key);
 
     public function clear();
 }

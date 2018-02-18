@@ -8,47 +8,55 @@
 
 namespace AutoKit\Repositories\Cart;
 
+use AutoKit\Components\Cart\CartItem;
 use Illuminate\Support\Collection;
 
 class SessionRepository implements RepositoryContract
 {
-    private $cart;
-
-    public function __construct($cart)
+    public function __construct()
     {
-        if (! session()->has($cart)) {
-            session()->put($cart, collect());
+        if (! session()->has('cart')) {
+            $this->putInSession(collect());
         }
-        $this->cart = session($cart);
     }
 
-    public function get($key)
+    public function get(int $key)
     {
-        return $this->cart->get($key);
+        return $this->cart()->get($key);
     }
 
-    public function set($key, $value)
+    public function set(int $key, CartItem $value)
     {
-        $this->cart->put($key, $value);
+        $this->putInSession($this->cart()->put($key, $value));
     }
 
     public function all(): Collection
     {
-        return $this->cart;
+        return $this->cart();
     }
 
-    public function exists($key): bool
+    public function exists(int $key): bool
     {
-        return $this->cart->has($key);
+        return $this->cart()->has($key);
     }
 
-    public function unset($key)
+    public function unset(int $key)
     {
-        $this->cart->forget($key);
+        $this->putInSession($this->cart()->forget($key));
     }
 
     public function clear()
     {
-        $this->cart = collect();
+        $this->putInSession(collect());
+    }
+
+    private function putInSession($cart)
+    {
+        return session()->put('cart', $cart);
+    }
+
+    private function cart()
+    {
+        return session('cart');
     }
 }

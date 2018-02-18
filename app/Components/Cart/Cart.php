@@ -19,26 +19,32 @@ class Cart
      */
     private $repository;
 
-    public function __construct(RepositoryContract $repository)
+    /**
+     * @var CartItemCreator
+     */
+    private $creator;
+
+    public function __construct(RepositoryContract $repository, CartItemCreator $creator)
     {
         $this->repository = $repository;
+        $this->creator = $creator;
     }
 
     public function add(Product $product, int $quantity)
     {
+        if ($this->has($product)) {
+            $quantity += $this->get($product)->quantity;
+        }
         if ($quantity <= 0) {
             $this->remove($product);
             return;
-        }
-        if ($this->has($product)) {
-            $quantity += $this->get($product)->quantity;
         }
         $this->update($product, $quantity);
     }
 
     private function update(Product $product, int $quantity)
     {
-        $this->repository->set($product->id, CartItem::make($product, $quantity));
+        $this->repository->set($product->id, $this->creator->factory($product, $quantity));
     }
 
     public function get(Product $product): CartItem
@@ -64,5 +70,10 @@ class Cart
     public function has(Product $product): bool
     {
         return $this->repository->exists($product->id);
+    }
+
+    public function totalQuantity(): int
+    {
+        return $this->all()->sum('quantity');
     }
 }

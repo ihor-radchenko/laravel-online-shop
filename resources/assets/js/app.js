@@ -25,4 +25,6 @@ require('./main');
 
 require('./ajax');
 
+require('./shopping_cart');
+
 require ('./preloader');

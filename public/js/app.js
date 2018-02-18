@@ -746,7 +746,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(8);
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
@@ -781,6 +781,8 @@ __webpack_require__(35);
 __webpack_require__(36);
 
 __webpack_require__(37);
+
+__webpack_require__(38);
 
 /***/ }),
 /* 9 */
@@ -31975,12 +31977,36 @@ buttons.click(function () {
 /***/ (function(module, exports) {
 
 
+$(document).on("click", ".addItemToCart", function () {
+    var btn = $(this);
+    var quantity = $("#qty");
+    $.ajax({
+        url: btn.data('route'),
+        type: 'GET',
+        data: {
+            product: btn.data('product'),
+            quantity: quantity.val() ? quantity.val() : 1
+        },
+        success: function success(response) {
+            $("#cartCount").text(response.totalQuantity);
+        },
+        error: function error() {
+            $('.popup').show();
+        }
+    });
+});
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+
 $(window).on('load', function () {
     $('.preload').fadeOut('slow');
 });
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
