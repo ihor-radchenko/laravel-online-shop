@@ -803,3 +803,32 @@ textarea {
     height: 100px;
   }
 }
+
+.brandInput {
+  display: none;
+}
+
+.brandLabel {
+  display: block;
+  padding-right: 20px;
+  cursor: pointer;
+  &:hover {
+    color: $black;
+    span {
+      background-color: $black;
+    }
+  }
+}
+
+.brandInput:checked ~ .brandLabel {
+  color: $black;
+  span {
+    background-color: $black;
+  }
+}
+
+.buttonsAside {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+}

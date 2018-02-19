@@ -197,12 +197,10 @@ function getProducts(url) {
     $.ajax({
         url: url,
         success: function (response) {
-            $('.pagination li').removeClass('disabled');
             $('.load').addClass('disabled');
             $(".products-list").empty().append(response);
         },
         error: function () {
-            $('.pagination li').removeClass('disabled');
             $('.load').addClass('disabled');
             $('.popup').show();
         }
@@ -213,7 +211,11 @@ $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
     $('.pagination li').removeClass('active').addClass('disabled');
     $('.load').removeClass('disabled');
+    let brand = $(".brandInput:checked").val();
     let url = $(this).attr('href') + '&type=' + $(".showType.active").data('show');
+    if (brand !== undefined) {
+        url += '&brand=' + brand
+    }
     getProducts(url);
     window.history.pushState('', '', url);
 });
@@ -225,7 +227,35 @@ buttons.click(function () {
     });
     $(this).addClass('active');
     $('.load').removeClass('disabled');
-    let url = $('.pagination .active').data('url') + '&type=' + $(this).data('show');
+    let url = '';
+    let brand = $(".brandInput:checked").val();
+    let paginate = $('.pagination .active').data('url');
+    if (paginate !== undefined) {
+        url += paginate + '&';
+    } else {
+        url += $('#currentUrl').val() + '?';
+    }
+    url += 'type=' + $(this).data('show');
+    if (brand !== undefined) {
+        url += '&brand=' + brand
+    }
+    getProducts(url);
+    window.history.pushState('', '', url);
+});
+
+$(document).on('change', '.brandInput', function () {
+    $('.load').removeClass('disabled');
+    let url = '';
+    url += $('#currentUrl').val() + '?page=1';
+    url += '&type=' + $(".showType.active").data('show') + '&brand=' + $(this).val();
+    getProducts(url);
+    window.history.pushState('', '', url);
+});
+
+$('#deleteFilter').click(function () {
+    $('.load').removeClass('disabled');
+    $('.brandInput').prop('checked', false);
+    let url = $('#currentUrl').val() + '?page=1&type=' + $(".showType.active").data('show');
     getProducts(url);
     window.history.pushState('', '', url);
 });

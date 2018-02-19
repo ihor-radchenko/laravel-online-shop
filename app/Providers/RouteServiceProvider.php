@@ -29,17 +29,12 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::pattern('article', '[a-z0-9-]+');
-        Route::pattern('brand', '[a-z0-9-]+');
         Route::pattern('menu', '[a-z-]+');
         Route::pattern('category', '[a-z-]+');
         Route::pattern('product', '[0-9]+');
 
         Route::bind('article', function ($value) {
             return Article::whereAlias($value)->first() ?? abort(404);
-        });
-
-        Route::bind('brand', function ($value) {
-            return Brand::whereAlias($value)->first() ?? abort(404);
         });
 
         Route::bind('menu', function ($value) {

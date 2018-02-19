@@ -33,15 +33,6 @@ class Brand extends Model
     }
 
     /**
-     * @return Collection
-     */
-    public function getWithCountProducts(): Collection
-    {
-        return self::withCount('products')
-            ->get();
-    }
-
-    /**
      * @param Menu $menu
      * @return Collection
      */

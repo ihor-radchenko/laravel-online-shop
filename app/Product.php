@@ -109,7 +109,21 @@ class Product extends Model
             Category::select('id')
                 ->whereMenuId($menu->id)
                 ->get()
-        )
+            )
+            ->with('reviews')
+            ->orderByDesc('id')
+            ->paginate();
+    }
+
+    public function getWhereMenuAndBrand(Menu $menu, string $brand)
+    {
+        return self::whereIn(
+            'category_id',
+            Category::select('id')
+                ->whereMenuId($menu->id)
+                ->get()
+            )
+            ->whereBrandId(Brand::whereAlias($brand)->first()->id)
             ->with('reviews')
             ->orderByDesc('id')
             ->paginate();
@@ -128,12 +142,14 @@ class Product extends Model
     }
 
     /**
-     * @param Brand $brand
+     * @param Category $category
+     * @param string $brand
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getWhereBrand(Brand $brand)
+    public function getWhereCategoryAndBrand(Category $category, string $brand)
     {
-        return self::whereBrandId($brand->id)
+        return self::whereBrandId(Brand::whereAlias($brand)->first()->id)
+            ->whereCategoryId($category->id)
             ->with('reviews')
             ->orderByDesc('id')
             ->paginate();
