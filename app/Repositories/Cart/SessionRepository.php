@@ -10,7 +10,7 @@ class SessionRepository implements RepositoryContract
     public function __construct()
     {
         if (! session()->has('cart')) {
-            $this->putInSession(collect());
+            $this->putInCart(collect());
         }
     }
 
@@ -21,7 +21,7 @@ class SessionRepository implements RepositoryContract
 
     public function set(int $key, CartItem $value)
     {
-        $this->putInSession($this->cart()->put($key, $value));
+        $this->putInCart($this->cart()->put($key, $value));
     }
 
     public function all(): Collection
@@ -36,15 +36,15 @@ class SessionRepository implements RepositoryContract
 
     public function unset(int $key)
     {
-        $this->putInSession($this->cart()->forget($key));
+        $this->putInCart($this->cart()->forget($key));
     }
 
     public function clear()
     {
-        $this->putInSession(collect());
+        $this->putInCart(collect());
     }
 
-    private function putInSession($cart)
+    private function putInCart($cart)
     {
         return session()->put('cart', $cart);
     }

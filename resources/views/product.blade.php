@@ -36,7 +36,11 @@
                                 <p class="short-content">@lang('page.product_welcome')</p>
                                 <div class="qty">
                                     <label for="qty" class="color-black">@lang('page.quantity')</label>
-                                    <input type="number" id="qty" value="1" class="text-center color-black" max="{{ $product->quantity }}" min="1" {{ ! $product->quantity ? 'disabled' : '' }}>
+                                    <input type="number" id="qty" value="1" class="text-center color-black"
+                                        max="{{ $cart->has($product) ? $cart->freeQuantity($product) : $product->quantity }}"
+                                        min="1"
+                                        {{ $cart->hasFree($product) ? '' : 'disabled' }}
+                                    >
                                 </div>
                                 @include('partials.buttons.add_to_cart', ['size' => 'btn-lg'])
                                 <div class="rating">
@@ -124,7 +128,6 @@
             </div>
         </div>
     @endisset
-    @include('partials.ajax.error')
     @isset($maxOffset)
         <input type="hidden" value="{{ $maxOffset }}" id="maxOffset">
     @endisset

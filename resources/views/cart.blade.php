@@ -4,8 +4,8 @@
 @section('content')
     <div class="container margin-top25">
         <div class="row">
-            @if($cart->count())
-                <div class="col-sm-8">
+            @if($cart->isNotEmpty())
+                <div class="col-sm-10 col-sm-offset-1">
                     <div class="well">
                         <table class="table cart-list">
                             <thead>
@@ -19,30 +19,65 @@
                             <tbody>
                                 @foreach($cart->all() as $item)
                                     <tr>
-                                        <th>
+                                        <th class="image">
                                             <img src="{{ asset($item->product->img) }}" alt="{{ $item->product->title }}">
                                         </th>
-                                        <th>
-                                            <a href="{{ route('product', ['product' => $item->product->id]) }}" class="color-black">
-                                                {{ $item->product->title }}
-                                            </a>
+                                        <th class="desc">
+                                            <div class="title">
+                                                <a href="{{ route('product', ['product' => $item->product->id]) }}" class="color-black">
+                                                    {{ $item->product->title }}
+                                                </a>
+                                            </div>
+                                            <div class="price">
+                                                ${{ $item->product->price }}
+                                            </div>
+                                            <div class="on-stock">
+                                                @lang('page.on_warehouse') {{ $item->product->quantity }}
+                                            </div>
                                         </th>
-                                        <th>{{ $item->quantity }}</th>
-                                        <th>${{ $item->product->price * $item->quantity }}</th>
+                                        <th class="quantity">
+                                            <div>
+                                                <button class="subtractItem changeQuantity"
+                                                    data-route="{{ route('cart.add') }}"
+                                                    data-product="{{ $item->product->id }}"
+                                                >
+                                                    -
+                                                </button>
+                                                <span class="num">{{ $item->quantity }}</span>
+                                                <button class="addItem {{ $item->allInCart() ? '' : 'changeQuantity' }}"
+                                                    data-route="{{ route('cart.add') }}"
+                                                    data-product="{{ $item->product->id }}"
+                                                    data-maxQuantity="{{ $item->product->quantity }}"
+                                                    data-quantityOverstated="@lang('cart.quantity_overstated')"
+                                                    {{ $item->allInCart() ? 'disabled' : '' }}
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
+                                        </th>
+                                        <th class="amountPrice">$<span>{{ $item->getAmount() }}</span></th>
+                                        <th>
+                                            <button class="removeItem" data-route="{{ route('cart.remove') }}" data-product="{{ $item->product->id }}">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </th>
                                     </tr>
                                 @endforeach
+                                <tr class="color-black last-row-in-cart">
+                                    <th colspan="3" class="text-right">@lang('cart.full_price')</th>
+                                    <th class="full-price">$<span id="totalPrice">{{ $cart->totalPrice() }}</span></th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-center">
+                                        <a href="" class="my-btn btn-black">@lang('button.checkout')</a>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="well">
-                        <h4 class="color-black">@lang('cart.cart')</h4>
-                        <hr>
-                        @include('partials.sidebar.cart')
-                        <a href="" class="my-btn btn-black">@lang('button.checkout')</a>
-                    </div>
-                </div>
+            @else
+                <h1 class="color-black text-center">@lang('cart.empty_cart')</h1>
             @endif
         </div>
     </div>

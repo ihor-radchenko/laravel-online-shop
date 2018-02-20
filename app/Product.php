@@ -2,6 +2,7 @@
 
 namespace AutoKit;
 
+use AutoKit\Components\Cart\Cart;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 

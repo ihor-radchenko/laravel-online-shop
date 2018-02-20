@@ -34,7 +34,6 @@
             @endisset
         </div>
     </div>
-    @include('partials.ajax.error')
     @isset($maxOffset)
         <input type="hidden" value="{{ $maxOffset }}" id="maxOffset">
     @endisset

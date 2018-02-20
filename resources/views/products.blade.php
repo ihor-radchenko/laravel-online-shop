@@ -50,5 +50,4 @@
             </div>
         </div>
     </div>
-@include('partials.ajax.error')
 @endsection

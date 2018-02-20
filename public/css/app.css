@@ -12160,7 +12160,8 @@ aside {
   border-radius: 4px;
 }
 
-.my-btn:disabled {
+.my-btn:disabled,
+.cart-list th.quantity div button:disabled {
   background-color: dimgray;
   color: white;
   border-color: #999;
@@ -12382,7 +12383,100 @@ textarea {
 }
 
 .cart-list img {
-  height: 100px;
+  max-height: 100px;
+  max-width: 160px;
+}
+
+.cart-list th.image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.cart-list th.desc {
+  font-size: 16px;
+}
+
+.cart-list th.desc .on-stock {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.cart-list th.amountPrice {
+  color: #ee221d;
+  font-size: 16px;
+  width: 120px;
+}
+
+.cart-list th.quantity div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 30px;
+}
+
+.cart-list th.quantity div .num {
+  background-color: white;
+  color: #13191e;
+  line-height: 30px;
+  padding: 0 10px;
+}
+
+.cart-list th.quantity div button {
+  color: #8594a0;
+  background-color: #13191e;
+  border-color: #13191e;
+}
+
+.cart-list th.quantity div button.subtractItem {
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+.cart-list th.quantity div button.addItem {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.cart-list th.quantity div button:hover {
+  color: white;
+}
+
+.cart-list .last-row-in-cart {
+  font-size: 16px;
+}
+
+.cart-list .last-row-in-cart .full-price {
+  color: #ee221d;
+}
+
+.cart-list .removeItem {
+  color: #ee221d;
+  font-size: 30px;
+  border: none;
+  background-color: transparent;
+}
+
+.cart-list .removeItem:hover {
+  text-shadow: 1px 1px 2px #13191e, 0 0 1em #ee221d;
+}
+
+.cart-list .removeItem:disabled {
+  color: dimgray;
+  text-shadow: 1px 1px 2px #13191e, 0 0 #999;
+}
+
+.well .btn-black:hover {
+  background-color: transparent;
 }
 
 .brandInput {

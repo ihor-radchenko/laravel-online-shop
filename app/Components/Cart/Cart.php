@@ -2,6 +2,7 @@
 
 namespace AutoKit\Components\Cart;
 
+use AutoKit\Exceptions\QuantityOverstated;
 use AutoKit\Product;
 use AutoKit\Repositories\Cart\RepositoryContract;
 use Illuminate\Support\Collection;
@@ -24,6 +25,11 @@ class Cart
         $this->creator = $creator;
     }
 
+    /**
+     * @param Product $product
+     * @param int $quantity
+     * @throws QuantityOverstated
+     */
     public function add(Product $product, int $quantity)
     {
         if ($this->has($product)) {
@@ -33,6 +39,9 @@ class Cart
             $this->remove($product);
             return;
         }
+        if (! $product->hasStock($quantity)) {
+            throw new QuantityOverstated;
+        }
         $this->update($product, $quantity);
     }
 
@@ -41,7 +50,7 @@ class Cart
         $this->repository->set($product->id, $this->creator->factory($product, $quantity));
     }
 
-    public function get(Product $product): CartItem
+    public function get(Product $product): ?CartItem
     {
         return $this->repository->get($product->id);
     }
@@ -78,8 +87,23 @@ class Cart
 
     public function totalPrice(): float
     {
-        return $this->all()->reduce(function ($carry, $item) {
+        return round($this->all()->reduce(function ($carry, $item) {
             return $carry + $item->quantity * $item->product->price;
-        });
+        }), 2);
+    }
+
+    public function isNotEmpty(): bool
+    {
+        return $this->all()->isNotEmpty();
+    }
+
+    public function freeQuantity(Product $product): int
+    {
+        return $product->quantity - $this->get($product)->quantity;
+    }
+
+    public function hasFree(Product $product): bool
+    {
+        return ! ($product->outOfStock() || ($this->has($product) && $this->freeQuantity($product) === 0));
     }
 }

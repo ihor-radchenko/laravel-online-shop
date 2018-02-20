@@ -18,7 +18,7 @@
         <div class="outer"></div>
     </div>
 </div>
-
+@include('partials.ajax.error')
 <header class="header">
     <div class="container">
         <div class="header-wrap">

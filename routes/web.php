@@ -35,7 +35,11 @@ Route::middleware('ajax')->group(function () {
     Route::post('review', 'ReviewController@store')->name('review.store');
     Route::post('comment', 'CommentController@store')->name('comment.store');
 
-    Route::get('cart/add', 'CartController@add')->name('cart.add');
+    Route::prefix('cart')->group(function () {
+        Route::get('add', 'CartController@incrementOrDecrementItem')->name('cart.add');
+        Route::get('remove', 'CartController@remove')->name('cart.remove');
+    });
+
 });
 
 Route::get('/confirm/{token}', 'Auth\EmailConfirmController@confirmEmail')->name('confirm');

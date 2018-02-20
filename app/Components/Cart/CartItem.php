@@ -21,4 +21,14 @@ class CartItem
         $this->product = $product;
         $this->quantity = $quantity;
     }
+
+    public function getAmount(): float
+    {
+        return round($this->product->price * $this->quantity, 2);
+    }
+
+    public function allInCart(): bool
+    {
+        return $this->quantity === $this->product->quantity;
+    }
 }
