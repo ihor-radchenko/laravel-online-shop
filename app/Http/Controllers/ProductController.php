@@ -52,8 +52,17 @@ class ProductController extends Controller
                 'partials.products.' . $request->type ?? 'grid',
                 [
                     'products' => $request->brand
-                        ? $this->product->getWhereMenuAndBrand($menu, $request->brand)
-                        : $this->product->getWhereMenu($menu)
+                        ? $this->product->getWhereMenuAndBrand(
+                            $menu,
+                            $request->brand,
+                            $request->sort ?? 'desc',
+                            $request->sort ? 'price' : 'id'
+                        )
+                        : $this->product->getWhereMenu(
+                            $menu,
+                            $request->sort ?? 'desc',
+                            $request->sort ? 'price' : 'id'
+                        )
                 ]
             );
         }
@@ -75,8 +84,17 @@ class ProductController extends Controller
                 'partials.products.' . $request->type ?? 'grid',
                 [
                     'products' => $request->brand
-                        ? $this->product->getWhereCategoryAndBrand($category, $request->brand)
-                        : $this->product->getWhereCategory($category)
+                        ? $this->product->getWhereCategoryAndBrand(
+                            $category,
+                            $request->brand,
+                            $request->sort ?? 'desc',
+                            $request->sort ? 'price' : 'id'
+                        )
+                        : $this->product->getWhereCategory(
+                            $category,
+                            $request->sort ?? 'desc',
+                            $request->sort ? 'price' : 'id'
+                        )
                 ]
             );
         }

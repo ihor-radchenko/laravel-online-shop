@@ -101,9 +101,11 @@ class Product extends Model
 
     /**
      * @param Menu $menu
+     * @param string $orderBy
+     * @param string $column
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getWhereMenu(Menu $menu)
+    public function getWhereMenu(Menu $menu, string $orderBy = 'desc', string $column = 'id')
     {
         return self::whereIn(
             'category_id',
@@ -112,11 +114,11 @@ class Product extends Model
                 ->get()
             )
             ->with('reviews')
-            ->orderByDesc('id')
+            ->orderBy($column, $orderBy)
             ->paginate();
     }
 
-    public function getWhereMenuAndBrand(Menu $menu, string $brand)
+    public function getWhereMenuAndBrand(Menu $menu, string $brand, string $orderBy = 'desc', string $column = 'id')
     {
         return self::whereIn(
             'category_id',
@@ -126,33 +128,37 @@ class Product extends Model
             )
             ->whereBrandId(Brand::whereAlias($brand)->first()->id)
             ->with('reviews')
-            ->orderByDesc('id')
+            ->orderBy($column, $orderBy)
             ->paginate();
     }
 
     /**
      * @param Category $category
+     * @param string $orderBy
+     * @param string $column
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getWhereCategory(Category $category)
+    public function getWhereCategory(Category $category, string $orderBy = 'desc', string $column = 'id')
     {
         return self::whereCategoryId($category->id)
             ->with('reviews')
-            ->orderByDesc('id')
+            ->orderBy($column, $orderBy)
             ->paginate();
     }
 
     /**
      * @param Category $category
      * @param string $brand
+     * @param string $orderBy
+     * @param string $column
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getWhereCategoryAndBrand(Category $category, string $brand)
+    public function getWhereCategoryAndBrand(Category $category, string $brand, string $orderBy = 'desc', string $column = 'id')
     {
         return self::whereBrandId(Brand::whereAlias($brand)->first()->id)
             ->whereCategoryId($category->id)
             ->with('reviews')
-            ->orderByDesc('id')
+            ->orderBy($column, $orderBy)
             ->paginate();
     }
 }

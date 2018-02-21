@@ -12,6 +12,16 @@
                 <div class="row">
                     <div class="col-sm-12 hidden-xs">
                         <div class="products-options">
+                            <div class="sort">
+                                <span>@lang('page.sort_price')</span>
+                                <button class="btn-sort sort-desc" title="@lang('page.sort_desc')"
+                                    data-desc="@lang('page.sort_desc')"
+                                    data-asc="@lang('page.sort_asc')"
+                                >
+                                    <input type="hidden" id="sort_type" value="">
+                                    <i class="fa fa-sort-amount-desc"></i>
+                                </button>
+                            </div>
                             <div class="products-layouts">
                                 <button class="showType active" id="product-grid" data-show="grid"><i class="fa fa-th fa-lg" aria-hidden="true"></i></button>
                                 <button class="showType" id="product-list" data-show="list"><i class="fa fa-th-list fa-lg" aria-hidden="true"></i></button>

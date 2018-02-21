@@ -196,6 +196,11 @@ function hideErrorByForm(formElem) {
 function getProducts(url) {
     $.ajax({
         url: url,
+        data: {
+            type: $(".showType.active").data('show'),
+            brand: $(".brandInput:checked").val() !== undefined ? $(".brandInput:checked").val() : null,
+            sort: $('#sort_type').val() !== undefined ? $('#sort_type').val() : null
+        },
         success: function (response) {
             $('.load').addClass('disabled');
             $(".products-list").empty().append(response);
@@ -211,11 +216,7 @@ $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
     $('.pagination li').removeClass('active').addClass('disabled');
     $('.load').removeClass('disabled');
-    let brand = $(".brandInput:checked").val();
-    let url = $(this).attr('href') + '&type=' + $(".showType.active").data('show');
-    if (brand !== undefined) {
-        url += '&brand=' + brand
-    }
+    let url = $(this).attr('href');
     getProducts(url);
     window.history.pushState('', '', url);
 });
@@ -228,16 +229,11 @@ buttons.click(function () {
     $(this).addClass('active');
     $('.load').removeClass('disabled');
     let url = '';
-    let brand = $(".brandInput:checked").val();
     let paginate = $('.pagination .active').data('url');
     if (paginate !== undefined) {
-        url += paginate + '&';
+        url += paginate;
     } else {
-        url += $('#currentUrl').val() + '?';
-    }
-    url += 'type=' + $(this).data('show');
-    if (brand !== undefined) {
-        url += '&brand=' + brand
+        url += $('#currentUrl').val();
     }
     getProducts(url);
     window.history.pushState('', '', url);
@@ -247,7 +243,6 @@ $(document).on('change', '.brandInput', function () {
     $('.load').removeClass('disabled');
     let url = '';
     url += $('#currentUrl').val() + '?page=1';
-    url += '&type=' + $(".showType.active").data('show') + '&brand=' + $(this).val();
     getProducts(url);
     window.history.pushState('', '', url);
 });
@@ -255,7 +250,30 @@ $(document).on('change', '.brandInput', function () {
 $('#deleteFilter').click(function () {
     $('.load').removeClass('disabled');
     $('.brandInput').prop('checked', false);
-    let url = $('#currentUrl').val() + '?page=1&type=' + $(".showType.active").data('show');
+    let url = $('#currentUrl').val() + '?page=1';
+    $('#sort_type').val(undefined);
     getProducts(url);
     window.history.pushState('', '', url);
+});
+
+$(document).on('click', '.sort-desc', function () {
+    $('.load').removeClass('disabled');
+    let btn = $(this);
+    let url = $('#currentUrl').val() + '?page=1';
+    $('#sort_type').val('desc');
+    getProducts(url);
+    window.history.pushState('', '', url);
+    btn.removeClass('sort-desc').addClass('sort-asc').attr('title', btn.data('asc'))
+        .children('.fa').removeClass('fa-sort-amount-desc').addClass('fa-sort-amount-asc');
+});
+
+$(document).on('click', '.sort-asc', function () {
+    $('.load').removeClass('disabled');
+    let btn = $(this);
+    let url = $('#currentUrl').val() + '?page=1';
+    $('#sort_type').val('asc');
+    getProducts(url);
+    window.history.pushState('', '', url);
+    btn.removeClass('sort-asc').addClass('sort-desc').attr('title', btn.data('desc'))
+        .children('.fa').removeClass('fa-sort-amount-asc').addClass('fa-sort-amount-desc');
 });
