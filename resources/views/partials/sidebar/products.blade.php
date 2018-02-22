@@ -33,9 +33,19 @@
         </ul>
     </div>
     <hr>
+    <div class="priceRange">
+        <h4 class="title">@lang('page.price')</h4>
+        <div class="form-group">
+            <input type="text" id="priceFrom" class="form-control" disabled value="$0">
+        </div>
+        <div class="form-group">
+            <input type="text" id="priceTo" class="form-control" disabled value="${{ $maxPrice }}">
+        </div>
+        <div id="sliderPrice"></div>
+    </div>
+    <hr>
     <div class="buttonsAside">
-        <button class="my-btn btn-red" id="deleteFilter">
-            @lang('button.deleteFilter')
-        </button>
+        <button class="my-btn btn-black" id="Filter">@lang('button.filter')</button>
+        <button class="my-btn btn-red" id="deleteFilter">@lang('button.deleteFilter')</button>
     </div>
 </aside>

@@ -34,6 +34,7 @@
                         </button>
                     </div>
                 </div>
+                <input type="hidden" id="maxPrice" value="{{ $maxPrice }}">
                 <div class="products-list margin-top25">
                     @include('partials.products.grid')
                 </div>
@@ -53,8 +54,8 @@
                         @include('partials.sidebar.products')
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="my-btn btn-white" data-dismiss="modal">@lang('button.close')</button>
-                        <button type="button" class="my-btn btn-black">@lang('button.filter')</button>
+                        <button type="button" class="my-btn btn-white" data-dismiss="modal" id="deleteFilter">@lang('button.deleteFilter')</button>
+                        <button type="button" class="my-btn btn-black" id="Filter">@lang('button.filter')</button>
                     </div>
                 </div>
             </div>

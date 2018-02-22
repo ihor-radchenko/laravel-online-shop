@@ -906,6 +906,32 @@ textarea {
 
 .buttonsAside {
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-end;
   padding-right: 20px;
+  flex-direction: column;
+  button {
+    width: 160px;
+    margin: 2px 0;
+  }
+}
+
+.priceRange {
+  padding: 0 20px;
+}
+
+.ui-slider {
+  .ui-slider-range {
+    background-color: $red;
+  }
+  .ui-state-active {
+    background-color: $red;
+    &.ui-slider-handle {
+      border-color: #c5c5c5;
+    }
+  }
+  .ui-slider-handle {
+    color: white;
+    border: 2px solid $red;
+    border-radius: 50%;
+  }
 }

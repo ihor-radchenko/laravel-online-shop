@@ -4,13 +4,13 @@ namespace AutoKit\Components\Cart;
 
 use AutoKit\Exceptions\QuantityOverstated;
 use AutoKit\Product;
-use AutoKit\Repositories\Cart\RepositoryContract;
+use AutoKit\Repositories\Cart\RepositoryContract as Repository;
 use Illuminate\Support\Collection;
 
 class Cart
 {
     /**
-     * @var RepositoryContract
+     * @var Repository
      */
     private $repository;
 
@@ -19,7 +19,7 @@ class Cart
      */
     private $creator;
 
-    public function __construct(RepositoryContract $repository, CartItemCreator $creator)
+    public function __construct(Repository $repository, CartItemCreator $creator)
     {
         $this->repository = $repository;
         $this->creator = $creator;
@@ -100,10 +100,5 @@ class Cart
     public function freeQuantity(Product $product): int
     {
         return $product->quantity - $this->get($product)->quantity;
-    }
-
-    public function hasFree(Product $product): bool
-    {
-        return ! ($product->outOfStock() || ($this->has($product) && $this->freeQuantity($product) === 0));
     }
 }

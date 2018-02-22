@@ -39,7 +39,7 @@
                                     <input type="number" id="qty" value="1" class="text-center color-black"
                                         max="{{ $cart->has($product) ? $cart->freeQuantity($product) : $product->quantity }}"
                                         min="1"
-                                        {{ $cart->hasFree($product) ? '' : 'disabled' }}
+                                        {{ $product->hasFreeStock($cart) ? '' : 'disabled' }}
                                     >
                                 </div>
                                 @include('partials.buttons.add_to_cart', ['size' => 'btn-lg'])

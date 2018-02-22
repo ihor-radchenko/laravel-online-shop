@@ -86,6 +86,11 @@ class Product extends Model
         return $this->quantity >= $quantity;
     }
 
+    public function hasFreeStock(Cart $cart): bool
+    {
+        return ! ($this->outOfStock() || ($cart->has($this) && $cart->freeQuantity($this) === 0));
+    }
+
     /**
      * @param string $field is_top|is_new
      * @return Collection
@@ -101,64 +106,69 @@ class Product extends Model
 
     /**
      * @param Menu $menu
+     * @param null|string $brand
      * @param string $orderBy
      * @param string $column
+     * @param array|null $price
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getWhereMenu(Menu $menu, string $orderBy = 'desc', string $column = 'id')
+    public function getWhereMenu(Menu $menu, ?string $brand = null, string $orderBy = 'desc', string $column = 'id', ?array $price = null)
     {
-        return self::whereIn(
+        $data = self::whereIn(
             'category_id',
             Category::select('id')
                 ->whereMenuId($menu->id)
                 ->get()
             )
             ->with('reviews')
-            ->orderBy($column, $orderBy)
-            ->paginate();
+            ->orderBy($column, $orderBy);
+        if ($brand) {
+            $data->whereBrandId(Brand::whereAlias($brand)->first()->id);
+        }
+        if ($price) {
+            $data->whereBetween('price', [trim($price['min'], '$'), trim($price['max'], '$')]);
+        }
+        return $data->paginate();
     }
 
-    public function getWhereMenuAndBrand(Menu $menu, string $brand, string $orderBy = 'desc', string $column = 'id')
+    /**
+     * @param Category $category
+     * @param null|string $brand
+     * @param string $orderBy
+     * @param string $column
+     * @param array|null $price
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getWhereCategory(Category $category, ?string $brand = null, string $orderBy = 'desc', string $column = 'id', ?array $price = null)
     {
-        return self::whereIn(
+        $data = self::whereCategoryId($category->id)
+            ->with('reviews')
+            ->orderBy($column, $orderBy);
+        if ($brand) {
+            $data->whereBrandId(Brand::whereAlias($brand)->first()->id);
+        }
+        if ($price) {
+            $data->whereBetween('price', [trim($price['min'], '$'), trim($price['max'], '$')]);
+        }
+        return $data->paginate();
+    }
+
+    /**
+     * @param Menu $menu
+     * @param Category|null $category
+     * @return float
+     */
+    public function getMaxPrice(Menu $menu, ?Category $category = null): float
+    {
+        $data = self::whereIn(
             'category_id',
             Category::select('id')
                 ->whereMenuId($menu->id)
                 ->get()
-            )
-            ->whereBrandId(Brand::whereAlias($brand)->first()->id)
-            ->with('reviews')
-            ->orderBy($column, $orderBy)
-            ->paginate();
-    }
-
-    /**
-     * @param Category $category
-     * @param string $orderBy
-     * @param string $column
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function getWhereCategory(Category $category, string $orderBy = 'desc', string $column = 'id')
-    {
-        return self::whereCategoryId($category->id)
-            ->with('reviews')
-            ->orderBy($column, $orderBy)
-            ->paginate();
-    }
-
-    /**
-     * @param Category $category
-     * @param string $brand
-     * @param string $orderBy
-     * @param string $column
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function getWhereCategoryAndBrand(Category $category, string $brand, string $orderBy = 'desc', string $column = 'id')
-    {
-        return self::whereBrandId(Brand::whereAlias($brand)->first()->id)
-            ->whereCategoryId($category->id)
-            ->with('reviews')
-            ->orderBy($column, $orderBy)
-            ->paginate();
+        );
+        if ($category) {
+            $data->whereCategoryId($category->id);
+        }
+        return $data->max('price');
     }
 }

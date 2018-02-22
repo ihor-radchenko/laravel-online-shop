@@ -199,7 +199,11 @@ function getProducts(url) {
         data: {
             type: $(".showType.active").data('show'),
             brand: $(".brandInput:checked").val() !== undefined ? $(".brandInput:checked").val() : null,
-            sort: $('#sort_type').val() !== undefined ? $('#sort_type').val() : null
+            sort: $('#sort_type').val() !== undefined ? $('#sort_type').val() : null,
+            price: {
+                min: $("#priceFrom").val(),
+                max: $("#priceTo").val()
+            }
         },
         success: function (response) {
             $('.load').addClass('disabled');
@@ -250,6 +254,11 @@ $(document).on('change', '.brandInput', function () {
 $('#deleteFilter').click(function () {
     $('.load').removeClass('disabled');
     $('.brandInput').prop('checked', false);
+
+    $("#sliderPrice").slider( "option", "values", [0, $("#maxPrice").val() + 1]);
+    $("#priceFrom").val(0);
+    $("#priceTo").val("$" + $("#maxPrice").val() + 1);
+
     let url = $('#currentUrl').val() + '?page=1';
     $('#sort_type').val(undefined);
     getProducts(url);
@@ -276,4 +285,22 @@ $(document).on('click', '.sort-asc', function () {
     window.history.pushState('', '', url);
     btn.removeClass('sort-asc').addClass('sort-desc').attr('title', btn.data('desc'))
         .children('.fa').removeClass('fa-sort-amount-asc').addClass('fa-sort-amount-desc');
+});
+
+$("#sliderPrice").slider({
+    range: true,
+    min: 0,
+    max: $("#maxPrice").val() + 1,
+    values: [0, $("#maxPrice").val() + 1],
+    slide: function( event, ui ) {
+        $("#priceFrom").val("$" + ui.values[0]);
+        $("#priceTo").val("$" + ui.values[1]);
+    }
+});
+
+$("#Filter").click(function () {
+    $('.load').removeClass('disabled');
+    let url = $('#currentUrl').val() + '?page=1';
+    getProducts(url);
+    window.history.pushState('', '', url);
 });
