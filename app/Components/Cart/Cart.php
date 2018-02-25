@@ -87,7 +87,7 @@ class Cart
 
     public function totalPrice(): float
     {
-        return round($this->all()->reduce(function ($carry, $item) {
+        return round_up($this->all()->reduce(function ($carry, $item) {
             return $carry + $item->quantity * $item->product->price;
         }), 2);
     }

@@ -18,3 +18,23 @@ $(window).scroll(function () {
 $('.go-top').click(function () {
     $('html, body').stop().animate({scrollTop: 0}, 'slow', 'swing');
 });
+
+$("#registeredUserEmail").change(function () {
+    var input = $(this);
+    $.ajax({
+        url: input.data('route'),
+        type: 'GET',
+        data: {email: input.val()},
+        dataType: 'json',
+        success: function (response) {
+            if (response.hasUser) {
+                input.parent().append('<span class="help-block"><strong>' + response.message + '</strong></span>').parent().addClass('has-error');
+                $("button[type=submit]").attr('disabled', true);
+            } else {
+                input.next('.help-block').remove();
+                input.parent().parent().removeClass('has-error');
+                $("button[type=submit]").attr('disabled', false);
+            }
+        }
+    });
+});

@@ -169,6 +169,6 @@ class Product extends Model
         if ($category) {
             $data->whereCategoryId($category->id);
         }
-        return $data->max('price');
+        return ceil($data->max('price'));
     }
 }

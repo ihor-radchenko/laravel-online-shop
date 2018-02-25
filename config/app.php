@@ -179,7 +179,6 @@ return [
         AutoKit\Providers\RouteServiceProvider::class,
         \AutoKit\Providers\ComposerServiceProvider::class,
         \AutoKit\Providers\RepositoryServiceProvider::class,
-        \AutoKit\Providers\CartServiceProvider::class
 
     ],
 

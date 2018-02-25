@@ -23,7 +23,9 @@ const app = new Vue({
 
 require('./main');
 
-require('./ajax');
+require('./reviw_comment');
+
+require('./products');
 
 require('./shopping_cart');
 

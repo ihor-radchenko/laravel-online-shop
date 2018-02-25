@@ -24,7 +24,7 @@ class CartItem
 
     public function getAmount(): float
     {
-        return round($this->product->price * $this->quantity, 2);
+        return round_up($this->product->price * $this->quantity, 2);
     }
 
     public function allInCart(): bool
