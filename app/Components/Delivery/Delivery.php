@@ -2,29 +2,39 @@
 
 namespace AutoKit\Components\Delivery;
 
-use AutoKit\Exceptions\DeliveryApi;
-use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 
 abstract class Delivery
 {
+    protected const UA_ID = 1;
+    protected const RU_ID = 2;
+
     /**
-     * @var Client
+     * @var DeliveryApiRequest
      */
     protected $client;
 
+    /**
+     * @var \Illuminate\Config\Repository|mixed
+     */
     protected $culture;
 
+    /**
+     * @var int
+     */
     protected $country;
 
-    protected $url;
+    /**
+     * @var array
+     */
+    protected $queryData;
 
-    public function __construct(Client $client)
+    public function __construct(DeliveryApiRequest $client)
     {
         $this->client = $client;
         $this->culture = config('delivery.culture');
         $this->country = $this->getCountry();
-        $this->url = 'http://www.delivery-auto.com/api/v4/Public/';
+        $this->queryData = ['culture' => $this->culture];
     }
 
     protected function getCountry(): int
@@ -32,11 +42,11 @@ abstract class Delivery
         $country = config('delivery.country');
         switch ($country) {
             case 'UA':
-                return 1;
+                return self::UA_ID;
             case 'RU':
-                return 2;
+                return self::RU_ID;
             default:
-                return 1;
+                return self::UA_ID;
         }
     }
 
@@ -45,29 +55,23 @@ abstract class Delivery
         return ucfirst(preg_replace('~.*?::([a-zA-Z]+)~', '$1', $fullMethodName));
     }
 
-    protected function createUrl(string $methodName): string
-    {
-        return $this->url . $this->getShortMethodName($methodName);
-    }
-
     /**
-     * @param $response
-     * @return Collection
-     * @throws DeliveryApi
+     * @param string $methodName
+     * @param array $data
+     * @return \Illuminate\Support\Collection
+     * @throws \AutoKit\Exceptions\DeliveryApi
      */
-    protected function handle($response): Collection
+    protected function request(string $methodName, array $data): Collection
     {
-        $response = json_decode($response);
-        if ($response->status === false) {
-            throw new DeliveryApi($response->message);
-        }
-        return collect($response->data);
+        $response = $this->client
+            ->createUri($this->getShortMethodName($methodName))
+            ->createQueryData($this->prepareQueryData($data))
+            ->request();
+        return $this->client->handle($response);
     }
 
-    protected function request(string $uri, array $query)
+    protected function prepareQueryData(array $data): array
     {
-        return $this->client->get($uri, ['query' => $query])
-            ->getBody()
-            ->getContents();
+        return array_merge($data, $this->queryData);
     }
 }

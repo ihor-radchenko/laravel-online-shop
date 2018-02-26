@@ -13,21 +13,16 @@ use Illuminate\Support\Collection;
 class Address extends Delivery
 {
     private const PACKSTATION = 2;
+    private const PACKSTATION_MAX_WEIGHT = 30;
 
     /**
      * @return Collection
      * @throws \AutoKit\Exceptions\DeliveryApi
      */
-    public function getRegionList()
+    public function getRegionList(): Collection
     {
-        $response = $this->request(
-            $this->createUrl(__METHOD__),
-            [
-                'culture' => $this->culture,
-                'country' => $this->country
-            ]
-        );
-        return $this->handle($response)->where('id', '>=', 0);
+        return $this->request(__METHOD__, ['country' => $this->country])
+            ->where('id', '>=', 0);
     }
 
     /**
@@ -35,18 +30,9 @@ class Address extends Delivery
      * @return Collection
      * @throws \AutoKit\Exceptions\DeliveryApi
      */
-    public function getAreasList(int $region)
+    public function getAreasList(int $region): Collection
     {
-        $response = $this->request(
-            $this->createUrl(__METHOD__),
-            [
-                'culture' => $this->culture,
-                'country' => $this->country,
-                'fl_all' => true,
-                'regionId' => $region
-            ]
-        );
-        return $this->handle($response);
+        return $this->request(__METHOD__, ['country' => $this->country, 'fl_all' => true, 'regionId' => $region]);
     }
 
     /**
@@ -55,17 +41,9 @@ class Address extends Delivery
      * @return Collection
      * @throws \AutoKit\Exceptions\DeliveryApi
      */
-    public function getWarehousesListInDetail(string $city, float $weight)
+    public function getWarehousesListInDetail(string $city, float $weight): Collection
     {
-        $response = $this->request(
-            $this->createUrl(__METHOD__),
-            [
-                'culture' => $this->culture,
-                'country' => $this->country,
-                'cityId' => $city
-            ]
-        );
-        $response = $this->handle($response);
+        $response = $this->request(__METHOD__, ['country' => $this->country, 'cityId' => $city]);
         if ($this->affordablePackstation($weight)) {
             return $response;
         }
@@ -77,20 +55,13 @@ class Address extends Delivery
      * @return Collection
      * @throws \AutoKit\Exceptions\DeliveryApi
      */
-    public function getWarehousesInfo(string $warehouses)
+    public function getWarehousesInfo(string $warehouses): Collection
     {
-        $response = $this->request(
-            $this->createUrl(__METHOD__),
-            [
-                'culture' => $this->culture,
-                'WarehousesId' => $warehouses
-            ]
-        );
-        return $this->handle($response);
+        return $this->request(__METHOD__, ['WarehousesId' => $warehouses]);
     }
 
     private function affordablePackstation(float $weight): bool
     {
-        return $weight < 30;
+        return $weight < self::PACKSTATION_MAX_WEIGHT;
     }
 }
