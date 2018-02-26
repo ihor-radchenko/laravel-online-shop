@@ -29,4 +29,6 @@ require('./products');
 
 require('./shopping_cart');
 
+require('./order');
+
 require ('./preloader');

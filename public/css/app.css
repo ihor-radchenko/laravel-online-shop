@@ -14075,6 +14075,10 @@ textarea {
   border-radius: 50%;
 }
 
+.orderForm label {
+  font-size: 16px;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;

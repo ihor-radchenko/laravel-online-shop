@@ -11774,7 +11774,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(47);
+module.exports = __webpack_require__(46);
 
 
 /***/ }),
@@ -11804,15 +11804,17 @@ const app = new Vue({
     el: '#app'
 });*/
 
+__webpack_require__(41);
+
 __webpack_require__(42);
 
 __webpack_require__(43);
 
-__webpack_require__(91);
+__webpack_require__(44);
+
+__webpack_require__(90);
 
 __webpack_require__(45);
-
-__webpack_require__(46);
 
 /***/ }),
 /* 12 */
@@ -33561,8 +33563,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 41 */,
-/* 42 */
+/* 41 */
 /***/ (function(module, exports) {
 
 
@@ -33607,7 +33608,7 @@ $("#registeredUserEmail").change(function () {
 });
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports) {
 
 var offset = 1;
@@ -33779,188 +33780,7 @@ function showErrorByForm(objectWithErrors) {
 }
 
 /***/ }),
-/* 44 */,
-/* 45 */
-/***/ (function(module, exports) {
-
-
-$(document).on("click", ".addItemToCart", function () {
-    var btns = $(".addItemToCart");
-    disabledOn(btns);
-    var btn = $(this);
-    var quantity = $("#qty");
-    $.ajax({
-        url: btn.data('route'),
-        type: 'GET',
-        data: {
-            product: btn.data('product'),
-            quantity: quantity.val() ? quantity.val() : 1
-        },
-        success: function success(response) {
-            disabledOff(btns);
-            $("#cartCount").text(response.totalQuantity);
-            if (response.item.quantity === response.item.product.quantity) {
-                disabledOn(btn).removeClass('addItemToCart').empty().text(btn.data('msgnotinstock'));
-                disabledOn(quantity);
-            } else {
-                quantity.attr('max', response.item.product.quantity - response.item.quantity).val(1);
-            }
-        },
-        error: function error(jqXHR) {
-            disabledOff(btns);
-            if (jqXHR.status === 422) {
-                $('.popup h4').empty().append(jqXHR.responseJSON.message);
-                $('.popup').show();
-            } else {
-                $('.popup').show();
-            }
-        }
-    });
-});
-
-$(document).on('click', '.subtractItem', function () {
-    disabledOn($(".changeQuantity"));
-    var btn = $(this);
-    btn.siblings('.addItem').addClass('changeQuantity');
-    var quantity = $('.num').text();
-    ajaxChangeCart(btn, -1);
-});
-
-$(document).on('click', '.addItem', function () {
-    disabledOn($(".changeQuantity"));
-    var btn = $(this);
-    ajaxChangeCart(btn, 1);
-});
-
-function ajaxChangeCart(btn, quantity) {
-    $.ajax({
-        url: btn.data('route'),
-        type: 'GET',
-        data: {
-            product: btn.data('product'),
-            quantity: quantity
-        },
-        success: function success(response) {
-            disabledOff($(".changeQuantity"));
-            $("#cartCount").text(response.totalQuantity);
-            if (response.item === null) {
-                btn.parent().parent().parent().fadeOut('slow');
-                return;
-            }
-
-            if (response.item.quantity === response.item.product.quantity) {
-                disabledOn(btn.removeClass('changeQuantity'));
-            }
-
-            var qty = btn.siblings('.num');
-            qty.text(response.item.quantity);
-            btn.parent().parent().siblings('.amountPrice').children('span').text(response.amount);
-            $('#totalPrice').text(response.totalPrice);
-        },
-        error: function error(jqXHR) {
-            disabledOff($('.changeQuantity'));
-            if (jqXHR.status === 422) {
-                $('.popup h4').empty().append(jqXHR.responseJSON.message);
-                $('.popup').show();
-            } else {
-                $('.popup').show();
-            }
-        }
-    });
-}
-
-$(document).on('click', '.removeItem', function () {
-    var btn = $(this);
-    disabledOn($('.changeQuantity'));
-    disabledOn($('.removeItem'));
-    $.ajax({
-        url: btn.data('route'),
-        type: 'GET',
-        data: { product: btn.data('product') },
-        dataType: 'json',
-        success: function success(response) {
-            disabledOff($('.changeQuantity'));
-            disabledOff($('.removeItem'));
-            $("#cartCount").text(response.totalQuantity);
-            $('#totalPrice').text(response.totalPrice);
-            btn.parent().parent().fadeOut('slow');
-        },
-        error: function error() {
-            disabledOff($('.changeQuantity'));
-            disabledOff($('.removeItem'));
-            $('.popup').show();
-        }
-    });
-});
-
-function disabledOn(selector) {
-    return selector.attr('disabled', true);
-}
-
-function disabledOff(selector) {
-    return selector.attr('disabled', false);
-}
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports) {
-
-
-$(window).on('load', function () {
-    $('.preload').fadeOut('slow');
-});
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */
+/* 43 */
 /***/ (function(module, exports) {
 
 
@@ -34081,6 +33901,253 @@ function getProducts(url) {
 
 function brandInUrl() {
     return $(".brandInput:checked").val() !== undefined ? "&brand=" + $(".brandInput:checked").val() : "";
+}
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+
+$(document).on("click", ".addItemToCart", function () {
+    var btns = $(".addItemToCart");
+    disabledOn(btns);
+    var btn = $(this);
+    var quantity = $("#qty");
+    $.ajax({
+        url: btn.data('route'),
+        type: 'GET',
+        data: {
+            product: btn.data('product'),
+            quantity: quantity.val() ? quantity.val() : 1
+        },
+        success: function success(response) {
+            disabledOff(btns);
+            $("#cartCount").text(response.totalQuantity);
+            if (response.item.quantity === response.item.product.quantity) {
+                disabledOn(btn).removeClass('addItemToCart').empty().text(btn.data('msgnotinstock'));
+                disabledOn(quantity);
+            } else {
+                quantity.attr('max', response.item.product.quantity - response.item.quantity).val(1);
+            }
+        },
+        error: function error(jqXHR) {
+            disabledOff(btns);
+            if (jqXHR.status === 422) {
+                $('.popup h4').empty().append(jqXHR.responseJSON.message);
+                $('.popup').show();
+            } else {
+                $('.popup').show();
+            }
+        }
+    });
+});
+
+$(document).on('click', '.subtractItem', function () {
+    disabledOn($(".changeQuantity"));
+    var btn = $(this);
+    btn.siblings('.addItem').addClass('changeQuantity');
+    var quantity = $('.num').text();
+    ajaxChangeCart(btn, -1);
+});
+
+$(document).on('click', '.addItem', function () {
+    disabledOn($(".changeQuantity"));
+    var btn = $(this);
+    ajaxChangeCart(btn, 1);
+});
+
+function ajaxChangeCart(btn, quantity) {
+    $.ajax({
+        url: btn.data('route'),
+        type: 'GET',
+        data: {
+            product: btn.data('product'),
+            quantity: quantity
+        },
+        success: function success(response) {
+            disabledOff($(".changeQuantity"));
+            $("#cartCount").text(response.totalQuantity);
+            if (response.item === null) {
+                btn.parent().parent().parent().fadeOut('slow');
+                return;
+            }
+
+            if (response.item.quantity === response.item.product.quantity) {
+                disabledOn(btn.removeClass('changeQuantity'));
+            }
+
+            var qty = btn.siblings('.num');
+            qty.text(response.item.quantity);
+            btn.parent().parent().siblings('.amountPrice').children('span').text(response.amount);
+            $('#totalPrice').text(response.totalPrice);
+        },
+        error: function error(jqXHR) {
+            disabledOff($('.changeQuantity'));
+            if (jqXHR.status === 422) {
+                $('.popup h4').empty().append(jqXHR.responseJSON.message);
+                $('.popup').show();
+            } else {
+                $('.popup h4').empty().append($("#ajaxError").data('error'));
+                $('.popup').show();
+            }
+        }
+    });
+}
+
+$(document).on('click', '.removeItem', function () {
+    var btn = $(this);
+    disabledOn($('.changeQuantity'));
+    disabledOn($('.removeItem'));
+    $.ajax({
+        url: btn.data('route'),
+        type: 'GET',
+        data: { product: btn.data('product') },
+        dataType: 'json',
+        success: function success(response) {
+            disabledOff($('.changeQuantity'));
+            disabledOff($('.removeItem'));
+            $("#cartCount").text(response.totalQuantity);
+            $('#totalPrice').text(response.totalPrice);
+            btn.parent().parent().fadeOut('slow');
+        },
+        error: function error() {
+            disabledOff($('.changeQuantity'));
+            disabledOff($('.removeItem'));
+            $('.popup').show();
+        }
+    });
+});
+
+function disabledOn(selector) {
+    return selector.attr('disabled', true);
+}
+
+function disabledOff(selector) {
+    return selector.attr('disabled', false);
+}
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+
+$(window).on('load', function () {
+    $('.preload').fadeOut('slow');
+});
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */
+/***/ (function(module, exports) {
+
+$(".changeDelivery").change(function () {
+    var input = $(this);
+    $("#forAddress").slideUp(1000);
+    $.ajax({
+        url: input.data('route'),
+        type: 'GET',
+        data: { delivery: input.val() },
+        dataType: 'json',
+        success: function success(response) {
+            $("#forAddress").empty().hide().append(response.content).slideDown(1000);
+        },
+        error: function error(jqXHR) {
+            ajaxError(jqXHR);
+        }
+    });
+});
+
+$(document).on('change', '#region', function () {
+    var select = $(this);
+    $("#city").prop('disabled', true).empty();
+    $("#warehouses").prop('disabled', true).empty();
+    $.ajax({
+        url: $("#region").data('route'),
+        type: 'GET',
+        data: { region: select.val() },
+        dataType: 'json',
+        success: function success(response) {
+            $("#city").append(response.content).prop('disabled', false);
+        },
+        error: function error(jqXHR) {
+            ajaxError(jqXHR);
+        }
+    });
+});
+
+$(document).on('change', '#city', function () {
+    var select = $(this);
+    $("#warehouses").prop('disabled', true).empty();
+    $.ajax({
+        url: $("#city").data('route'),
+        type: 'GET',
+        data: { city: select.val() },
+        dataType: 'json',
+        success: function success(response) {
+            $("#warehouses").append(response.content).prop('disabled', false);
+        },
+        error: function error(jqXHR) {
+            ajaxError(jqXHR);
+        }
+    });
+});
+
+function ajaxError(jqXHR) {
+    if (jqXHR.status === 501) {
+        $('.popup h4').empty().append(jqXHR.responseJSON.message);
+        $('.popup').show();
+    } else {
+        $('.popup h4').empty().append($("#ajaxError").data('error'));
+        $('.popup').show();
+    }
 }
 
 /***/ })

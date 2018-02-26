@@ -22,7 +22,11 @@ class Address extends Delivery
     public function getRegionList(): Collection
     {
         return $this->request(__METHOD__, ['country' => $this->country])
-            ->where('id', '>=', 0);
+            ->where('id', '>=', 0)
+            ->filter(function ($item) {
+                return ! preg_match('~.*?АТО~', $item->name)
+                    && preg_match('~\s~', $item->name);
+            });
     }
 
     /**

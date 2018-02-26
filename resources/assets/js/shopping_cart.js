@@ -78,6 +78,7 @@ function ajaxChangeCart(btn, quantity) {
                 $('.popup h4').empty().append(jqXHR.responseJSON.message);
                 $('.popup').show();
             } else {
+                $('.popup h4').empty().append($("#ajaxError").data('error'));
                 $('.popup').show();
             }
         }

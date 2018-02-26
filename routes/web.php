@@ -40,9 +40,16 @@ Route::middleware('ajax')->group(function () {
         Route::get('remove', 'CartController@remove')->name('cart.remove');
     });
 
+    Route::prefix('order')->group(function () {
+        Route::get('delivery', 'OrderController@delivery')->name('order.delivery');
+        Route::get('region', 'OrderController@region')->name('order.region');
+        Route::get('city', 'OrderController@city')->name('order.city');
+    });
 });
 
 Route::get('/confirm/{token}', 'Auth\EmailConfirmController@confirmEmail')->name('confirm');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('cart', 'CartController@index')->name('cart');
+
+Route::get('order', 'OrderController@index')->name('order');

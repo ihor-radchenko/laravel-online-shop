@@ -6,10 +6,10 @@
     </tr>
     <tr>
         <td>@lang('cart.shipping')</td>
-        <td>$1.00</td>
+        <td>$<span id="priceDelivery">0</span></td>
     </tr>
     <tr class="alert-success">
         <td>@lang('cart.full_price')</td>
-        <td>${{ $cart->totalPrice() + 1 }}</td>
+        <td>${{ $cart->totalPrice() }}</td>
     </tr>
 </table>

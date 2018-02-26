@@ -5,13 +5,24 @@ return [
     'sending' => 'Отправка',
 
     'name' => 'Имя',
+    'full_name' => 'Полное имя',
     'brief' => 'Заголовок',
     'review' => 'Отзыв',
     'email' => 'Email',
     'comment' => 'Комментарий',
+    'phone_number' => 'Номер телефона',
 
     'pass' => 'Пароль',
     'conf_pass' => 'Подтверждение пароля',
     'remember_me' => 'Запомнить меня',
-    'forgot_pass' => 'Забыли свой пароль?'
+    'forgot_pass' => 'Забыли свой пароль?',
+
+    'person_data' => 'Личные данные',
+    'delivery' => 'Доставка',
+    'no_delivery' => 'Самовывоз',
+
+    'address' => 'Адрес',
+    'region' => 'Область',
+    'city' => 'Город',
+    'warehouses' => 'Отделение'
 ];
