@@ -7,13 +7,8 @@
             <label for="region">@lang('form.region')</label>
         </div>
         <div class="col-sm-9">
-            <select name="region" id="region" class="form-control" data-route="{{ route('order.region')}}">
-                <option value="none"></option>
-                @isset($regions)
-                    @foreach($regions as $region)
-                        <option value="{{ $region->id }}">{{ $region->name }}</option>
-                    @endforeach
-                @endisset
+            <select name="region_id" id="region" class="form-control" data-route="{{ route('order.region')}}">
+                @include('partials.order.form.item_list', ['items' => $regions])
             </select>
         </div>
     </div>
@@ -25,7 +20,7 @@
             <label for="city">@lang('form.city')</label>
         </div>
         <div class="col-sm-9">
-            <select name="city" id="city" disabled class="form-control" data-route="{{ route('order.city') }}"></select>
+            <select name="city_id" id="city" disabled class="form-control" data-route="{{ route('order.city') }}"></select>
         </div>
     </div>
 </div>
@@ -36,7 +31,9 @@
             <label for="warehouses">@lang('form.warehouses')</label>
         </div>
         <div class="col-sm-9">
-            <select name="warehouses" id="warehouses" disabled class="form-control"></select>
+            <select name="warehouses_id" id="warehouses" disabled class="form-control" data-route="{{  route('order.warehouse') }}"></select>
         </div>
     </div>
 </div>
+
+<div id="warehouseInfo"></div>

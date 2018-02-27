@@ -2,7 +2,7 @@
 <hr>
 <div class="form-group">
     <div class="col-sm-3 text-right">
-        <input type="radio" name="delivery" value="off" id="offDelivery" class="changeDelivery" data-route="{{ route('order.delivery') }}">
+        <input type="radio" name="delivery" value="off" id="offDelivery" class="changeDelivery" data-route="{{ route('order.selfDelivery') }}">
     </div>
     <div class="col-sm-9">
         <label for="offDelivery">@lang('form.no_delivery')</label>

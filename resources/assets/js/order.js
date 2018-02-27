@@ -1,10 +1,23 @@
-$(".changeDelivery").change(function () {
-    var input = $(this);
+$("#onDelivery").change(function () {
     $("#forAddress").slideUp(1000);
     $.ajax({
-        url: input.data('route'),
+        url: $(this).data('route'),
         type: 'GET',
-        data: {delivery: input.val()},
+        dataType: 'json',
+        success: function (response) {
+            $("#forAddress").empty().hide().append(response.content).slideDown(1000);
+        },
+        error: function (jqXHR) {
+            ajaxError(jqXHR);
+        }
+    });
+});
+
+$("#offDelivery").change(function () {
+    $("#forAddress").slideUp(1000);
+    $.ajax({
+        url: $(this).data('route'),
+        type: 'GET',
         dataType: 'json',
         success: function (response) {
             $("#forAddress").empty().hide().append(response.content).slideDown(1000);
@@ -17,6 +30,7 @@ $(".changeDelivery").change(function () {
 
 $(document).on('change', '#region', function () {
     var select = $(this);
+    $("#warehouseInfo").empty();
     $("#city").prop('disabled', true).empty();
     $("#warehouses").prop('disabled', true).empty();
     $.ajax({
@@ -35,6 +49,7 @@ $(document).on('change', '#region', function () {
 
 $(document).on('change', '#city', function () {
     var select = $(this);
+    $("#warehouseInfo").empty();
     $("#warehouses").prop('disabled', true).empty();
     $.ajax({
         url: $("#city").data('route'),
@@ -43,6 +58,22 @@ $(document).on('change', '#city', function () {
         dataType: 'json',
         success: function (response) {
             $("#warehouses").append(response.content).prop('disabled', false);
+        },
+        error: function (jqXHR) {
+            ajaxError(jqXHR);
+        }
+    });
+});
+
+$(document).on('change', '#warehouses', function () {
+    var select = $(this);
+    $.ajax({
+        url: $("#warehouses").data('route'),
+        type: 'GET',
+        data: {warehouse: select.val()},
+        dataType: 'json',
+        success: function (response) {
+            $("#warehouseInfo").empty().append(response.content);
         },
         error: function (jqXHR) {
             ajaxError(jqXHR);

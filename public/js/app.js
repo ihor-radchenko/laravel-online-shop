@@ -11774,7 +11774,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(46);
+module.exports = __webpack_require__(47);
 
 
 /***/ }),
@@ -11812,9 +11812,9 @@ __webpack_require__(43);
 
 __webpack_require__(44);
 
-__webpack_require__(90);
-
 __webpack_require__(45);
+
+__webpack_require__(46);
 
 /***/ }),
 /* 12 */
@@ -34030,71 +34030,26 @@ function disabledOff(selector) {
 /* 45 */
 /***/ (function(module, exports) {
 
-
-$(window).on('load', function () {
-    $('.preload').fadeOut('slow');
-});
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */
-/***/ (function(module, exports) {
-
-$(".changeDelivery").change(function () {
-    var input = $(this);
+$("#onDelivery").change(function () {
     $("#forAddress").slideUp(1000);
     $.ajax({
-        url: input.data('route'),
+        url: $(this).data('route'),
         type: 'GET',
-        data: { delivery: input.val() },
+        dataType: 'json',
+        success: function success(response) {
+            $("#forAddress").empty().hide().append(response.content).slideDown(1000);
+        },
+        error: function error(jqXHR) {
+            ajaxError(jqXHR);
+        }
+    });
+});
+
+$("#offDelivery").change(function () {
+    $("#forAddress").slideUp(1000);
+    $.ajax({
+        url: $(this).data('route'),
+        type: 'GET',
         dataType: 'json',
         success: function success(response) {
             $("#forAddress").empty().hide().append(response.content).slideDown(1000);
@@ -34107,6 +34062,7 @@ $(".changeDelivery").change(function () {
 
 $(document).on('change', '#region', function () {
     var select = $(this);
+    $("#warehouseInfo").empty();
     $("#city").prop('disabled', true).empty();
     $("#warehouses").prop('disabled', true).empty();
     $.ajax({
@@ -34125,6 +34081,7 @@ $(document).on('change', '#region', function () {
 
 $(document).on('change', '#city', function () {
     var select = $(this);
+    $("#warehouseInfo").empty();
     $("#warehouses").prop('disabled', true).empty();
     $.ajax({
         url: $("#city").data('route'),
@@ -34133,6 +34090,22 @@ $(document).on('change', '#city', function () {
         dataType: 'json',
         success: function success(response) {
             $("#warehouses").append(response.content).prop('disabled', false);
+        },
+        error: function error(jqXHR) {
+            ajaxError(jqXHR);
+        }
+    });
+});
+
+$(document).on('change', '#warehouses', function () {
+    var select = $(this);
+    $.ajax({
+        url: $("#warehouses").data('route'),
+        type: 'GET',
+        data: { warehouse: select.val() },
+        dataType: 'json',
+        success: function success(response) {
+            $("#warehouseInfo").empty().append(response.content);
         },
         error: function error(jqXHR) {
             ajaxError(jqXHR);
@@ -34149,6 +34122,21 @@ function ajaxError(jqXHR) {
         $('.popup').show();
     }
 }
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+
+$(window).on('load', function () {
+    $('.preload').fadeOut('slow');
+});
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

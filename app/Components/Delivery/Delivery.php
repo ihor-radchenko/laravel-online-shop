@@ -61,9 +61,10 @@ abstract class Delivery
      * @return \Illuminate\Support\Collection
      * @throws \AutoKit\Exceptions\DeliveryApi
      */
-    protected function request(string $methodName, array $data): Collection
+    protected function request(string $requestMethod,string $methodName, array $data): Collection
     {
         $response = $this->client
+            ->setMethod($requestMethod)
             ->createUri($this->getShortMethodName($methodName))
             ->createQueryData($this->prepareQueryData($data))
             ->request();

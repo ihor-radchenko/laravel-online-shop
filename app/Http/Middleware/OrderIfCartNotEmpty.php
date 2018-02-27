@@ -2,8 +2,8 @@
 
 namespace AutoKit\Http\Middleware;
 
-use AutoKit\Facades\Cart;
 use Closure;
+use Cart;
 
 class OrderIfCartNotEmpty
 {

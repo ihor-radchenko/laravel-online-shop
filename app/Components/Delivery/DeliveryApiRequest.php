@@ -24,6 +24,11 @@ class DeliveryApiRequest
      */
     private $queryData;
 
+    /**
+     * @var string
+     */
+    private $method;
+
     public function __construct(Client $client)
     {
         $this->client = $client;
@@ -36,7 +41,7 @@ class DeliveryApiRequest
      */
     public function request(): ResponseInterface
     {
-        return $this->client->get($this->uri, $this->queryData);
+        return $this->client->request($this->method, $this->uri, $this->queryData);
     }
 
     /**
@@ -55,13 +60,20 @@ class DeliveryApiRequest
 
     public function createUri(string $methodName): self
     {
-         $this->uri .= $methodName;
-         return $this;
+        $this->uri = 'http://www.delivery-auto.com/api/v4/Public/';
+        $this->uri .= $methodName;
+        return $this;
     }
 
     public function createQueryData(array $queryData): self
     {
         $this->queryData = ['query' => $queryData];
+        return $this;
+    }
+
+    public function setMethod(string $method): self
+    {
+        $this->method = $method;
         return $this;
     }
 

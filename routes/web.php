@@ -42,8 +42,10 @@ Route::middleware('ajax')->group(function () {
 
     Route::prefix('order')->group(function () {
         Route::get('delivery', 'OrderController@delivery')->name('order.delivery');
+        Route::get('self-delivery', 'OrderController@selfDelivery')->name('order.selfDelivery');
         Route::get('region', 'OrderController@region')->name('order.region');
         Route::get('city', 'OrderController@city')->name('order.city');
+        Route::get('warehouse', 'OrderController@warehouse')->name('order.warehouse');
     });
 });
 
