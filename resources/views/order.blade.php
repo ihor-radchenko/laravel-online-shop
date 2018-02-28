@@ -7,7 +7,7 @@
             @include('partials.order.form')
         </div>
         <div class="col-sm-4">
-            <div class="well">@include('partials.sidebar.order')</div>
+            <div class="well" id="cartSidebar">@include('partials.sidebar.order')</div>
         </div>
     </div>
 </div>

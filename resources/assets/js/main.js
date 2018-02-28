@@ -38,3 +38,12 @@ $("#registeredUserEmail").change(function () {
         }
     });
 });
+
+$(window).scroll(function () {
+    var sidebar = $("#cartSidebar");
+    if ($(this).scrollTop() > 160) {
+        sidebar.addClass('fixed-cart-sidebar');
+    } else {
+        sidebar.removeClass('fixed-cart-sidebar');
+    }
+});

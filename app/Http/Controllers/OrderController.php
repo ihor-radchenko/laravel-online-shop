@@ -22,7 +22,6 @@ class OrderController extends Controller
 
     public function index()
     {
-        dd($this->deliveryServices->getDopUslugiClassification('16617df3-a42a-e311-8b0d-00155d037960'));
         return view('order');
     }
 
@@ -100,9 +99,16 @@ class OrderController extends Controller
     public function warehouse(Request $request)
     {
         try {
-            $tarif = $this->deliveryServices->getTariffCategory($request->warehouse);
-            $deliveryScheme = $this->deliveryServices->getDeliveryScheme($request->warehouse);
+            $additionalServices = $this->deliveryServices
+                ->setReceiveInfo($request->warehouse)
+                ->getDopUslugiClassification();
+            $tarif = $this->deliveryServices
+                ->getTariffCategory();
+            $deliveryScheme = $this->deliveryServices
+                ->getDeliveryScheme();
             $warehouse = $this->deliveryAddress->getWarehousesInfo($request->warehouse);
+            $insuranceCost = $this->deliveryServices
+                ->getInsuranceCost();
         } catch (DeliveryApi $e) {
             return response()->json(['message' => $e->getMessage()], 501);
         }
@@ -112,9 +118,26 @@ class OrderController extends Controller
                 [
                     'warehouse' => $warehouse,
                     'schemes' => $deliveryScheme,
-                    'tarifs' => $tarif
+                    'tarifs' => $tarif,
+                    'additionalServices' => $additionalServices,
+                    'insuranceCost' => $insuranceCost
                 ]
             )->render()
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function category(Request $request)
+    {
+        try {
+            $categories = $this->deliveryServices->getCargoCategory($request->tarif);
+        } catch (DeliveryApi $e) {
+            return response()->json(['message' => $e->getMessage()], 501);
+        }
+        return response()->json(['content' => view('partials.order.form.categories', ['categories' => $categories])->render()]);
     }
 }

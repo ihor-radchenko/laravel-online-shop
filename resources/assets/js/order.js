@@ -67,13 +67,30 @@ $(document).on('change', '#city', function () {
 
 $(document).on('change', '#warehouses', function () {
     var select = $(this);
+    $("#warehouseInfo").empty();
     $.ajax({
         url: $("#warehouses").data('route'),
         type: 'GET',
         data: {warehouse: select.val()},
         dataType: 'json',
         success: function (response) {
-            $("#warehouseInfo").empty().append(response.content);
+            $("#warehouseInfo").append(response.content);
+        },
+        error: function (jqXHR) {
+            ajaxError(jqXHR);
+        }
+    });
+});
+
+$(document).on('change', '#tarif_delivery', function () {
+    $("#forCategories").empty();
+    $.ajax({
+        url: $("#tarif_delivery").data('route'),
+        type: 'GET',
+        data: {tarif: $(this).val()},
+        dataType: 'json',
+        success: function (response) {
+            $("#forCategories").append(response.content);
         },
         error: function (jqXHR) {
             ajaxError(jqXHR);

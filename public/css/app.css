@@ -14079,6 +14079,29 @@ textarea {
   font-size: 16px;
 }
 
+.fixed-cart-sidebar {
+  position: fixed;
+  top: 20px;
+  width: 30%;
+}
+
+.my-table {
+  margin-left: 25px;
+}
+
+.my-table tbody tr td {
+  border: none;
+}
+
+.my-table tbody tr td label {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.my-table .first-row {
+  text-align: center;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;

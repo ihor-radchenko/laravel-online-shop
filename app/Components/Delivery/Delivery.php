@@ -9,6 +9,9 @@ abstract class Delivery
     protected const UA_ID = 1;
     protected const RU_ID = 2;
 
+    protected const UAH = 100000000;
+    protected const RUB = 100000001;
+
     /**
      * @var DeliveryApiRequest
      */
@@ -56,17 +59,18 @@ abstract class Delivery
     }
 
     /**
+     * @param string $requestMethod
      * @param string $methodName
      * @param array $data
      * @return \Illuminate\Support\Collection
      * @throws \AutoKit\Exceptions\DeliveryApi
      */
-    protected function request(string $requestMethod,string $methodName, array $data): Collection
+    protected function request(string $requestMethod, string $methodName, array $data): Collection
     {
         $response = $this->client
             ->setMethod($requestMethod)
-            ->createUri($this->getShortMethodName($methodName))
-            ->createQueryData($this->prepareQueryData($data))
+            ->setUri($this->getShortMethodName($methodName))
+            ->setQueryData($this->prepareQueryData($data))
             ->request();
         return $this->client->handle($response);
     }

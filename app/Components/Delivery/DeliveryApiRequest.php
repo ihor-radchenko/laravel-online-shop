@@ -32,8 +32,6 @@ class DeliveryApiRequest
     public function __construct(Client $client)
     {
         $this->client = $client;
-        $this->uri = 'http://www.delivery-auto.com/api/v4/Public/';
-        $this->queryData = ['query' => []];
     }
 
     /**
@@ -55,17 +53,17 @@ class DeliveryApiRequest
         if ($this->hasError($content)) {
             throw new DeliveryApi($content->message);
         }
-        return collect($content->data);
+        $content = collect($content);
+        return $content->has('data') ? collect($content->get('data')) : $content;
     }
 
-    public function createUri(string $methodName): self
+    public function setUri(string $methodName): self
     {
-        $this->uri = 'http://www.delivery-auto.com/api/v4/Public/';
-        $this->uri .= $methodName;
+        $this->uri = 'http://www.delivery-auto.com/api/v4/Public/' . $methodName;
         return $this;
     }
 
-    public function createQueryData(array $queryData): self
+    public function setQueryData(array $queryData): self
     {
         $this->queryData = ['query' => $queryData];
         return $this;

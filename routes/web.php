@@ -46,6 +46,7 @@ Route::middleware('ajax')->group(function () {
         Route::get('region', 'OrderController@region')->name('order.region');
         Route::get('city', 'OrderController@city')->name('order.city');
         Route::get('warehouse', 'OrderController@warehouse')->name('order.warehouse');
+        Route::get('category', 'OrderController@category')->name('order.category');
     });
 });
 

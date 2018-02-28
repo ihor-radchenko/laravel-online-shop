@@ -33607,6 +33607,15 @@ $("#registeredUserEmail").change(function () {
     });
 });
 
+$(window).scroll(function () {
+    var sidebar = $("#cartSidebar");
+    if ($(this).scrollTop() > 160) {
+        sidebar.addClass('fixed-cart-sidebar');
+    } else {
+        sidebar.removeClass('fixed-cart-sidebar');
+    }
+});
+
 /***/ }),
 /* 42 */
 /***/ (function(module, exports) {
@@ -34099,13 +34108,30 @@ $(document).on('change', '#city', function () {
 
 $(document).on('change', '#warehouses', function () {
     var select = $(this);
+    $("#warehouseInfo").empty();
     $.ajax({
         url: $("#warehouses").data('route'),
         type: 'GET',
         data: { warehouse: select.val() },
         dataType: 'json',
         success: function success(response) {
-            $("#warehouseInfo").empty().append(response.content);
+            $("#warehouseInfo").append(response.content);
+        },
+        error: function error(jqXHR) {
+            ajaxError(jqXHR);
+        }
+    });
+});
+
+$(document).on('change', '#tarif_delivery', function () {
+    $("#forCategories").empty();
+    $.ajax({
+        url: $("#tarif_delivery").data('route'),
+        type: 'GET',
+        data: { tarif: $(this).val() },
+        dataType: 'json',
+        success: function success(response) {
+            $("#forCategories").append(response.content);
         },
         error: function error(jqXHR) {
             ajaxError(jqXHR);
