@@ -33,13 +33,10 @@ class IndexController extends Controller
 
     public function index()
     {
-        return view(
-            'main',
-            [
-                'categories' => $this->category->getForMainPage(),
-                'top_products' => $this->product->getForMainPageWhere('is_top'),
-                'new_products' => $this->product->getForMainPageWhere('is_new'),
-                'articles' => $this->article->getLastForMainPage()
-            ]);
+        return view('main')
+            ->with('categories', $this->category->getForMainPage())
+            ->with('top_products', $this->product->getForMainPageWhere('is_top'))
+            ->with('new_products', $this->product->getForMainPageWhere('is_new'))
+            ->with('articles', $this->article->getLastForMainPage());
     }
 }

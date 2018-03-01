@@ -33,11 +33,6 @@ class Services extends Delivery
     private $address;
 
     /**
-     * @var string
-     */
-    private $requestMethod;
-
-    /**
      * @var Cart
      */
     private $cart;
@@ -48,7 +43,6 @@ class Services extends Delivery
         $this->citySendId = config('delivery.city_send_id');
         $this->warehouseSendId = config('delivery.warehouse_send_id');
         $this->address = $address;
-        $this->requestMethod = 'GET';
         $this->cart = $cart;
     }
 
@@ -71,15 +65,13 @@ class Services extends Delivery
      */
     public function getDeliveryScheme(): Collection
     {
-        return $this->request(
-            $this->requestMethod,
-            __METHOD__,
-            [
-                'CitySendId' => $this->citySendId,
-                'CityReceiveId' => $this->cityReceiveId,
-                'WarehouseReceiveId' => $this->warehouseReceiveId
-            ]
-        );
+        return $this
+            ->setUri(__METHOD__)
+            ->addQueryData('culture', $this->culture)
+            ->addQueryData('CitySendId', $this->citySendId)
+            ->addQueryData('CityReceiveId', $this->cityReceiveId)
+            ->addQueryData('WarehouseReceiveId', $this->warehouseReceiveId)
+            ->send();
     }
 
     /**
@@ -88,15 +80,13 @@ class Services extends Delivery
      */
     public function getTariffCategory(): Collection
     {
-        return $this->request(
-            $this->requestMethod,
-            __METHOD__,
-            [
-                'CitySendId' => $this->citySendId,
-                'CityReceiveId' => $this->cityReceiveId,
-                'WarehouseReceiveId' => $this->warehouseReceiveId
-            ]
-        );
+        return $this
+            ->setUri(__METHOD__)
+            ->addQueryData('culture', $this->culture)
+            ->addQueryData('CitySendId', $this->citySendId)
+            ->addQueryData('CityReceiveId', $this->cityReceiveId)
+            ->addQueryData('WarehouseReceiveId', $this->warehouseReceiveId)
+            ->send();
     }
 
     /**
@@ -105,15 +95,13 @@ class Services extends Delivery
      */
     public function getDopUslugiClassification(): Collection
     {
-        return $this->request(
-            $this->requestMethod,
-            __METHOD__,
-            [
-                'CitySendId' => $this->citySendId,
-                'CityReceiveId' => $this->cityReceiveId,
-                'currency' => self::UAH,
-            ]
-        );
+        return $this
+            ->setUri(__METHOD__)
+            ->addQueryData('culture', $this->culture)
+            ->addQueryData('CitySendId', $this->citySendId)
+            ->addQueryData('CityReceiveId', $this->cityReceiveId)
+            ->addQueryData('currency', self::UAH)
+            ->send();
     }
 
     /**
@@ -123,7 +111,11 @@ class Services extends Delivery
      */
     public function getCargoCategory(string $tarif): Collection
     {
-        return $this->request($this->requestMethod, __METHOD__, ['TariffCategoryId' => $tarif]);
+        return $this
+            ->setUri(__METHOD__)
+            ->addQueryData('culture', $this->culture)
+            ->addQueryData('TariffCategoryId', $tarif)
+            ->send();
     }
 
     /**
@@ -132,18 +124,15 @@ class Services extends Delivery
      */
     public function getInsuranceCost(): Collection
     {
-        $this->queryData = [];
-        return $this->request(
-            $this->requestMethod,
-            __METHOD__,
-            [
-                'CitySendId' => $this->citySendId,
-                'CityReceiveId' => $this->cityReceiveId,
-                'WarehouseSendId' => $this->warehouseSendId,
-                'WarehouseReceiveId' => $this->warehouseReceiveId,
-                'InsuranceValue' => $this->cart->totalPrice(),
-                'InsuranceCurrency' => self::UAH
-            ]
-        );
+        return $this
+            ->setUri(__METHOD__)
+            ->addQueryData('CitySendId', $this->citySendId)
+            ->addQueryData('CityReceiveId', $this->cityReceiveId)
+            ->addQueryData('WarehouseSendId', $this->warehouseSendId)
+            ->addQueryData('WarehouseReceiveId', $this->warehouseReceiveId)
+            ->addQueryData('InsuranceValue', $this->cart->totalPrice())
+            ->addQueryData('InsuranceCurrency', self::UAH)
+            ->addQueryData('currency', self::UAH)
+            ->send();
     }
 }

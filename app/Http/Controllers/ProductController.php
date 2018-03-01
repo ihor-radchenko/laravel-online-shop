@@ -48,71 +48,53 @@ class ProductController extends Controller
     public function index(Request $request, Menu $menu)
     {
         if ($request->ajax()) {
-            return view(
-                'partials.products.' . $request->type ?? 'grid',
-                [
-                    'products' => $this->product->getWhereMenu(
-                        $menu,
-                        $request->brand ?? null,
-                        $request->sort ?? 'desc',
-                        $request->sort ? 'price' : 'id',
-                        $request->price
-                    )
-                ]
-            );
+            return view('partials.products.' . $request->type ?? 'grid')
+                ->with('products', $this->product->getWhereMenu(
+                    $menu,
+                    $request->brand ?? null,
+                    $request->sort ?? 'desc',
+                    $request->sort ? 'price' : 'id',
+                    $request->price
+                ));
         }
-        return view(
-            'products',
-            [
-                'breadcrumb' => $menu->load('products'),
-                'products' => $this->product->getWhereMenu($menu),
-                'categories' => $this->category->getWhereMenu($menu),
-                'brands' => $this->brand->getForMenuWithCountProducts($menu),
-                'maxPrice' => $this->product->getMaxPrice($menu)
-            ]
-        );
+        return view('products')
+            ->with('breadcrumb', $menu->load('products'))
+            ->with('products', $this->product->getWhereMenu($menu))
+            ->with('categories', $this->category->getWhereMenu($menu))
+            ->with('brands', $this->brand->getForMenuWithCountProducts($menu))
+            ->with('maxPrice', $this->product->getMaxPrice($menu));
     }
 
     public function showByCategory(Request $request, Menu $menu, Category $category)
     {
         if ($request->ajax()) {
-            return view(
-                'partials.products.' . $request->type ?? 'grid',
-                [
-                    'products' => $this->product->getWhereCategory(
-                        $category,
-                        $request->brand ?? null,
-                        $request->sort ?? 'desc',
-                        $request->sort ? 'price' : 'id',
-                        $request->price
-                    )
-                ]
-            );
+            return view('partials.products.' . $request->type ?? 'grid')
+                ->with('products', $this->product->getWhereCategory(
+                    $category,
+                    $request->brand ?? null,
+                    $request->sort ?? 'desc',
+                    $request->sort ? 'price' : 'id',
+                    $request->price
+                ));
         }
         $menu->load('products.brand');
-        return view(
-            'products',
-            [
-                'breadcrumb' => $category->load('menu'),
-                'products' => $this->product->getWhereCategory($category),
-                'categories' => $this->category->getWhereMenu($menu),
-                'brands' => $this->brand->getForCategoryWithCountProducts($category),
-                'maxPrice' => $this->product->getMaxPrice($menu, $category)
-            ]
-        );
+        return view('products')
+            ->with('breadcrumb', $category->load('menu'))
+            ->with('products', $this->product->getWhereCategory($category))
+            ->with('categories', $this->category->getWhereMenu($menu))
+            ->with('brands', $this->brand->getForCategoryWithCountProducts($category))
+            ->with('maxPrice', $this->product->getMaxPrice($menu, $category));
     }
 
     public function show(Request $request, Product $product)
     {
         if ($request->ajax()) {
-            return view('partials.product.reviews_list', ['reviews' => $this->review->getForProduct($product, $request->page)]);
+            return view('partials.product.reviews_list')
+                ->with('reviews', $this->review->getForProduct($product, $request->page));
         }
-        return view('product',
-            [
-                'product' => $product->load('reviews'),
-                'reviews' => $this->review->getForProduct($product),
-                'maxOffset' => $this->review->getMaxOffset($product)
-            ]
-        );
+        return view('product')
+            ->with('product', $product->load('reviews'))
+            ->with('reviews', $this->review->getForProduct($product))
+            ->with('maxOffset', $this->review->getMaxOffset($product));
     }
 }

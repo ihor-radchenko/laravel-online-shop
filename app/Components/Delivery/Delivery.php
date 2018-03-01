@@ -28,16 +28,17 @@ abstract class Delivery
     protected $country;
 
     /**
-     * @var array
+     * @var string
      */
-    protected $queryData;
+    protected $requestMethod;
 
     public function __construct(DeliveryApiRequest $client)
     {
         $this->client = $client;
         $this->culture = config('delivery.culture');
         $this->country = $this->getCountry();
-        $this->queryData = ['culture' => $this->culture];
+        $this->requestMethod = 'GET';
+        $this->client->setMethod($this->requestMethod);
     }
 
     protected function getCountry(): int
@@ -59,24 +60,29 @@ abstract class Delivery
     }
 
     /**
-     * @param string $requestMethod
-     * @param string $methodName
-     * @param array $data
      * @return \Illuminate\Support\Collection
      * @throws \AutoKit\Exceptions\DeliveryApi
      */
-    protected function request(string $requestMethod, string $methodName, array $data): Collection
+    protected function send(): Collection
     {
-        $response = $this->client
-            ->setMethod($requestMethod)
-            ->setUri($this->getShortMethodName($methodName))
-            ->setQueryData($this->prepareQueryData($data))
-            ->request();
+        $response = $this->client->request();
         return $this->client->handle($response);
     }
 
     protected function prepareQueryData(array $data): array
     {
         return array_merge($data, $this->queryData);
+    }
+
+    protected function addQueryData(string $key, $value)
+    {
+        $this->client->setQueryData($key, $value);
+        return $this;
+    }
+
+    protected function setUri(string $methodName)
+    {
+        $this->client->setUri($this->getShortMethodName($methodName));
+        return $this;
     }
 }

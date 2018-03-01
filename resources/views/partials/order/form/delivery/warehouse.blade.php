@@ -1,25 +1,25 @@
 
-@include('partials.order.form.warehouse_info')
+@include('partials.order.form.delivery.warehouse_info')
 
 @isset($additionalServices)
     <div class="row margin-top25">
         <h4 class="color-black">@lang('delivery_auto.additional_services')</h4>
         <div class="panel-group" id="accordion">
-            @for($i = 0; $i < $additionalServices->count(); $i++)
+            @foreach($additionalServices as $additionalService)
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $i }}">
-                                {{ $additionalServices[$i]->name }}
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $additionalService->classification }}">
+                                {{ $additionalService->name }}
                             </a>
                         </h4>
                     </div>
-                    <div id="collapse{{ $i }}" class="panel-collapse collapse">
+                    <div id="collapse{{ $additionalService->classification }}" class="panel-collapse collapse">
                         <div class="panel-body">
                             <div class="row">
                                 <table class="table table-condensed my-table">
                                     <tbody>
-                                        @foreach($additionalServices[$i]->dopUsluga as $dopUsluga)
+                                        @foreach($additionalService->dopUsluga as $dopUsluga)
                                             <tr>
                                                 <td class="first-row"><input type="checkbox" name="dopUsluga[]" id="{{ $dopUsluga->uslugaId }}" value="{{ $dopUsluga->uslugaId }}"></td>
                                                 <td><label for="{{ $dopUsluga->uslugaId }}">{{ $dopUsluga->name }}</label></td>
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 @endisset
@@ -44,7 +44,7 @@
             </div>
             <div class="col-sm-8">
                 <select name="scheme_delivery" id="scheme_delivery" class="form-control">
-                    @include('partials.order.form.item_list', ['items' => $schemes])
+                    @include('partials.order.form.delivery.item_list', ['items' => $schemes])
                 </select>
             </div>
         </div>
@@ -58,8 +58,8 @@
                 <label for="tarif_delivery">@lang('delivery_auto.tarif_delivery')</label>
             </div>
             <div class="col-sm-8">
-                <select name="tarif_delivery" id="tarif_delivery" class="form-control" data-route="{{ route('order.category') }}">
-                    @include('partials.order.form.item_list', ['items' => $tarifs])
+                <select name="tarif_delivery" id="tarif_delivery" class="form-control" data-route="{{ route('delivery.category') }}">
+                    @include('partials.order.form.delivery.item_list', ['items' => $tarifs])
                 </select>
             </div>
         </div>
@@ -67,7 +67,7 @@
 @endisset
 
 @isset($insuranceCost)
-    <input type="hidden" value="{{ $insuranceCost->get('value') }}">
+    <input type="hidden" value="{{ $insuranceCost->get('Value') }}">
 @endisset
 
 <div id="forCategories"></div>

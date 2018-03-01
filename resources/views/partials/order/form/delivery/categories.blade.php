@@ -7,7 +7,7 @@
             </div>
             <div class="col-sm-8">
                 <select name="categories_delivery" id="categories_delivery" class="form-control">
-                    @include('partials.order.form.item_list', ['items' => $categories])
+                    @include('partials.order.form.delivery.item_list', ['items' => $categories])
                 </select>
             </div>
         </div>

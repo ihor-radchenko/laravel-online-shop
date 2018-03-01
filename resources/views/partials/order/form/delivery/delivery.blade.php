@@ -11,7 +11,7 @@
 
 <div class="form-group">
     <div class="col-sm-3 text-right">
-        <input type="radio" name="delivery" value="on" id="onDelivery" class="changeDelivery" data-route="{{ route('order.delivery') }}">
+        <input type="radio" name="delivery" value="on" id="onDelivery" class="changeDelivery" data-route="{{ route('delivery.delivery') }}">
     </div>
     <div class="col-sm-9">
         <label for="onDelivery">@lang('delivery_auto.delivery')</label>

@@ -63,9 +63,9 @@ class DeliveryApiRequest
         return $this;
     }
 
-    public function setQueryData(array $queryData): self
+    public function setQueryData(string $key, $value): self
     {
-        $this->queryData = ['query' => $queryData];
+        $this->queryData['query'][$key] = $value;
         return $this;
     }
 

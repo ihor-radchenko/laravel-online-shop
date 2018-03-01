@@ -41,12 +41,12 @@ Route::middleware('ajax')->group(function () {
     });
 
     Route::prefix('order')->group(function () {
-        Route::get('delivery', 'OrderController@delivery')->name('order.delivery');
+        Route::get('delivery', 'Order\DeliveryController@delivery')->name('delivery.delivery');
         Route::get('self-delivery', 'OrderController@selfDelivery')->name('order.selfDelivery');
-        Route::get('region', 'OrderController@region')->name('order.region');
-        Route::get('city', 'OrderController@city')->name('order.city');
-        Route::get('warehouse', 'OrderController@warehouse')->name('order.warehouse');
-        Route::get('category', 'OrderController@category')->name('order.category');
+        Route::get('region', 'Order\DeliveryController@region')->name('delivery.region');
+        Route::get('city', 'Order\DeliveryController@city')->name('delivery.city');
+        Route::get('warehouse', 'Order\DeliveryController@warehouse')->name('delivery.warehouse');
+        Route::get('category', 'Order\DeliveryController@category')->name('delivery.category');
     });
 });
 
@@ -55,4 +55,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('cart', 'CartController@index')->name('cart');
 
-Route::get('order', 'OrderController@index')->name('order');
+Route::get('order', 'OrderController@index')->name('order')->middleware('order');

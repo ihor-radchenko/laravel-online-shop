@@ -26,21 +26,19 @@ class BlogController extends Controller
 
     public function index()
     {
-        return view('blog', ['articles' => $this->article->getForBlog()]);
+        return view('blog')
+            ->with('articles', $this->article->getForBlog());
     }
 
     public function show(Request $request, Article $article)
     {
         if ($request->ajax()) {
-            return view('partials.article.comments_list', ['comments' => $this->comment->getForArticle($article, $request->page)]);
+            return view('partials.article.comments_list')
+                ->with('comments', $this->comment->getForArticle($article, $request->page));
         }
-        return view(
-            'post',
-            [
-                'article' => $article->load('user'),
-                'comments' => $this->comment->getForArticle($article),
-                'maxOffset' => $this->comment->getMaxOffset($article)
-            ]
-        );
+        return view('post')
+            ->with('article', $article->load('user'))
+            ->with('comments', $this->comment->getForArticle($article))
+            ->with('maxOffset', $this->comment->getMaxOffset($article));
     }
 }

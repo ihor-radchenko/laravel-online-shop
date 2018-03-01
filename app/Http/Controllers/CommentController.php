@@ -21,7 +21,9 @@ class CommentController extends Controller
             ? $request->user()->comments()->create($request->all())
             : Comment::create($request->all());
         return response()->json([
-            'content' => view('partials.article.comment', ['comment' => $comment])->render(),
+            'content' => view('partials.article.comment')
+                ->with('comment', $comment)
+                ->render(),
             'message' => Lang::get('ajax.add-comment', ['name' => $request->name])
         ]);
     }

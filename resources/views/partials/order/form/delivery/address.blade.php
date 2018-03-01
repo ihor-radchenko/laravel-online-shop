@@ -7,8 +7,8 @@
             <label for="region">@lang('form.region')</label>
         </div>
         <div class="col-sm-9">
-            <select name="region_id" id="region" class="form-control" data-route="{{ route('order.region')}}">
-                @include('partials.order.form.item_list', ['items' => $regions])
+            <select name="region_id" id="region" class="form-control" data-route="{{ route('delivery.region')}}">
+                @include('partials.order.form.delivery.item_list', ['items' => $regions])
             </select>
         </div>
     </div>
@@ -20,7 +20,7 @@
             <label for="city">@lang('form.city')</label>
         </div>
         <div class="col-sm-9">
-            <select name="city_id" id="city" disabled class="form-control" data-route="{{ route('order.city') }}"></select>
+            <select name="city_id" id="city" disabled class="form-control" data-route="{{ route('delivery.city') }}"></select>
         </div>
     </div>
 </div>
@@ -31,7 +31,7 @@
             <label for="warehouses">@lang('form.warehouses')</label>
         </div>
         <div class="col-sm-9">
-            <select name="warehouses_id" id="warehouses" disabled class="form-control" data-route="{{  route('order.warehouse') }}"></select>
+            <select name="warehouses_id" id="warehouses" disabled class="form-control" data-route="{{  route('delivery.warehouse') }}"></select>
         </div>
     </div>
 </div>

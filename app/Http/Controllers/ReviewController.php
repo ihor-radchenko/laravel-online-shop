@@ -5,7 +5,6 @@ namespace AutoKit\Http\Controllers;
 use Auth;
 use AutoKit\Http\Requests\ReviewRequest;
 use AutoKit\Review;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
 use Lang;
 
@@ -22,7 +21,9 @@ class ReviewController extends Controller
             ? $request->user()->reviews()->create($request->all())
             : Review::create($request->all());
         return response()->json([
-            'content' => view('partials.product.review', ['review' => $review])->render(),
+            'content' => view('partials.product.review')
+                ->with('review', $review)
+                ->render(),
             'message' => Lang::get('ajax.add-review', ['name' => $request->name])
         ]);
     }
