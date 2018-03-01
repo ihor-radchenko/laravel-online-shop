@@ -14102,6 +14102,12 @@ textarea {
   text-align: center;
 }
 
+#calculation {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;

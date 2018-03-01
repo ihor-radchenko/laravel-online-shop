@@ -33567,6 +33567,12 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports) {
 
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 $('.popup .popup-container .closePopup').click(function () {
     $('.popup').fadeOut('slow');
 });
@@ -33837,7 +33843,7 @@ $('#deleteFilter').click(function () {
 
     $("#sliderPrice").slider("option", "values", [0, Math.ceil(+$("#maxPrice").val())]);
     $("#priceFrom").val(0);
-    $("#priceTo").val("$" + Math.ceil(+$("#maxPrice").val()));
+    $("#priceTo").val(Math.ceil(+$("#maxPrice").val()));
 
     var url = $('#currentUrl').val() + '?page=1';
     $('#sort_type').val(undefined);
@@ -33873,8 +33879,8 @@ $("#sliderPrice").slider({
     max: Math.ceil(+$("#maxPrice").val()),
     values: [0, Math.ceil(+$("#maxPrice").val())],
     slide: function slide(event, ui) {
-        $("#priceFrom").val("$" + ui.values[0]);
-        $("#priceTo").val("$" + ui.values[1]);
+        $("#priceFrom").val(ui.values[0]);
+        $("#priceTo").val(ui.values[1]);
     }
 });
 
@@ -34135,6 +34141,57 @@ $(document).on('change', '#tarif_delivery', function () {
         },
         error: function error(jqXHR) {
             ajaxError(jqXHR);
+        }
+    });
+});
+
+$(document).on('change', '.calc-item', function () {
+    var city = $("#city");
+    var warehouse = $("#warehouses");
+    var scheme = $("#scheme_delivery");
+    var category = $("#categories_delivery");
+    var dopUslugi = $(".dopUsluga:checked");
+
+    var calc = $("#calculation");
+
+    if (city.val() === '' || warehouse.val() === '' || scheme.val() === '' || category.val() === '') {
+        calc.prop('disabled', true);
+        return false;
+    }
+
+    calc.prop('disabled', false);
+});
+
+$(document).on('click', '#calculation', function () {
+    var city = $("#city");
+    var warehouse = $("#warehouses");
+    var scheme = $("#scheme_delivery");
+    var category = $("#categories_delivery");
+    var dopUslugi = $(".dopUsluga:checked");
+
+    var arrDopUslugi = [];
+    dopUslugi.each(function () {
+        arrDopUslugi.push($(this).val());
+    });
+
+    var calc = $(this);
+    calc.prop('disabled', true);
+    $.ajax({
+        url: calc.data('route'),
+        type: 'POST',
+        data: {
+            city: city.val(),
+            warehouse: warehouse.val(),
+            scheme: scheme.val(),
+            category: category.val(),
+            dopUslugi: arrDopUslugi
+        },
+        success: function success() {
+            calc.prop('disabled', false);
+        },
+        error: function error(jqXHR) {
+            ajaxError(jqXHR);
+            calc.prop('disabled', false);
         }
     });
 });

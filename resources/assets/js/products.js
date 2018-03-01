@@ -43,7 +43,7 @@ $('#deleteFilter').click(function () {
 
     $("#sliderPrice").slider( "option", "values", [0, Math.ceil(+$("#maxPrice").val())]);
     $("#priceFrom").val(0);
-    $("#priceTo").val("$" + Math.ceil(+$("#maxPrice").val()));
+    $("#priceTo").val(Math.ceil(+$("#maxPrice").val()));
 
     let url = $('#currentUrl').val() + '?page=1';
     $('#sort_type').val(undefined);
@@ -81,8 +81,8 @@ $("#sliderPrice").slider({
     max: Math.ceil(+$("#maxPrice").val()),
     values: [0, Math.ceil(+$("#maxPrice").val())],
     slide: function( event, ui ) {
-        $("#priceFrom").val("$" + ui.values[0]);
-        $("#priceTo").val("$" + ui.values[1]);
+        $("#priceFrom").val(ui.values[0]);
+        $("#priceTo").val(ui.values[1]);
     }
 });
 

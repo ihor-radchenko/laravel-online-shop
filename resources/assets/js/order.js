@@ -98,6 +98,57 @@ $(document).on('change', '#tarif_delivery', function () {
     });
 });
 
+$(document).on('change', '.calc-item', function () {
+    var city = $("#city");
+    var warehouse = $("#warehouses");
+    var scheme = $("#scheme_delivery");
+    var category = $("#categories_delivery");
+    var dopUslugi = $(".dopUsluga:checked");
+
+    var calc = $("#calculation");
+
+    if (city.val() === '' || warehouse.val() === '' || scheme.val() === '' || category.val() === '') {
+        calc.prop('disabled', true);
+        return false;
+    }
+
+    calc.prop('disabled', false);
+});
+
+$(document).on('click', '#calculation', function () {
+    var city = $("#city");
+    var warehouse = $("#warehouses");
+    var scheme = $("#scheme_delivery");
+    var category = $("#categories_delivery");
+    var dopUslugi = $(".dopUsluga:checked");
+
+    var arrDopUslugi = [];
+    dopUslugi.each(function () {
+        arrDopUslugi.push($(this).val())
+    });
+
+    var calc = $(this);
+    calc.prop('disabled', true);
+    $.ajax({
+        url: calc.data('route'),
+        type: 'POST',
+        data: {
+            city: city.val(),
+            warehouse: warehouse.val(),
+            scheme: scheme.val(),
+            category: category.val(),
+            dopUslugi: arrDopUslugi,
+        },
+        success: function () {
+            calc.prop('disabled', false);
+        },
+        error: function (jqXHR) {
+            ajaxError(jqXHR);
+            calc.prop('disabled', false);
+        }
+    });
+});
+
 function ajaxError(jqXHR) {
     if (jqXHR.status === 501) {
         $('.popup h4').empty().append(jqXHR.responseJSON.message);

@@ -47,6 +47,7 @@ Route::middleware('ajax')->group(function () {
         Route::get('city', 'Order\DeliveryController@city')->name('delivery.city');
         Route::get('warehouse', 'Order\DeliveryController@warehouse')->name('delivery.warehouse');
         Route::get('category', 'Order\DeliveryController@category')->name('delivery.category');
+        Route::post('delivery/calculation', 'Order\DeliveryController@calculation')->name('delivery.calculation');
     });
 });
 

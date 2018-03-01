@@ -3,6 +3,7 @@
 namespace AutoKit\Http\Controllers\Order;
 
 use AutoKit\Components\Delivery\Address;
+use AutoKit\Components\Delivery\Calculator;
 use AutoKit\Components\Delivery\Services;
 use AutoKit\Exceptions\DeliveryApi;
 use AutoKit\Http\Controllers\Controller;
@@ -21,26 +22,22 @@ class DeliveryController extends Controller
     protected $deliveryServices;
 
     /**
-     * @var Request
+     * @var Calculator
      */
-    protected $request;
+    private $deliveryCalculator;
 
     /**
      * DeliveryController constructor.
-     * @param Request $request
      * @param Address $address
      * @param Services $services
-     * @throws DeliveryApi
+     * @param Calculator $calculator
      */
-    public function __construct(Request $request, Address $address, Services $services)
+    public function __construct(Address $address, Services $services, Calculator $calculator)
     {
         $this->middleware('order');
         $this->deliveryAddress = $address;
         $this->deliveryServices = $services;
-        $this->request = $request;
-        if ($request->has('warehouse')) {
-            $this->deliveryServices->setReceiveInfo($request->warehouse);
-        }
+        $this->deliveryCalculator = $calculator;
     }
 
     /**
@@ -62,13 +59,14 @@ class DeliveryController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function region()
+    public function region(Request $request)
     {
         try {
-            $cities = $this->deliveryAddress->getAreasList($this->request->region);
+            $cities = $this->deliveryAddress->getAreasList($request->region);
         } catch (DeliveryApi $e) {
             return response()->json(['message' => $e->getMessage()], 501);
         }
@@ -80,13 +78,14 @@ class DeliveryController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function city()
+    public function city(Request $request)
     {
         try {
-            $warehouses = $this->deliveryAddress->getWarehousesListInDetail($this->request->city, 25);
+            $warehouses = $this->deliveryAddress->getWarehousesListInDetail($request->city, 25);
         } catch (DeliveryApi $e) {
             return response()->json(['message' => $e->getMessage()], 501);
         }
@@ -98,39 +97,43 @@ class DeliveryController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function warehouse()
+    public function warehouse(Request $request)
     {
         try {
+            $this->deliveryServices->setReceiveInfo($request->warehouse);
+
+            $arrivalDate = $this->deliveryServices->getDateArrival();
             $additionalServices = $this->deliveryServices->getDopUslugiClassification();
             $tarif = $this->deliveryServices->getTariffCategory();
             $deliveryScheme = $this->deliveryServices->getDeliveryScheme();
-            $warehouse = $this->deliveryAddress->getWarehousesInfo($this->request->warehouse);
-            $insuranceCost = $this->deliveryServices->getInsuranceCost();
+            $warehouse = $this->deliveryAddress->getWarehousesInfo($request->warehouse);
         } catch (DeliveryApi $e) {
             return response()->json(['message' => $e->getMessage()], 501);
         }
         return response()->json([
             'content' => view('partials.order.form.delivery.warehouse')
                 ->with('warehouse', $warehouse)
+                ->with('arrivalDate', $arrivalDate)
                 ->with('schemes', $deliveryScheme)
                 ->with('tarifs', $tarif)
                 ->with('additionalServices', $additionalServices)
-                ->with('insuranceCost', $insuranceCost)
                 ->render()
         ]);
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function category()
+    public function category(Request $request)
     {
         try {
-            $categories = $this->deliveryServices->getCargoCategory($this->request->tarif);
+            $categories = $this->deliveryServices->getCargoCategory($request->tarif);
         } catch (DeliveryApi $e) {
             return response()->json(['message' => $e->getMessage()], 501);
         }
@@ -139,5 +142,16 @@ class DeliveryController extends Controller
                 ->with('categories', $categories)
                 ->render()
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function calculation(Request $request)
+    {
+        $this->deliveryCalculator
+            ->setDeliveryScheme($request->scheme);
+        return response();
     }
 }

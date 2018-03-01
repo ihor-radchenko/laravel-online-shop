@@ -20,7 +20,7 @@
             <label for="city">@lang('form.city')</label>
         </div>
         <div class="col-sm-9">
-            <select name="city_id" id="city" disabled class="form-control" data-route="{{ route('delivery.city') }}"></select>
+            <select name="city_id" id="city" disabled class="form-control calc-item" data-route="{{ route('delivery.city') }}"></select>
         </div>
     </div>
 </div>
@@ -31,7 +31,7 @@
             <label for="warehouses">@lang('form.warehouses')</label>
         </div>
         <div class="col-sm-9">
-            <select name="warehouses_id" id="warehouses" disabled class="form-control" data-route="{{  route('delivery.warehouse') }}"></select>
+            <select name="warehouses_id" id="warehouses" disabled class="form-control calc-item" data-route="{{  route('delivery.warehouse') }}"></select>
         </div>
     </div>
 </div>

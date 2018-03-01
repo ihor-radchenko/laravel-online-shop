@@ -3,6 +3,7 @@
 namespace AutoKit\Components\Delivery;
 
 use AutoKit\Components\Cart\Cart;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 class Services extends Delivery
@@ -133,6 +134,23 @@ class Services extends Delivery
             ->addQueryData('InsuranceValue', $this->cart->totalPrice())
             ->addQueryData('InsuranceCurrency', self::UAH)
             ->addQueryData('currency', self::UAH)
+            ->send();
+    }
+
+    /**
+     * @return Collection
+     * @throws \AutoKit\Exceptions\DeliveryApi
+     */
+    public function getDateArrival(): Collection
+    {
+        return $this
+            ->setUri(__METHOD__)
+            ->addQueryData('areasSendId', $this->citySendId)
+            ->addQueryData('areasResiveId', $this->cityReceiveId)
+            ->addQueryData('dateSend', Carbon::tomorrow()->addHours(12)->format('d.m.Y'))
+            ->addQueryData('currency', self::UAH)
+            ->addQueryData('warehouseSendId', $this->warehouseSendId)
+            ->addQueryData('warehouseResiveId', $this->warehouseReceiveId)
             ->send();
     }
 }

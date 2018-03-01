@@ -1,6 +1,8 @@
 
 @include('partials.order.form.delivery.warehouse_info')
 
+<h4 class="color-black">@lang('delivery_auto.arrival_date') {{ $arrivalDate->get('arrivalDateStr') }}</h4>
+
 @isset($additionalServices)
     <div class="row margin-top25">
         <h4 class="color-black">@lang('delivery_auto.additional_services')</h4>
@@ -21,7 +23,7 @@
                                     <tbody>
                                         @foreach($additionalService->dopUsluga as $dopUsluga)
                                             <tr>
-                                                <td class="first-row"><input type="checkbox" name="dopUsluga[]" id="{{ $dopUsluga->uslugaId }}" value="{{ $dopUsluga->uslugaId }}"></td>
+                                                <td class="first-row"><input type="checkbox" name="dopUsluga[]" id="{{ $dopUsluga->uslugaId }}" value="{{ $dopUsluga->uslugaId }}" class="calc-item dopUsluga"></td>
                                                 <td><label for="{{ $dopUsluga->uslugaId }}">{{ $dopUsluga->name }}</label></td>
                                             </tr>
                                         @endforeach
@@ -43,7 +45,7 @@
                 <label for="scheme_delivery">@lang('delivery_auto.scheme_delivery')</label>
             </div>
             <div class="col-sm-8">
-                <select name="scheme_delivery" id="scheme_delivery" class="form-control">
+                <select name="scheme_delivery" id="scheme_delivery" class="form-control calc-item">
                     @include('partials.order.form.delivery.item_list', ['items' => $schemes])
                 </select>
             </div>
@@ -64,10 +66,6 @@
             </div>
         </div>
     </div>
-@endisset
-
-@isset($insuranceCost)
-    <input type="hidden" value="{{ $insuranceCost->get('Value') }}">
 @endisset
 
 <div id="forCategories"></div>
