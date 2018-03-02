@@ -38,7 +38,6 @@ abstract class Delivery
         $this->culture = config('delivery.culture');
         $this->country = $this->getCountry();
         $this->requestMethod = 'GET';
-        $this->client->setMethod($this->requestMethod);
     }
 
     protected function getCountry(): int
@@ -65,18 +64,21 @@ abstract class Delivery
      */
     protected function send(): Collection
     {
-        $response = $this->client->request();
+        $response = $this->client
+            ->setMethod($this->requestMethod)
+            ->request();
         return $this->client->handle($response);
-    }
-
-    protected function prepareQueryData(array $data): array
-    {
-        return array_merge($data, $this->queryData);
     }
 
     protected function addQueryData(string $key, $value)
     {
         $this->client->setQueryData($key, $value);
+        return $this;
+    }
+
+    protected function addBodyData(string $key, $value)
+    {
+        $this->client->setBodyData($key, $value);
         return $this;
     }
 

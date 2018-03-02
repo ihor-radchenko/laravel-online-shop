@@ -34067,6 +34067,8 @@ $("#offDelivery").change(function () {
         type: 'GET',
         dataType: 'json',
         success: function success(response) {
+            $("#priceDelivery").text(0);
+            $("#totalPriceWithShipping").text(response.totalPrice);
             $("#forAddress").empty().hide().append(response.content).slideDown(1000);
         },
         error: function error(jqXHR) {
@@ -34186,7 +34188,9 @@ $(document).on('click', '#calculation', function () {
             category: category.val(),
             dopUslugi: arrDopUslugi
         },
-        success: function success() {
+        success: function success(response) {
+            $("#priceDelivery").text(response.shippingPrice);
+            $("#totalPriceWithShipping").text(response.totalPrice);
             calc.prop('disabled', false);
         },
         error: function error(jqXHR) {

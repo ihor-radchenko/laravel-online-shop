@@ -69,6 +69,12 @@ class DeliveryApiRequest
         return $this;
     }
 
+    public function setBodyData(string $key, $value): self
+    {
+        $this->queryData['form_params'][$key] = $value;
+        return $this;
+    }
+
     public function setMethod(string $method): self
     {
         $this->method = $method;

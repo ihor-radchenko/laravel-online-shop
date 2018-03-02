@@ -13,6 +13,10 @@ $factory->define(AutoKit\Product::class, function (Faker $faker) {
         'img' => 'http://via.placeholder.com/800x500?text=Product+image',
         'description' => $faker->text(rand(50, 300)),
         'category_id' => $faker->numberBetween(1, 21),
-        'brand_id' => $faker->numberBetween(1, 8)
+        'brand_id' => $faker->numberBetween(1, 8),
+        'weight' => $faker->randomFloat(3, 0.1, 50),
+        'width' => $faker->randomFloat(2, 0.1, 5),
+        'height' => $faker->randomFloat(2, 0.1, 5),
+        'length' => $faker->randomFloat(2, 0.1, 5),
     ];
 });

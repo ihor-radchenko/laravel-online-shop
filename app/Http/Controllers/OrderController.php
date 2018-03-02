@@ -2,6 +2,7 @@
 
 namespace AutoKit\Http\Controllers;
 
+use AutoKit\Components\Cart\Cart;
 use AutoKit\Components\Delivery\Address;
 use AutoKit\Exceptions\DeliveryApi;
 use Illuminate\Http\Request;
@@ -10,9 +11,12 @@ class OrderController extends Controller
 {
     protected $deliveryAddress;
 
-    public function __construct(Address $address)
+    protected $cart;
+
+    public function __construct(Address $address, Cart $cart)
     {
         $this->deliveryAddress = $address;
+        $this->cart = $cart;
     }
 
     public function index()
@@ -34,7 +38,8 @@ class OrderController extends Controller
         return response()->json([
             'content' => view('partials.order.form.self_delivery')
                 ->with('warehouse', $selfDelivery)
-                ->render()
+                ->render(),
+            'totalPrice' => $this->cart->totalPrice()
         ]);
     }
 }

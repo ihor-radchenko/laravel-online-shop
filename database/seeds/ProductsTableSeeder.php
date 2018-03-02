@@ -23,7 +23,11 @@ class ProductsTableSeeder extends Seeder
             'description' => '
 Головка блока цилиндров по своей сути - это обычная крышка, которая прикрывает блок цилиндров. Она формируется из специального алюминиевого сплава или чугуна, после чего происходит искусственное старение. Данная процедура помогает убрать остаточное напряжение. ГБЦ является важной составляющей надпоршневой полости, где происходят все тепловые процессы рабочего цикла. Снизу головка немного расширяется для более плотного примыкания к блоку цилиндров.',
             'category_id' => 1,
-            'brand_id' => 8
+            'brand_id' => 8,
+            'weight'  => 5,
+            'width' => 1,
+            'height' => 1,
+            'length' => 1
         ]);
         Product::create([
             'title' => 'Тормозной барабан BREMBO 14.7093.10',
@@ -39,7 +43,11 @@ class ProductsTableSeeder extends Seeder
 
 Из-за того, что эффективность тормозных барабанов ниже, а температура нагрева выше, чем дисков, стоят они в некоторых моделях современных авто только на задних осях. Их преимуществом является удачное месторасположение и, следовательно, хорошая защищенность от загрязнений и влаги, это положительно влияет на срок эксплуатации барабанов.',
             'category_id' => 3,
-            'brand_id' => 7
+            'brand_id' => 7,
+            'weight'  => 5,
+            'width' => 1,
+            'height' => 1,
+            'length' => 1
         ]);
         Product::create([
             'title' => 'Амортизатор подвески (СЕРИЯ: B2) BILSTEIN BIL 16-031456',
@@ -55,7 +63,11 @@ class ProductsTableSeeder extends Seeder
 
 Самыми популярными брендами стоек в Украине являются: KYB (они же Kayaba в прошлом), Sach, Monroe, BILSTEIN',
             'category_id' => 2,
-            'brand_id' => 6
+            'brand_id' => 6,
+            'weight'  => 5,
+            'width' => 1,
+            'height' => 1,
+            'length' => 1
         ]);
         Product::create([
             'title' => 'Рейка гидроусилителя руля GKN 0.052420',
@@ -72,7 +84,11 @@ class ProductsTableSeeder extends Seeder
 
 Чаще всего современные автомобили используют насосы лопаточного или пластиночного типа из-за их надежности и простоты в обслуживании. Состоит данное устройство из таких основных частей, как: корпус, ротор, лопатка и уплотнительное кольцо',
             'category_id' => 4,
-            'brand_id' => 5
+            'brand_id' => 5,
+            'weight'  => 5,
+            'width' => 1,
+            'height' => 1,
+            'length' => 1
         ]);
         Product::create([
             'title' => 'Задняя часть выхлопной системы (Глушитель). MTS MTS 01.68380',
@@ -84,7 +100,11 @@ class ProductsTableSeeder extends Seeder
             'description' => '
 Глушитель выхлопных газов двигателя предназначен для понижения шума, а также для преобразования их энергии в тепловую, уменьшение скорости, температурного режима и вибраций отработанных газов. Он замедляет поток газов, сглаживая тем самым отдельные такты работы двигателя.',
             'category_id' => 6,
-            'brand_id' => 4
+            'brand_id' => 4,
+            'weight'  => 5,
+            'width' => 1,
+            'height' => 1,
+            'length' => 1
         ]);
         Product::create([
             'title' => 'DFLF 01- Лев./ прав. стекло заднего фонаря 7 секций ELIT KH9705 0750',
@@ -95,7 +115,11 @@ class ProductsTableSeeder extends Seeder
             'img' => '5d034bdf45394fcb9fbacaa7f7d1d8f5.jpg',
             'description' => '',
             'category_id' => 18,
-            'brand_id' => 2
+            'brand_id' => 2,
+            'weight'  => 5,
+            'width' => 1,
+            'height' => 1,
+            'length' => 1
         ]);
         Product::create([
             'title' => 'Моторное масло MoS2 LEICHTLAUF 10W40 (API SL/CF, ACEA A3-04/B4-04 ) / 4л LIQUI MOLY LIM1917',
@@ -106,7 +130,11 @@ class ProductsTableSeeder extends Seeder
             'img' => 'c3144791ab7441fea135257e95b11163.jpg',
             'description' => '',
             'category_id' => 8,
-            'brand_id' => 3
+            'brand_id' => 3,
+            'weight'  => 5,
+            'width' => 1,
+            'height' => 1,
+            'length' => 1
         ]);
         Product::create([
             'title' => 'Решетка лев. в передний бампер ELIT KH2533 995',
@@ -117,7 +145,11 @@ class ProductsTableSeeder extends Seeder
             'img' => '381709ac7f5a40578c31f9d0a073d9db.jpg',
             'description' => '',
             'category_id' => 21,
-            'brand_id' => 2
+            'brand_id' => 2,
+            'weight'  => 5,
+            'width' => 1,
+            'height' => 1,
+            'length' => 1
         ]);
         Product::create([
             'title' => 'Опора КПП LEMFÖRDER LMI 34573 01',
@@ -129,7 +161,11 @@ class ProductsTableSeeder extends Seeder
             'description' => '
 Механическая коробка передач – это ступенчатый механизм, который меняет крутящий момент и направляет его от мотора к колесам. Исходя из количества ступеней встречаются четырех-, пяти-, шестиступенчатые мкпп и больше. Корпус изготовлен из сплавов легких металлов, благодаря чему ее вес относительно небольшой.',
             'category_id' => 5,
-            'brand_id' => 1
+            'brand_id' => 1,
+            'weight'  => 5,
+            'width' => 1,
+            'height' => 1,
+            'length' => 1
         ]);
     }
 }

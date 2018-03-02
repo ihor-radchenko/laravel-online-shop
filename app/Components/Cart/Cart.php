@@ -101,4 +101,18 @@ class Cart
     {
         return $product->quantity - $this->get($product)->quantity;
     }
+
+    public function totalWeight(): float
+    {
+        return round_up($this->all()->reduce(function ($carry, $item) {
+            return $carry + $item->quantity * $item->product->weight;
+        }), 3);
+    }
+
+    public function totalDimensions(): float
+    {
+        return round_up($this->all()->reduce(function ($carry, $item) {
+            return $carry + $item->quantity * ($item->product->width * $item->product->height * $item->product->length);
+        }), 2);
+    }
 }

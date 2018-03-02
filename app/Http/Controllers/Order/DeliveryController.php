@@ -2,6 +2,7 @@
 
 namespace AutoKit\Http\Controllers\Order;
 
+use AutoKit\Components\Cart\Cart;
 use AutoKit\Components\Delivery\Address;
 use AutoKit\Components\Delivery\Calculator;
 use AutoKit\Components\Delivery\Services;
@@ -27,17 +28,24 @@ class DeliveryController extends Controller
     private $deliveryCalculator;
 
     /**
+     * @var Cart
+     */
+    private $cart;
+
+    /**
      * DeliveryController constructor.
      * @param Address $address
      * @param Services $services
      * @param Calculator $calculator
+     * @param Cart $cart
      */
-    public function __construct(Address $address, Services $services, Calculator $calculator)
+    public function __construct(Address $address, Services $services, Calculator $calculator, Cart $cart)
     {
         $this->middleware('order');
         $this->deliveryAddress = $address;
         $this->deliveryServices = $services;
         $this->deliveryCalculator = $calculator;
+        $this->cart = $cart;
     }
 
     /**
@@ -147,11 +155,22 @@ class DeliveryController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws DeliveryApi
      */
     public function calculation(Request $request)
     {
-        $this->deliveryCalculator
-            ->setDeliveryScheme($request->scheme);
-        return response();
+        $shippingPrice = $this->deliveryCalculator
+            ->setReceiveInfo($request->warehouse)
+            ->setDeliveryScheme($request->scheme)
+            ->setCategory($request->category)
+            ->setDopUsluga($request->dopUslugi)
+            ->setCashOnDeliveryValue()
+            ->setDateSend()
+            ->postReceiptCalculate()
+            ->get('allSumma');
+        return response()->json([
+            'shippingPrice' => $shippingPrice,
+            'totalPrice' => $shippingPrice + $this->cart->totalPrice()
+        ]);
     }
 }

@@ -20,6 +20,8 @@ $("#offDelivery").change(function () {
         type: 'GET',
         dataType: 'json',
         success: function (response) {
+            $("#priceDelivery").text(0);
+            $("#totalPriceWithShipping").text(response.totalPrice);
             $("#forAddress").empty().hide().append(response.content).slideDown(1000);
         },
         error: function (jqXHR) {
@@ -139,7 +141,9 @@ $(document).on('click', '#calculation', function () {
             category: category.val(),
             dopUslugi: arrDopUslugi,
         },
-        success: function () {
+        success: function (response) {
+            $("#priceDelivery").text(response.shippingPrice);
+            $("#totalPriceWithShipping").text(response.totalPrice);
             calc.prop('disabled', false);
         },
         error: function (jqXHR) {
