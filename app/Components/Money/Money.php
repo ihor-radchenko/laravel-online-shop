@@ -5,9 +5,23 @@ namespace AutoKit\Components\Money;
 use AutoKit\Exceptions\DifferentCurrencies;
 use AutoKit\Exceptions\ImpossibleSubtracts;
 
+/**
+ * Class Money
+ * @package AutoKit\Components\Money
+ * @method static Money EUR(int $amount)
+ * @method static Money USD(int $amount)
+ * @method static Money UAH(int $amount)
+ */
 class Money
 {
+    /**
+     * @var int
+     */
     private $amount;
+
+    /**
+     * @var Currency
+     */
     private $currency;
 
     public function __construct(int $amount, Currency $currency)
@@ -71,16 +85,16 @@ class Money
         return new self($this->amount - $other->amount, $this->currency);
     }
 
-    public function mul($multiplier): self
+    public function mul($multiplier, ?Currency $currency = null): self
     {
-        $newAmount = round($this->amount * $multiplier);
-        return new self($newAmount, $this->currency);
+        $newAmount = bcmul($this->amount, $multiplier);
+        return new self($newAmount, $currency ?? $this->currency);
     }
 
-    public function div($divider): self
+    public function div($divider, ?Currency $currency = null): self
     {
-        $newAmount = round($this->amount / $divider);
-        return new self($newAmount, $this->currency);
+        $newAmount = bcdiv($this->amount, $divider);
+        return new self($newAmount, $currency ?? $this->currency);
     }
 
     private function compareTo(Money $other): int
@@ -91,5 +105,21 @@ class Money
     private function equalsCurrency(Money $other): bool
     {
         return $this->currency->equals($other->currency);
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     * @return Money
+     * @throws \AutoKit\Exceptions\UnknownCurrency
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        return new self($arguments[0], new Currency($name));
+    }
+
+    public function getCurrency(): Currency
+    {
+        return $this->currency;
     }
 }

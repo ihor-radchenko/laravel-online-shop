@@ -59,7 +59,7 @@ class DeliveryApiRequest
 
     public function setUri(string $methodName): self
     {
-        $this->uri = 'http://www.delivery-auto.com/api/v4/Public/' . $methodName;
+        $this->uri = config('delivery.uri') . $methodName;
         return $this;
     }
 

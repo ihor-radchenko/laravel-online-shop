@@ -4,11 +4,33 @@ namespace AutoKit\Components\Money;
 
 use AutoKit\Exceptions\UnknownCurrency;
 
+/**
+ * Class Currency
+ * @package AutoKit\Components\Money
+ * @method static Currency EUR
+ * @method static Currency UAH
+ * @method static Currency USD
+ */
 class Currency
 {
+    /**
+     * @var string
+     */
     private $isoAlfa;
+
+    /**
+     * @var int
+     */
     private $minorUnit;
+
+    /**
+     * @var int
+     */
     private $isoNumber;
+
+    /**
+     * @var string
+     */
     private $symbol;
 
     /**
@@ -47,5 +69,21 @@ class Currency
     private function notFound($key, array $search): bool
     {
         return ! array_key_exists($key, $search);
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     * @return Currency
+     * @throws UnknownCurrency
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        return new self($name);
+    }
+
+    public function getIsoAlfa(): string
+    {
+        return $this->isoAlfa;
     }
 }
