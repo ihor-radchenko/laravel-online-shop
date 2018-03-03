@@ -14,8 +14,8 @@ class ProductsTableSeeder extends Seeder
     {
         Product::create([
             'title' => 'Головка блока цилиндров ET ENGINETEAM ET HL0043',
-            'price' => 899.99,
-            'old_price' => 1000,
+            'price' => 89999,
+            'old_price' => 100000,
             'quantity' => '3',
             'is_top' => 0,
             'is_new' => 0,
@@ -31,7 +31,7 @@ class ProductsTableSeeder extends Seeder
         ]);
         Product::create([
             'title' => 'Тормозной барабан BREMBO 14.7093.10',
-            'price' => 650,
+            'price' => 65000,
             'quantity' => '12',
             'is_top' => 0,
             'is_new' => 1,
@@ -51,7 +51,7 @@ class ProductsTableSeeder extends Seeder
         ]);
         Product::create([
             'title' => 'Амортизатор подвески (СЕРИЯ: B2) BILSTEIN BIL 16-031456',
-            'price' => 650,
+            'price' => 65000,
             'quantity' => '23',
             'is_top' => 1,
             'is_new' => 0,
@@ -71,8 +71,8 @@ class ProductsTableSeeder extends Seeder
         ]);
         Product::create([
             'title' => 'Рейка гидроусилителя руля GKN 0.052420',
-            'price' => 1000,
-            'old_price' => 1125.75,
+            'price' => 100000,
+            'old_price' => 112575,
             'quantity' => '1',
             'is_top' => 1,
             'is_new' => 0,
@@ -92,7 +92,7 @@ class ProductsTableSeeder extends Seeder
         ]);
         Product::create([
             'title' => 'Задняя часть выхлопной системы (Глушитель). MTS MTS 01.68380',
-            'price' => 45,
+            'price' => 4500,
             'quantity' => '50',
             'is_top' => 1,
             'is_new' => 0,
@@ -108,7 +108,7 @@ class ProductsTableSeeder extends Seeder
         ]);
         Product::create([
             'title' => 'DFLF 01- Лев./ прав. стекло заднего фонаря 7 секций ELIT KH9705 0750',
-            'price' => 8,
+            'price' => 800,
             'quantity' => '67',
             'is_top' => 1,
             'is_new' => 0,
@@ -123,7 +123,7 @@ class ProductsTableSeeder extends Seeder
         ]);
         Product::create([
             'title' => 'Моторное масло MoS2 LEICHTLAUF 10W40 (API SL/CF, ACEA A3-04/B4-04 ) / 4л LIQUI MOLY LIM1917',
-            'price' => 35,
+            'price' => 3500,
             'quantity' => '43',
             'is_top' => 0,
             'is_new' => 1,
@@ -138,7 +138,7 @@ class ProductsTableSeeder extends Seeder
         ]);
         Product::create([
             'title' => 'Решетка лев. в передний бампер ELIT KH2533 995',
-            'price' => 3,
+            'price' => 300,
             'quantity' => '52',
             'is_top' => 0,
             'is_new' => 1,
@@ -153,7 +153,7 @@ class ProductsTableSeeder extends Seeder
         ]);
         Product::create([
             'title' => 'Опора КПП LEMFÖRDER LMI 34573 01',
-            'price' => 40,
+            'price' => 4000,
             'quantity' => '3',
             'is_top' => 0,
             'is_new' => 1,
