@@ -27,12 +27,7 @@
                                 @endif
                                 <div class="count color-black">@lang('page.on_warehouse') {{ $product->quantity }}</div>
                                 <h2 class="title">{{ $product->title }}</h2>
-                                @if(! is_null($product->old_price))
-                                    <span class="new-price">${{ $product->price }}</span>
-                                    <span class="old-price">${{ $product->old_price }}</span>
-                                @else
-                                    <span class="price">${{ $product->price }}</span>
-                                @endif
+                                @include('partials.product.price')
                                 <p class="short-content">@lang('page.product_welcome')</p>
                                 <div class="qty">
                                     <label for="qty" class="color-black">@lang('page.quantity')</label>

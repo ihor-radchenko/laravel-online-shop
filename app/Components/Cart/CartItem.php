@@ -2,6 +2,7 @@
 
 namespace AutoKit\Components\Cart;
 
+use AutoKit\Components\Money\Money;
 use AutoKit\Product;
 
 class CartItem
@@ -22,9 +23,9 @@ class CartItem
         $this->quantity = $quantity;
     }
 
-    public function getAmount(): float
+    public function getAmount(): Money
     {
-        return round_up($this->product->price * $this->quantity, 2);
+        return $this->product->price->mul($this->quantity);
     }
 
     public function allInCart(): bool

@@ -14,12 +14,7 @@
                 @endif
                 <div class="col-sm-7">
                     <div class="caption">
-                        @if(! is_null($product->old_price))
-                            <span class="new-price">${{ $product->price }}</span>
-                            <span class="old-price">${{ $product->old_price }}</span>
-                        @else
-                            <span class="price">${{ $product->price }}</span>
-                        @endif
+                        @include('partials.product.price')
                         <a href="{{ route('product', ['product' => $product->id]) }}" class="title">{{ $product->title }}</a>
                         <p class="short-content">
                             {{ str_limit($product->description) }}

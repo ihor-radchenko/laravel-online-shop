@@ -39,4 +39,9 @@ class IndexController extends Controller
             ->with('new_products', $this->product->getForMainPageWhere('is_new'))
             ->with('articles', $this->article->getLastForMainPage());
     }
+
+    public function changeCurrency(string $currency)
+    {
+        return back()->withCookie(cookie()->forever('currency', strtoupper($currency)));
+    }
 }

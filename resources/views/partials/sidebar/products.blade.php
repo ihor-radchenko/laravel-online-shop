@@ -35,11 +35,13 @@
     <hr>
     <div class="priceRange">
         <h4 class="title">@lang('page.price')</h4>
-        <div class="form-group">
-            <input type="text" id="priceFrom" class="form-control" disabled value="$0">
+        <div class="form-group price-slider">
+            <label for="priceFrom">{{ $currencySymbol }}</label>
+            <input type="text" id="priceFrom" class="form-control" disabled value="0">
         </div>
-        <div class="form-group">
-            <input type="text" id="priceTo" class="form-control" disabled value="${{ $maxPrice }}">
+        <div class="form-group price-slider">
+            <label for="priceTo">{{ $currencySymbol }}</label>
+            <input type="text" id="priceTo" class="form-control" disabled value="{{ $maxPrice }}">
         </div>
         <div id="sliderPrice"></div>
     </div>

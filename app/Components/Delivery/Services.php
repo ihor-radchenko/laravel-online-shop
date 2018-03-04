@@ -3,6 +3,9 @@
 namespace AutoKit\Components\Delivery;
 
 use AutoKit\Components\Cart\Cart;
+use AutoKit\Components\Money\Currency;
+use AutoKit\Components\Money\Exchanger;
+use AutoKit\Components\Money\Money;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
@@ -38,13 +41,16 @@ class Services extends Delivery
      */
     private $cart;
 
-    public function __construct(DeliveryApiRequest $client, Address $address, Cart $cart)
+    private $exchanger;
+
+    public function __construct(DeliveryApiRequest $client, Address $address, Cart $cart, Exchanger $exchanger)
     {
         parent::__construct($client);
         $this->citySendId = config('delivery.city_send_id');
         $this->warehouseSendId = config('delivery.warehouse_send_id');
         $this->address = $address;
         $this->cart = $cart;
+        $this->exchanger = $exchanger;
     }
 
     /**
@@ -120,21 +126,23 @@ class Services extends Delivery
     }
 
     /**
-     * @return Collection
+     * @return Money
      * @throws \AutoKit\Exceptions\DeliveryApi
      */
-    public function getInsuranceCost(): Collection
+    public function getInsuranceCost(): Money
     {
-        return $this
+        $cost = $this
             ->setUri(__METHOD__)
             ->addQueryData('CitySendId', $this->citySendId)
             ->addQueryData('CityReceiveId', $this->cityReceiveId)
             ->addQueryData('WarehouseSendId', $this->warehouseSendId)
             ->addQueryData('WarehouseReceiveId', $this->warehouseReceiveId)
-            ->addQueryData('InsuranceValue', $this->cart->totalPrice())
+            ->addQueryData('InsuranceValue', $this->exchanger->convert($this->cart->totalPrice(), Currency::UAH())->format())
             ->addQueryData('InsuranceCurrency', self::UAH)
             ->addQueryData('currency', self::UAH)
-            ->send();
+            ->send()
+            ->get('Value');
+        return Money::UAH($cost * Currency::UAH()->getCountSubUnitsInUnit());
     }
 
     /**

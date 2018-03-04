@@ -122,4 +122,19 @@ class Money
     {
         return $this->currency;
     }
+
+    public function format(): float
+    {
+        return $this->amount / $this->currency->getCountSubUnitsInUnit();
+    }
+
+    public function __toString()
+    {
+        return $this->currency->getSymbol() . $this->format();
+    }
+
+    public function getAmount(): int
+    {
+        return $this->amount;
+    }
 }

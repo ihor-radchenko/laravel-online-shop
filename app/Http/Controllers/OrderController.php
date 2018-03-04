@@ -9,8 +9,14 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    /**
+     * @var Address
+     */
     protected $deliveryAddress;
 
+    /**
+     * @var Cart
+     */
     protected $cart;
 
     public function __construct(Address $address, Cart $cart)
@@ -39,7 +45,7 @@ class OrderController extends Controller
             'content' => view('partials.order.form.self_delivery')
                 ->with('warehouse', $selfDelivery)
                 ->render(),
-            'totalPrice' => $this->cart->totalPrice()
+            'totalPrice' => $this->cart->totalPrice()->format()
         ]);
     }
 }

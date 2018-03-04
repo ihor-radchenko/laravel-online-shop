@@ -13,6 +13,7 @@ use AutoKit\Exceptions\UnknownCurrency;
  */
 class Currency
 {
+    public const ROOT = __DIR__ . '/currencies.php';
     /**
      * @var string
      */
@@ -85,5 +86,21 @@ class Currency
     public function getIsoAlfa(): string
     {
         return $this->isoAlfa;
+    }
+
+    public function getCountSubUnitsInUnit(): int
+    {
+        return pow(10, $this->minorUnit);
+    }
+
+    public function getSymbol(): string
+    {
+        return $this->symbol;
+    }
+
+    public static function exist(string $currency): bool
+    {
+        $currencies = require 'currencies.php';
+        return array_key_exists($currency, $currencies);
     }
 }

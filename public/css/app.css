@@ -13520,6 +13520,10 @@ footer .copyright {
   background-color: #13191e;
 }
 
+.navbar-default .navbar-nav > li > a:focus {
+  color: #777;
+}
+
 .main-nav ul.nav li a:hover {
   color: white;
 }
@@ -14106,6 +14110,21 @@ textarea {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+}
+
+.price-slider {
+  position: relative;
+}
+
+.price-slider label {
+  position: absolute;
+  top: 7px;
+  left: 5px;
+  color: #8594a0;
+}
+
+.price-slider input {
+  padding-left: 20px;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {

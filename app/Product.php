@@ -3,6 +3,9 @@
 namespace AutoKit;
 
 use AutoKit\Components\Cart\Cart;
+use AutoKit\Components\Money\Currency;
+use AutoKit\Components\Money\Exchanger;
+use AutoKit\Components\Money\Money;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,8 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $title
- * @property float $price
- * @property float|null $old_price
+ * @property Money $price
+ * @property Money|null $old_price
  * @property int $quantity
  * @property int $is_top
  * @property int $is_new
@@ -71,6 +74,28 @@ class Product extends Model
         return '/img/products/' . $value;
     }
 
+    /**
+     * @param int $value
+     * @return Money
+     */
+    public function getPriceAttribute(int $value): Money
+    {
+        $exchanger = app(Exchanger::class);
+        return $exchanger->convert(Money::USD($value), app(Currency::class));
+    }
+
+    /**
+     * @param int|null $value
+     * @return Money|null
+     */
+    public function getOldPriceAttribute(?int $value): ?Money
+    {
+        $exchanger = app(Exchanger::class);
+        return is_null($value)
+            ? null
+            : $exchanger->convert(Money::USD($value), app(Currency::class));
+    }
+
     public function outOfStock(): bool
     {
         return $this->quantity === 0;
@@ -126,7 +151,8 @@ class Product extends Model
             $data->whereBrandId(Brand::whereAlias($brand)->first()->id);
         }
         if ($price) {
-            $data->whereBetween('price', [trim($price['min'], '$'), trim($price['max'], '$')]);
+            [$minPrice, $maxPrice] = $this->getPriceRange($price);
+            $data->whereBetween('price', [$minPrice, $maxPrice]);
         }
         return $data->paginate();
     }
@@ -148,17 +174,19 @@ class Product extends Model
             $data->whereBrandId(Brand::whereAlias($brand)->first()->id);
         }
         if ($price) {
-            $data->whereBetween('price', [trim($price['min'], '$'), trim($price['max'], '$')]);
+            [$minPrice, $maxPrice] = $this->getPriceRange($price);
+            $data->whereBetween('price', [$minPrice, $maxPrice]);
         }
         return $data->paginate();
     }
 
     /**
      * @param Menu $menu
+     * @param Exchanger $exchanger
      * @param Category|null $category
-     * @return float
+     * @return int
      */
-    public function getMaxPrice(Menu $menu, ?Category $category = null): float
+    public function getMaxPrice(Menu $menu, Exchanger $exchanger, ?Category $category = null): int
     {
         $data = self::whereIn(
             'category_id',
@@ -169,6 +197,23 @@ class Product extends Model
         if ($category) {
             $data->whereCategoryId($category->id);
         }
-        return ceil($data->max('price'));
+        $maxPrice = $exchanger->convert(Money::USD($data->max('price')), app(Currency::class))
+            ->format();
+        return ceil($maxPrice);
+    }
+
+    private function getPriceRange(array $price): array
+    {
+        $exchanger = app(Exchanger::class);
+        $currency = app(Currency::class);
+        $minPrice = $exchanger->convert(
+            (new Money($price['min'], app(Currency::class)))->mul($currency->getCountSubUnitsInUnit()),
+            Currency::USD()
+        );
+        $maxPrice = $exchanger->convert(
+            (new Money($price['max'], app(Currency::class)))->mul($currency->getCountSubUnitsInUnit()),
+            Currency::USD()
+        );
+        return [$minPrice->getAmount(), $maxPrice->getAmount()];
     }
 }

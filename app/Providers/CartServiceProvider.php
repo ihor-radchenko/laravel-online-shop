@@ -26,11 +26,7 @@ class CartServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Cart', function () {
-            return new Cart($this->app->make(RepositoryContract::class), $this->app->make(CartItemCreator::class));
-        });
-        $this->app->singleton(Cart::class, function () {
-            return new Cart($this->app->make(RepositoryContract::class), $this->app->make(CartItemCreator::class));
-        });
+        $this->app->singleton('Cart', Cart::class);
+        $this->app->singleton(Cart::class, Cart::class);
     }
 }

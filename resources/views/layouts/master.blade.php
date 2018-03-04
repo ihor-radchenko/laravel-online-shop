@@ -25,11 +25,24 @@
             <a href="{{ route('main') }}" class="logo">
                 <img src="{{ asset('/img/autokit.png') }}" alt="logo">
             </a>
-            <a href="{{ route('cart') }}" class="nav-cart">
-                <i class="fa fa-shopping-cart"></i>
-                @lang('page.my_cart')
-                <span class="cart-count" id="cartCount">{{ $cart->totalQuantity() }}</span>
-            </a>
+            <div>
+                <div class="form-group form-group-sm">
+                    <select name="currency" id="selectCurrency" class="form-control">
+                        @foreach($currencies as $currency => $currencyData)
+                            <option value="{{ route('currency.change', ['currency' => strtolower($currency)]) }}"
+                            @if(request()->cookie('currency') === $currency) selected @endif
+                            >
+                                {{ $currency }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <a href="{{ route('cart') }}" class="nav-cart">
+                    <i class="fa fa-shopping-cart"></i>
+                    @lang('page.my_cart')
+                    <span class="cart-count" id="cartCount">{{ $cart->totalQuantity() }}</span>
+                </a>
+            </div>
         </div>
     </div>
 </header>

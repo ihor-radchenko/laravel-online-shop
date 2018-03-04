@@ -8,7 +8,6 @@
 
 namespace AutoKit\Http\ViewComposers;
 
-
 use AutoKit\Components\Cart\Cart;
 use Illuminate\View\View;
 

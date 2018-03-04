@@ -36,9 +36,9 @@ class CartController extends Controller
         $productInCart = $this->cart->get($product);
         return response()->json([
             'totalQuantity' => $this->cart->totalQuantity(),
-            'totalPrice' => $this->cart->totalPrice(),
+            'totalPrice' => $this->cart->totalPrice()->format(),
             'item' => $productInCart,
-            'amount' => $productInCart ? $productInCart->getAmount() : 0
+            'amount' => $productInCart ? $productInCart->getAmount()->format() : 0
         ]);
     }
 
@@ -47,7 +47,7 @@ class CartController extends Controller
         $this->cart->remove(Product::find($request->product));
         return response()->json([
             'totalQuantity' => $this->cart->totalQuantity(),
-            'totalPrice' => $this->cart->totalPrice()
+            'totalPrice' => $this->cart->totalPrice()->format()
         ]);
     }
 }

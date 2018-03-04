@@ -16,12 +16,7 @@
                                 <span class="new">New</span>
                             @endif
                             <div class="caption">
-                                @if(! is_null($product->old_price))
-                                    <span class="new-price">${{ $product->price }}</span>
-                                    <span class="old-price">${{ $product->old_price }}</span>
-                                @else
-                                    <span class="price">${{ $product->price }}</span>
-                                @endif
+                                @include('partials.product.price')
                                 <a href="{{ route('product', ['product' => $product->id]) }}" class="title">{{ $product->title }}</a>
                                 @include('partials.buttons.add_to_cart')
                                 <div class="rating">

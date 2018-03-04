@@ -4,7 +4,7 @@ namespace AutoKit\Components\Money;
 
 use Illuminate\Support\Collection;
 
-class Exchange
+class Exchanger
 {
     /**
      * @var ExchangeRequest
@@ -22,7 +22,7 @@ class Exchange
     private $exchanges;
 
     /**
-     * Exchange constructor.
+     * Exchanger constructor.
      * @param ExchangeRequest $exchangeRequest
      * @throws \AutoKit\Exceptions\UnknownCurrency
      */

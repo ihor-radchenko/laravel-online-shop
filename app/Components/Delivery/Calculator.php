@@ -3,6 +3,9 @@
 namespace AutoKit\Components\Delivery;
 
 use AutoKit\Components\Cart\Cart;
+use AutoKit\Components\Money\Currency;
+use AutoKit\Components\Money\Exchanger;
+use AutoKit\Components\Money\Money;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
@@ -22,8 +25,9 @@ class Calculator extends Delivery
     private $address;
     private $services;
     private $cart;
+    private $exchanger;
 
-    public function __construct(DeliveryApiRequest $client, Address $address, Services $services, Cart $cart)
+    public function __construct(DeliveryApiRequest $client, Address $address, Services $services, Cart $cart, Exchanger $exchanger)
     {
         parent::__construct($client);
         $this->address = $address;
@@ -32,15 +36,16 @@ class Calculator extends Delivery
         $this->warehouseSendId = config('delivery.warehouse_send_id');
         $this->cart = $cart;
         $this->services = $services;
+        $this->exchanger = $exchanger;
     }
 
     /**
-     * @return Collection
+     * @return Money
      * @throws \AutoKit\Exceptions\DeliveryApi
      */
-    public function postReceiptCalculate(): Collection
+    public function postReceiptCalculate(): Money
     {
-        return $this
+        $cost = $this
             ->setUri(__METHOD__)
             ->addBodyData('culture', $this->culture)
             ->addBodyData('areasSendId', $this->areasSendId)
@@ -53,7 +58,10 @@ class Calculator extends Delivery
             ->addBodyData('deliveryScheme', $this->deliveryScheme)
             ->addBodyData('category', $this->category)
             ->addBodyData('dopUslugaClassificator', $this->dopUsluga)
-            ->send();
+            ->send()
+            ->get('allSumma');
+        return $this->exchanger
+            ->convert(Money::UAH($cost * Currency::UAH()->getCountSubUnitsInUnit()), app(Currency::class));
     }
 
     /**
@@ -66,7 +74,6 @@ class Calculator extends Delivery
         $warehouses = $this->address->getWarehousesInfo($warehouses);
         $this->areasResiveId = $warehouses->get('CityId');
         $this->warehouseResiveId = $warehouses->get('id');
-        $this->setInsuranceValue();
         return $this;
     }
 
@@ -113,11 +120,14 @@ class Calculator extends Delivery
     /**
      * @return Calculator
      * @throws \AutoKit\Exceptions\DeliveryApi
+     * @throws \AutoKit\Exceptions\DifferentCurrencies
      */
-    private function setInsuranceValue(): self
+    public function setInsuranceValue(): self
     {
         $this->services->setReceiveInfo($this->warehouseSendId);
-        $this->insuranceValue = $this->services->getInsuranceCost()->get('Value') + $this->cart->totalPrice();
+        $this->insuranceValue = $this->services
+            ->getInsuranceCost()
+            ->add($this->cashOnDeliveryValue);
         return $this;
     }
 
@@ -126,7 +136,7 @@ class Calculator extends Delivery
      */
     public function setCashOnDeliveryValue(): self
     {
-        $this->cashOnDeliveryValue = $this->cart->totalPrice();
+        $this->cashOnDeliveryValue = $this->exchanger->convert($this->cart->totalPrice(), Currency::UAH());
         return $this;
     }
 

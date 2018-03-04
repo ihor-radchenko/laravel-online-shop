@@ -29,7 +29,7 @@
                                                 </a>
                                             </div>
                                             <div class="price">
-                                                ${{ $item->product->price }}
+                                                {{ $item->product->price }}
                                             </div>
                                             <div class="on-stock">
                                                 @lang('page.on_warehouse') {{ $item->product->quantity }}
@@ -55,7 +55,7 @@
                                                 </button>
                                             </div>
                                         </th>
-                                        <th class="amountPrice">$<span>{{ $item->getAmount() }}</span></th>
+                                        <th class="amountPrice">{{ $currencySymbol }}<span>{{ $item->getAmount()->format() }}</span></th>
                                         <th>
                                             <button class="removeItem" data-route="{{ route('cart.remove') }}" data-product="{{ $item->product->id }}">
                                                 <i class="fa fa-times"></i>
@@ -65,11 +65,11 @@
                                 @endforeach
                                 <tr class="color-black last-row-in-cart">
                                     <th colspan="3" class="text-right">@lang('cart.full_price')</th>
-                                    <th class="full-price">$<span id="totalPrice">{{ $cart->totalPrice() }}</span></th>
+                                    <th class="full-price">{{ $currencySymbol }}<span id="totalPrice">{{ $cart->totalPrice()->format() }}</span></th>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-center">
-                                        <a href="" class="my-btn btn-black">@lang('button.checkout')</a>
+                                        <a href="{{ route('order') }}" class="my-btn btn-black">@lang('button.checkout')</a>
                                     </td>
                                 </tr>
                             </tbody>

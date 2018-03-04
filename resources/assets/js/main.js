@@ -53,3 +53,7 @@ $(window).scroll(function () {
         sidebar.removeClass('fixed-cart-sidebar');
     }
 });
+
+$(document).on('change', '#selectCurrency', function () {
+    window.location = $(this).val();
+});

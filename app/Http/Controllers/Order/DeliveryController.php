@@ -154,23 +154,25 @@ class DeliveryController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Http\JsonResponse
      * @throws DeliveryApi
+     * @throws \AutoKit\Exceptions\DifferentCurrencies
      */
     public function calculation(Request $request)
     {
         $shippingPrice = $this->deliveryCalculator
             ->setReceiveInfo($request->warehouse)
+            ->setCashOnDeliveryValue()
+            ->setInsuranceValue()
             ->setDeliveryScheme($request->scheme)
             ->setCategory($request->category)
             ->setDopUsluga($request->dopUslugi)
             ->setCashOnDeliveryValue()
             ->setDateSend()
-            ->postReceiptCalculate()
-            ->get('allSumma');
+            ->postReceiptCalculate();
         return response()->json([
-            'shippingPrice' => $shippingPrice,
-            'totalPrice' => $shippingPrice + $this->cart->totalPrice()
+            'shippingPrice' => $shippingPrice->format(),
+            'totalPrice' => $shippingPrice->add($this->cart->totalPrice())->format()
         ]);
     }
 }

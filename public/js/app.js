@@ -33622,6 +33622,10 @@ $(window).scroll(function () {
     }
 });
 
+$(document).on('change', '#selectCurrency', function () {
+    window.location = $(this).val();
+});
+
 /***/ }),
 /* 42 */
 /***/ (function(module, exports) {
@@ -33980,6 +33984,7 @@ function ajaxChangeCart(btn, quantity) {
             quantity: quantity
         },
         success: function success(response) {
+            console.log(response);
             disabledOff($(".changeQuantity"));
             $("#cartCount").text(response.totalQuantity);
             if (response.item === null) {

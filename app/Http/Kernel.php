@@ -3,6 +3,8 @@
 namespace AutoKit\Http;
 
 use AutoKit\Http\Middleware\AjaxRequest;
+use AutoKit\Http\Middleware\Currency;
+use AutoKit\Http\Middleware\CurrencyProtection;
 use AutoKit\Http\Middleware\OrderIfCartNotEmpty;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -37,6 +39,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \AutoKit\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
+            Currency::class
         ],
 
         'api' => [
@@ -60,6 +64,7 @@ class Kernel extends HttpKernel
         'guest' => \AutoKit\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'ajax' => AjaxRequest::class,
-        'order' => OrderIfCartNotEmpty::class
+        'order' => OrderIfCartNotEmpty::class,
+        'currency' => CurrencyProtection::class
     ];
 }

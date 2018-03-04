@@ -469,6 +469,10 @@ footer {
   background-color: $black;
 }
 
+.navbar-default .navbar-nav > li > a:focus {
+  color: #777;
+}
+
 .main-nav ul.nav li a:hover {
   color: white;
 }
@@ -968,4 +972,17 @@ textarea {
 
 #calculation {
   width: max-content;
+}
+
+.price-slider {
+  position: relative;
+  label {
+    position: absolute;
+    top: 7px;
+    left: 5px;
+    color: $gray;
+  }
+  input {
+    padding-left: 20px;
+  }
 }

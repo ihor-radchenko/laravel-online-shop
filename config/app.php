@@ -179,7 +179,8 @@ return [
         AutoKit\Providers\RouteServiceProvider::class,
         \AutoKit\Providers\ComposerServiceProvider::class,
         \AutoKit\Providers\RepositoryServiceProvider::class,
-        \AutoKit\Providers\CartServiceProvider::class
+        \AutoKit\Providers\CartServiceProvider::class,
+        \AutoKit\Providers\MoneyServiceProvider::class
 
     ],
 
@@ -229,7 +230,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Cart' => \AutoKit\Facades\Cart::class
+        'Cart' => \AutoKit\Facades\Cart::class,
     ],
 
 ];

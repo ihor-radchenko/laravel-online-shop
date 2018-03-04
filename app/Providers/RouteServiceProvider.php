@@ -32,6 +32,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::pattern('menu', '[a-z-]+');
         Route::pattern('category', '[a-z-]+');
         Route::pattern('product', '[0-9]+');
+        Route::pattern('currency', '[a-z]{3}');
 
         Route::bind('article', function ($value) {
             return Article::whereAlias($value)->first() ?? abort(404);

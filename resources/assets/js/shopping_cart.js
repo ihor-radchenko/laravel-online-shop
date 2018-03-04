@@ -56,6 +56,7 @@ function ajaxChangeCart(btn, quantity) {
             quantity: quantity
         },
         success: function (response) {
+            console.log(response);
             disabledOff($(".changeQuantity"));
             $("#cartCount").text(response.totalQuantity);
             if (response.item === null) {

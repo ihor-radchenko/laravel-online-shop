@@ -4,6 +4,7 @@ namespace AutoKit\Http\Controllers;
 
 use AutoKit\Brand;
 use AutoKit\Category;
+use AutoKit\Components\Money\Exchanger;
 use AutoKit\Menu;
 use AutoKit\Product;
 use AutoKit\Review;
@@ -36,13 +37,21 @@ class ProductController extends Controller
      */
     protected $review;
 
-    public function __construct(Product $product, Category $category, Menu $menu, Brand $brand, Review $review)
-    {
+    /**
+     * @var Exchanger
+     */
+    protected $exchanger;
+
+    public function __construct(
+        Product $product, Category $category, Menu $menu, Brand $brand,
+        Review $review, Exchanger $exchanger
+    ) {
         $this->product = $product;
         $this->category = $category;
         $this->menu = $menu;
         $this->brand = $brand;
         $this->review = $review;
+        $this->exchanger = $exchanger;
     }
 
     public function index(Request $request, Menu $menu)
@@ -62,7 +71,7 @@ class ProductController extends Controller
             ->with('products', $this->product->getWhereMenu($menu))
             ->with('categories', $this->category->getWhereMenu($menu))
             ->with('brands', $this->brand->getForMenuWithCountProducts($menu))
-            ->with('maxPrice', $this->product->getMaxPrice($menu));
+            ->with('maxPrice', $this->product->getMaxPrice($menu, $this->exchanger));
     }
 
     public function showByCategory(Request $request, Menu $menu, Category $category)
@@ -83,7 +92,7 @@ class ProductController extends Controller
             ->with('products', $this->product->getWhereCategory($category))
             ->with('categories', $this->category->getWhereMenu($menu))
             ->with('brands', $this->brand->getForCategoryWithCountProducts($category))
-            ->with('maxPrice', $this->product->getMaxPrice($menu, $category));
+            ->with('maxPrice', $this->product->getMaxPrice($menu, $this->exchanger, $category));
     }
 
     public function show(Request $request, Product $product)

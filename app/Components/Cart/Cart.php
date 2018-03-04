@@ -2,6 +2,9 @@
 
 namespace AutoKit\Components\Cart;
 
+use AutoKit\Components\Money\Currency;
+use AutoKit\Components\Money\Exchanger;
+use AutoKit\Components\Money\Money;
 use AutoKit\Exceptions\QuantityOverstated;
 use AutoKit\Product;
 use AutoKit\Repositories\Cart\RepositoryContract as Repository;
@@ -19,10 +22,16 @@ class Cart
      */
     private $creator;
 
-    public function __construct(Repository $repository, CartItemCreator $creator)
+    /**
+     * @var Currency
+     */
+    private $currency;
+
+    public function __construct(Repository $repository, CartItemCreator $creator, Currency $currency)
     {
         $this->repository = $repository;
         $this->creator = $creator;
+        $this->currency = $currency;
     }
 
     /**
@@ -85,11 +94,11 @@ class Cart
         return $this->all()->count();
     }
 
-    public function totalPrice(): float
+    public function totalPrice(): Money
     {
-        return round_up($this->all()->reduce(function ($carry, $item) {
-            return $carry + $item->quantity * $item->product->price;
-        }), 2);
+        return $this->all()->reduce(function ($carry, $item) {
+            return $carry->add($item->product->price->mul($item->quantity));
+        }, new Money(0, $this->currency));
     }
 
     public function isNotEmpty(): bool
