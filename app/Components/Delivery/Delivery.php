@@ -2,6 +2,10 @@
 
 namespace AutoKit\Components\Delivery;
 
+use AutoKit\Components\Cart\Cart;
+use AutoKit\Components\Money\Currency;
+use AutoKit\Components\Money\Exchanger;
+use AutoKit\Components\Money\Money;
 use Illuminate\Support\Collection;
 
 abstract class Delivery
@@ -32,9 +36,21 @@ abstract class Delivery
      */
     protected $requestMethod;
 
-    public function __construct(DeliveryApiRequest $client)
+    /**
+     * @var Cart
+     */
+    protected $cart;
+
+    /**
+     * @var Exchanger
+     */
+    protected $exchanger;
+
+    public function __construct(DeliveryApiRequest $client, Cart $cart, Exchanger $exchanger)
     {
         $this->client = $client;
+        $this->cart = $cart;
+        $this->exchanger = $exchanger;
         $this->culture = config('delivery.culture');
         $this->country = $this->getCountry();
         $this->requestMethod = 'GET';
@@ -86,5 +102,10 @@ abstract class Delivery
     {
         $this->client->setUri($this->getShortMethodName($methodName));
         return $this;
+    }
+
+    protected function convertCartPriceToUAH(): Money
+    {
+        return $this->exchanger->convert($this->cart->totalPrice(), Currency::UAH());
     }
 }

@@ -3,7 +3,6 @@
 namespace AutoKit\Components\Cart;
 
 use AutoKit\Components\Money\Currency;
-use AutoKit\Components\Money\Exchanger;
 use AutoKit\Components\Money\Money;
 use AutoKit\Exceptions\QuantityOverstated;
 use AutoKit\Product;
@@ -23,15 +22,21 @@ class Cart
     private $creator;
 
     /**
+     * @var Calculator
+     */
+    private $calculator;
+
+    /**
      * @var Currency
      */
     private $currency;
 
-    public function __construct(Repository $repository, CartItemCreator $creator, Currency $currency)
+    public function __construct(Repository $repository, CartItemCreator $creator, Currency $currency, Calculator $calculator)
     {
         $this->repository = $repository;
         $this->creator = $creator;
         $this->currency = $currency;
+        $this->calculator = $calculator;
     }
 
     /**
@@ -84,21 +89,9 @@ class Cart
         return $this->repository->exists($product->id);
     }
 
-    public function totalQuantity(): int
-    {
-        return $this->all()->sum('quantity');
-    }
-
     public function count(): int
     {
         return $this->all()->count();
-    }
-
-    public function totalPrice(): Money
-    {
-        return $this->all()->reduce(function ($carry, $item) {
-            return $carry->add($item->product->price->mul($item->quantity));
-        }, new Money(0, $this->currency));
     }
 
     public function isNotEmpty(): bool
@@ -111,17 +104,23 @@ class Cart
         return $product->quantity - $this->get($product)->quantity;
     }
 
+    public function totalQuantity(): int
+    {
+        return $this->calculator->totalQuantity($this->all());
+    }
+
+    public function totalPrice(): Money
+    {
+        return $this->calculator->totalPrice($this->all(), $this->currency);
+    }
+
     public function totalWeight(): float
     {
-        return round_up($this->all()->reduce(function ($carry, $item) {
-            return $carry + $item->quantity * $item->product->weight;
-        }), 3);
+        return $this->calculator->totalWeight($this->all());
     }
 
     public function totalDimensions(): float
     {
-        return round_up($this->all()->reduce(function ($carry, $item) {
-            return $carry + $item->quantity * ($item->product->width * $item->product->height * $item->product->length);
-        }), 2);
+        return $this->calculator->totalDimensions($this->all());
     }
 }

@@ -11,11 +11,17 @@ use Illuminate\Support\Collection;
 
 class Calculator extends Delivery
 {
+    private const MAX_CASH_ON_DELIVERY = 150000;
+
     private $areasSendId;
     private $areasResiveId;
     private $warehouseSendId;
     private $warehouseResiveId;
     private $insuranceValue;
+
+    /**
+     * @var Money
+     */
     private $cashOnDeliveryValue;
     private $dateSend;
     private $deliveryScheme;
@@ -24,19 +30,16 @@ class Calculator extends Delivery
 
     private $address;
     private $services;
-    private $cart;
-    private $exchanger;
 
-    public function __construct(DeliveryApiRequest $client, Address $address, Services $services, Cart $cart, Exchanger $exchanger)
-    {
-        parent::__construct($client);
+    public function __construct(
+        DeliveryApiRequest $client, Address $address, Services $services, Cart $cart, Exchanger $exchanger
+    ) {
+        parent::__construct($client, $cart, $exchanger);
         $this->address = $address;
         $this->requestMethod = 'POST';
         $this->areasSendId = config('delivery.city_send_id');
         $this->warehouseSendId = config('delivery.warehouse_send_id');
-        $this->cart = $cart;
         $this->services = $services;
-        $this->exchanger = $exchanger;
     }
 
     /**
@@ -53,7 +56,7 @@ class Calculator extends Delivery
             ->addBodyData('warehouseSendId', $this->warehouseSendId)
             ->addBodyData('warehouseResiveId', $this->areasResiveId)
             ->addBodyData('InsuranceValue', $this->insuranceValue)
-            ->addBodyData('CashOnDeliveryValue', $this->cashOnDeliveryValue)
+            ->addBodyData('CashOnDeliveryValue', $this->cashOnDeliveryValue())
             ->addBodyData('dateSend', $this->dateSend)
             ->addBodyData('deliveryScheme', $this->deliveryScheme)
             ->addBodyData('category', $this->category)
@@ -62,6 +65,15 @@ class Calculator extends Delivery
             ->get('allSumma');
         return $this->exchanger
             ->convert(Money::UAH($cost * Currency::UAH()->getCountSubUnitsInUnit()), app(Currency::class));
+    }
+
+    private function cashOnDeliveryValue()
+    {
+        $cash = $this->cashOnDeliveryValue->format();
+        if (self::MAX_CASH_ON_DELIVERY < $cash) {
+            $cash = self::MAX_CASH_ON_DELIVERY;
+        }
+        return $cash;
     }
 
     /**
@@ -127,7 +139,8 @@ class Calculator extends Delivery
         $this->services->setReceiveInfo($this->warehouseSendId);
         $this->insuranceValue = $this->services
             ->getInsuranceCost()
-            ->add($this->cashOnDeliveryValue);
+            ->add($this->cashOnDeliveryValue)
+            ->format();
         return $this;
     }
 
@@ -136,7 +149,7 @@ class Calculator extends Delivery
      */
     public function setCashOnDeliveryValue(): self
     {
-        $this->cashOnDeliveryValue = $this->exchanger->convert($this->cart->totalPrice(), Currency::UAH());
+        $this->cashOnDeliveryValue = $this->convertCartPriceToUAH();
         return $this;
     }
 

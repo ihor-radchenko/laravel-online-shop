@@ -167,7 +167,6 @@ class DeliveryController extends Controller
             ->setDeliveryScheme($request->scheme)
             ->setCategory($request->category)
             ->setDopUsluga($request->dopUslugi)
-            ->setCashOnDeliveryValue()
             ->setDateSend()
             ->postReceiptCalculate();
         return response()->json([

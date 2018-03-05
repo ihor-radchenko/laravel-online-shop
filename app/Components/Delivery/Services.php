@@ -36,21 +36,12 @@ class Services extends Delivery
      */
     private $address;
 
-    /**
-     * @var Cart
-     */
-    private $cart;
-
-    private $exchanger;
-
     public function __construct(DeliveryApiRequest $client, Address $address, Cart $cart, Exchanger $exchanger)
     {
-        parent::__construct($client);
+        parent::__construct($client, $cart, $exchanger);
         $this->citySendId = config('delivery.city_send_id');
         $this->warehouseSendId = config('delivery.warehouse_send_id');
         $this->address = $address;
-        $this->cart = $cart;
-        $this->exchanger = $exchanger;
     }
 
     /**
@@ -137,7 +128,7 @@ class Services extends Delivery
             ->addQueryData('CityReceiveId', $this->cityReceiveId)
             ->addQueryData('WarehouseSendId', $this->warehouseSendId)
             ->addQueryData('WarehouseReceiveId', $this->warehouseReceiveId)
-            ->addQueryData('InsuranceValue', $this->exchanger->convert($this->cart->totalPrice(), Currency::UAH())->format())
+            ->addQueryData('InsuranceValue', $this->convertCartPriceToUAH()->format())
             ->addQueryData('InsuranceCurrency', self::UAH)
             ->addQueryData('currency', self::UAH)
             ->send()
