@@ -2,7 +2,6 @@
 
 namespace AutoKit;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $created
  * @property-read \AutoKit\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Comment[] $comments
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Article getForBlog()
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Article getLastForMainPage()
  */
 class Article extends Model
 {
@@ -52,21 +53,20 @@ class Article extends Model
         return $this->hasMany(Comment::class);
     }
 
-    /**
-     * @return Collection
-     */
-    public function getLastForMainPage(): Collection
+    public function scopeGetLastForMainPage($query)
     {
-        return self::with('user')
+        return $query
+            ->with('user')
             ->withCount('comments')
             ->orderByDesc('id')
             ->take(3)
             ->get();
     }
 
-    public function getForBlog()
+    public function scopeGetForBlog($query)
     {
-        return self::with('user')
+        return $query
+            ->with('user')
             ->withCount('comments')
             ->orderByDesc('id')
             ->paginate();

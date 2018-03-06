@@ -2,7 +2,6 @@
 
 namespace AutoKit;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Review whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Review whereUserId($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Review getForProduct(\AutoKit\Product $product, $offset = 0)
  */
 class Review extends Model
 {
@@ -56,14 +56,10 @@ class Review extends Model
         return $product->reviews->count() / $this->perPage;
     }
 
-    /**
-     * @param Product $product
-     * @param integer $offset
-     * @return Collection
-     */
-    public function getForProduct(Product $product, int $offset = 0): Collection
+    public function scopeGetForProduct($query, Product $product, int $offset = 0)
     {
-        return self::whereProductId($product->id)
+        return $query
+            ->whereProductId($product->id)
             ->with('user')
             ->orderByDesc('id')
             ->offset($offset * $this->perPage)

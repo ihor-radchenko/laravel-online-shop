@@ -2,7 +2,6 @@
 
 namespace AutoKit;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -27,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Comment whereUserId($value)
  * @mixin \Eloquent
+ * @property string $email
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Comment getForArticle(\AutoKit\Article $article, $offset = 0)
  */
 class Comment extends Model
 {
@@ -46,14 +47,10 @@ class Comment extends Model
         return $this->belongsTo(Article::class);
     }
 
-    /**
-     * @param Article $article
-     * @param int $offset
-     * @return Collection
-     */
-    public function getForArticle(Article $article, int $offset = 0): Collection
+    public function scopeGetForArticle($query, Article $article, int $offset = 0)
     {
-        return self::whereArticleId($article->id)
+        return $query
+            ->whereArticleId($article->id)
             ->with('user')
             ->orderBy('id')
             ->take($this->perPage)

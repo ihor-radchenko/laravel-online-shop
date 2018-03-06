@@ -2,7 +2,6 @@
 
 namespace AutoKit;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $menu_id
  * @property-read \AutoKit\Menu $menu
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Slider whereMenuId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Slider getCarousel()
  */
 class Slider extends Model
 {
@@ -43,11 +43,8 @@ class Slider extends Model
         return $this->belongsTo(Menu::class);
     }
 
-    /**
-     * @return Collection
-     */
-    public function getCarousel(): Collection
+    public function scopeGetCarousel($query)
     {
-        return self::with('menu')->get();
+        return $query->with('menu')->get();
     }
 }

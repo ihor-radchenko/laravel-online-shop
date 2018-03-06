@@ -2,7 +2,6 @@
 
 namespace AutoKit;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Category whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Category whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Category getForMainPage()
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Category getWhereMenu(\AutoKit\Menu $menu)
  */
 class Category extends Model
 {
@@ -47,24 +48,19 @@ class Category extends Model
         return '/img/categories/' . $value;
     }
 
-    /**
-     * @return Collection
-     */
-    public function getForMainPage(): Collection
+    public function scopeGetForMainPage($query)
     {
-        return self::whereNotNull('img')
+        return $query
+            ->whereNotNull('img')
             ->with('menu')
             ->take(8)
             ->get();
     }
 
-    /**
-     * @param Menu $menu
-     * @return Collection
-     */
-    public function getWhereMenu(Menu $menu): Collection
+    public function scopeGetWhereMenu($query, Menu $menu)
     {
-        return self::whereMenuId($menu->id)
+        return $query
+            ->whereMenuId($menu->id)
             ->with('menu')
             ->withCount('products')
             ->get();

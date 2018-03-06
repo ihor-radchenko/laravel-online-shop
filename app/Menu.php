@@ -2,7 +2,6 @@
 
 namespace AutoKit;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Menu whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Product[] $products
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Menu getNavBar()
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Menu getWithCountProducts()
  */
 class Menu extends Model
 {
@@ -38,21 +39,17 @@ class Menu extends Model
         return $this->hasManyThrough(Product::class, Category::class);
     }
 
-    /**
-     * @return Collection
-     */
-    public function getNavBar(): Collection
+    public function scopeGetNavBar($query)
     {
-        return self::with('categories')
+        return $query
+            ->with('categories')
             ->get();
     }
 
-    /**
-     * @return Collection
-     */
-    public function getWithCountProducts(): Collection
+    public function scopeGetWithCountProducts($query)
     {
-        return self::withCount('products')
+        return $query
+            ->withCount('products')
             ->has('products')
             ->get();
     }

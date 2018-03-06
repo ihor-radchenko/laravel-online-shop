@@ -2,7 +2,6 @@
 
 namespace AutoKit;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Brand whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Brand whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Brand getForCategoryWithCountProducts(\AutoKit\Category $category)
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Brand getForMenuWithCountProducts(\AutoKit\Menu $menu)
  */
 class Brand extends Model
 {
@@ -32,13 +33,10 @@ class Brand extends Model
         return $this->hasMany(Product::class);
     }
 
-    /**
-     * @param Menu $menu
-     * @return Collection
-     */
-    public function getForMenuWithCountProducts(Menu $menu): Collection
+    public function scopeGetForMenuWithCountProducts($query, Menu $menu)
     {
-        return self::whereIn('brands.id', $menu->products->pluck('brand_id')->unique())
+        return $query
+            ->whereIn('brands.id', $menu->products->pluck('brand_id')->unique())
             ->withCount(['products' => function ($query) use ($menu) {
                 $query
                     ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -47,13 +45,10 @@ class Brand extends Model
             ->get();
     }
 
-    /**
-     * @param Category $category
-     * @return Collection
-     */
-    public function getForCategoryWithCountProducts(Category $category): Collection
+    public function scopeGetForCategoryWithCountProducts($query, Category $category)
     {
-        return self::whereIn('brands.id', $category->products->pluck('brand_id')->unique())
+        return $query
+            ->whereIn('brands.id', $category->products->pluck('brand_id')->unique())
             ->withCount(['products' => function ($query) use ($category) {
                 $query->where('category_id', $category->id);
             }])
