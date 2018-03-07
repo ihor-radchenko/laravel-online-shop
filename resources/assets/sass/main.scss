@@ -986,3 +986,13 @@ textarea {
     padding-left: 20px;
   }
 }
+
+.payment-btn {
+  background-color: #32325d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  &:hover {
+    background-color: #43458b;
+  }
+}

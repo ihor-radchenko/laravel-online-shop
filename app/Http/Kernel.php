@@ -6,6 +6,7 @@ use AutoKit\Http\Middleware\AjaxRequest;
 use AutoKit\Http\Middleware\Currency;
 use AutoKit\Http\Middleware\CurrencyProtection;
 use AutoKit\Http\Middleware\OrderIfCartNotEmpty;
+use AutoKit\Http\Middleware\StripePaymentRequest;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,6 +66,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'ajax' => AjaxRequest::class,
         'order' => OrderIfCartNotEmpty::class,
-        'currency' => CurrencyProtection::class
+        'currency' => CurrencyProtection::class,
+        'stripe' => StripePaymentRequest::class
     ];
 }

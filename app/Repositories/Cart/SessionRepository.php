@@ -3,6 +3,7 @@
 namespace AutoKit\Repositories\Cart;
 
 use AutoKit\Components\Cart\CartItem;
+use AutoKit\Components\Money\Money;
 use Illuminate\Support\Collection;
 
 class SessionRepository implements RepositoryContract
@@ -42,15 +43,26 @@ class SessionRepository implements RepositoryContract
     public function clear()
     {
         $this->putInCart(collect());
+        $this->setShippingPrice(null);
+    }
+
+    public function setShippingPrice(?Money $price)
+    {
+        session(['cart.shipping' => $price]);
+    }
+
+    public function getShippingPrice(): ?Money
+    {
+        return session('cart.shipping');
     }
 
     private function putInCart($cart)
     {
-        return session()->put('cart', $cart);
+        return session(['cart.products' => $cart]);
     }
 
     private function cart()
     {
-        return session('cart');
+        return session('cart.products');
     }
 }

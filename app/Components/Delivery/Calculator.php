@@ -63,8 +63,10 @@ class Calculator extends Delivery
             ->addBodyData('dopUslugaClassificator', $this->dopUsluga)
             ->send()
             ->get('allSumma');
+        $cost = Money::UAH($cost * Currency::UAH()->getCountSubUnitsInUnit());
+        $this->cart->setShipping($cost);
         return $this->exchanger
-            ->convert(Money::UAH($cost * Currency::UAH()->getCountSubUnitsInUnit()), app(Currency::class));
+            ->convert($cost, app(Currency::class));
     }
 
     private function cashOnDeliveryValue()

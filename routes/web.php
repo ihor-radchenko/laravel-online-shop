@@ -93,3 +93,7 @@ Route::get('order', 'OrderController@index')
 Route::get('change/currency/{currency}', 'IndexController@changeCurrency')
     ->name('currency.change')
     ->middleware('currency');
+
+Route::post('payment/order', 'OrderController@store')
+    ->name('payment')
+    ->middleware('stripe');

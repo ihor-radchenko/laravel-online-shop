@@ -14,6 +14,7 @@ use AutoKit\Exceptions\UnknownCurrency;
 class Currency
 {
     public const ROOT = __DIR__ . '/currencies.php';
+
     /**
      * @var string
      */

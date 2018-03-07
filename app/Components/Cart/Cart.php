@@ -3,6 +3,7 @@
 namespace AutoKit\Components\Cart;
 
 use AutoKit\Components\Money\Currency;
+use AutoKit\Components\Money\Exchanger;
 use AutoKit\Components\Money\Money;
 use AutoKit\Exceptions\QuantityOverstated;
 use AutoKit\Product;
@@ -31,12 +32,19 @@ class Cart
      */
     private $currency;
 
-    public function __construct(Repository $repository, CartItemCreator $creator, Currency $currency, Calculator $calculator)
-    {
+    /**
+     * @var Exchanger
+     */
+    private $exchanger;
+
+    public function __construct(
+        Repository $repository, CartItemCreator $creator, Currency $currency, Calculator $calculator, Exchanger $exchanger
+    ) {
         $this->repository = $repository;
         $this->creator = $creator;
         $this->currency = $currency;
         $this->calculator = $calculator;
+        $this->exchanger = $exchanger;
     }
 
     /**
@@ -104,6 +112,23 @@ class Cart
         return $product->quantity - $this->get($product)->quantity;
     }
 
+    public function setShipping(?Money $price)
+    {
+        $this->repository->setShippingPrice($price);
+    }
+
+    public function getShipping(): ?Money
+    {
+        return $this->hasShipping()
+            ? $this->exchanger->convert($this->repository->getShippingPrice(), $this->currency)
+            : null;
+    }
+
+    public function hasShipping(): bool
+    {
+        return ! is_null($this->repository->getShippingPrice());
+    }
+
     public function totalQuantity(): int
     {
         return $this->calculator->totalQuantity($this->all());
@@ -122,5 +147,16 @@ class Cart
     public function totalDimensions(): float
     {
         return $this->calculator->totalDimensions($this->all());
+    }
+
+    /**
+     * @return Money
+     * @throws \AutoKit\Exceptions\DifferentCurrencies
+     */
+    public function totalPriceWithShipping(): Money
+    {
+        return $this->hasShipping()
+            ? $this->totalPrice()->add($this->getShipping())
+            : $this->totalPrice();
     }
 }

@@ -31,4 +31,6 @@ require('./shopping_cart');
 
 require('./order');
 
+require('./stripe');
+
 require ('./preloader');

@@ -24,5 +24,8 @@ return [
     'address' => 'Адрес',
     'region' => 'Область',
     'city' => 'Город',
-    'warehouses' => 'Отделение'
+    'warehouses' => 'Отделение',
+
+    'payment_card' => 'Кредитная или дебетовая карта',
+    'payment' => 'Оплатить'
 ];

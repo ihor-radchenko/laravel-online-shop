@@ -18,5 +18,6 @@ return [
     'login' => 'Войти',
     'register' => 'Зарегистрироваться',
     'checkout' => 'Оформить',
-    'calculation_delivery' => 'Подсчитать стоимость доставки'
+    'calculation_delivery' => 'Подсчитать стоимость доставки',
+    'payment' => 'Оплатить'
 ];

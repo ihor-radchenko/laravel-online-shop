@@ -3,6 +3,7 @@
 namespace AutoKit\Repositories\Cart;
 
 use AutoKit\Components\Cart\CartItem;
+use AutoKit\Components\Money\Money;
 use Illuminate\Support\Collection;
 
 interface RepositoryContract
@@ -18,4 +19,8 @@ interface RepositoryContract
     public function unset(int $key);
 
     public function clear();
+
+    public function setShippingPrice(?Money $price);
+
+    public function getShippingPrice(): ?Money;
 }
