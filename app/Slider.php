@@ -25,7 +25,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $menu_id
  * @property-read \AutoKit\Menu $menu
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Slider whereMenuId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Slider getCarousel()
  */
 class Slider extends Model
 {
@@ -43,8 +42,8 @@ class Slider extends Model
         return $this->belongsTo(Menu::class);
     }
 
-    public function scopeGetCarousel($query)
+    public function getCarousel()
     {
-        return $query->with('menu')->get();
+        return $this->with('menu')->get();
     }
 }

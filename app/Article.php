@@ -27,8 +27,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $created
  * @property-read \AutoKit\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Comment[] $comments
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Article getForBlog()
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Article getLastForMainPage()
  */
 class Article extends Model
 {
@@ -53,9 +51,9 @@ class Article extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function scopeGetLastForMainPage($query)
+    public function getLastForMainPage()
     {
-        return $query
+        return $this
             ->with('user')
             ->withCount('comments')
             ->orderByDesc('id')
@@ -63,9 +61,9 @@ class Article extends Model
             ->get();
     }
 
-    public function scopeGetForBlog($query)
+    public function getForBlog()
     {
-        return $query
+        return $this
             ->with('user')
             ->withCount('comments')
             ->orderByDesc('id')

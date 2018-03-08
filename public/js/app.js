@@ -34054,7 +34054,7 @@ function disabledOff(selector) {
 
 $("#onDelivery").change(function () {
     $("#forAddress").slideUp(1000);
-    $("#paymentBtn").addClass('hidden');
+    lockPayment();
     $.ajax({
         url: $(this).data('route'),
         type: 'GET',
@@ -34078,7 +34078,7 @@ $("#offDelivery").change(function () {
             $("#priceDelivery").text(0);
             $("#totalPriceWithShipping").text(response.totalPrice);
             $("#forAddress").empty().hide().append(response.content).slideDown(1000);
-            $("#paymentBtn").removeClass('hidden');
+            unlockPayment();
         },
         error: function error(jqXHR) {
             ajaxError(jqXHR);
@@ -34091,7 +34091,7 @@ $(document).on('change', '#region', function () {
     $("#warehouseInfo").empty();
     $("#city").prop('disabled', true).empty();
     $("#warehouses").prop('disabled', true).empty();
-    $("#paymentBtn").addClass('hidden');
+    lockPayment();
     $.ajax({
         url: $("#region").data('route'),
         type: 'GET',
@@ -34110,7 +34110,7 @@ $(document).on('change', '#city', function () {
     var select = $(this);
     $("#warehouseInfo").empty();
     $("#warehouses").prop('disabled', true).empty();
-    $("#paymentBtn").addClass('hidden');
+    lockPayment();
     $.ajax({
         url: $("#city").data('route'),
         type: 'GET',
@@ -34128,7 +34128,7 @@ $(document).on('change', '#city', function () {
 $(document).on('change', '#warehouses', function () {
     var select = $(this);
     $("#warehouseInfo").empty();
-    $("#paymentBtn").addClass('hidden');
+    lockPayment();
     $.ajax({
         url: $("#warehouses").data('route'),
         type: 'GET',
@@ -34205,7 +34205,7 @@ $(document).on('click', '#calculation', function () {
             $("#priceDelivery").text(response.shippingPrice);
             $("#totalPriceWithShipping").text(response.totalPrice);
             calc.prop('disabled', false);
-            $("#paymentBtn").removeClass('hidden');
+            unlockPayment();
         },
         error: function error(jqXHR) {
             ajaxError(jqXHR);
@@ -34222,6 +34222,14 @@ function ajaxError(jqXHR) {
         $('.popup h4').empty().append($("#ajaxError").data('error'));
         $('.popup').show();
     }
+}
+
+function lockPayment() {
+    return $("#paymentBtn").addClass('hidden').prop('disabled', true);
+}
+
+function unlockPayment() {
+    return $("#paymentBtn").removeClass('hidden').prop('disabled', false);
 }
 
 /***/ }),

@@ -107,6 +107,8 @@ return [
     |
     */
 
+    'phone_number' => 'Номер телефона должен содержать 9 цифр',
+
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',

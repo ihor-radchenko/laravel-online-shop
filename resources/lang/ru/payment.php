@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'description' => 'Оплата заказа'
+    'description' => 'Оплата заказа от '
 ];

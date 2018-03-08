@@ -19,8 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Brand whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Brand whereUpdatedAt($value)
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Brand getForCategoryWithCountProducts(\AutoKit\Category $category)
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Brand getForMenuWithCountProducts(\AutoKit\Menu $menu)
  */
 class Brand extends Model
 {
@@ -33,9 +31,9 @@ class Brand extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function scopeGetForMenuWithCountProducts($query, Menu $menu)
+    public function getForMenuWithCountProducts(Menu $menu)
     {
-        return $query
+        return $this
             ->whereIn('brands.id', $menu->products->pluck('brand_id')->unique())
             ->withCount(['products' => function ($query) use ($menu) {
                 $query
@@ -45,9 +43,9 @@ class Brand extends Model
             ->get();
     }
 
-    public function scopeGetForCategoryWithCountProducts($query, Category $category)
+    public function getForCategoryWithCountProducts(Category $category)
     {
-        return $query
+        return $this
             ->whereIn('brands.id', $category->products->pluck('brand_id')->unique())
             ->withCount(['products' => function ($query) use ($category) {
                 $query->where('category_id', $category->id);

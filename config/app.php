@@ -180,7 +180,8 @@ return [
         \AutoKit\Providers\ComposerServiceProvider::class,
         \AutoKit\Providers\RepositoryServiceProvider::class,
         \AutoKit\Providers\CartServiceProvider::class,
-        \AutoKit\Providers\MoneyServiceProvider::class
+        \AutoKit\Providers\MoneyServiceProvider::class,
+        \AutoKit\Providers\ObserverServiceProvider::class
 
     ],
 

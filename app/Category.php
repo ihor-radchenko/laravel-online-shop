@@ -24,8 +24,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Category whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Category whereUpdatedAt($value)
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Category getForMainPage()
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Category getWhereMenu(\AutoKit\Menu $menu)
  */
 class Category extends Model
 {
@@ -48,18 +46,18 @@ class Category extends Model
         return '/img/categories/' . $value;
     }
 
-    public function scopeGetForMainPage($query)
+    public function getForMainPage()
     {
-        return $query
+        return $this
             ->whereNotNull('img')
             ->with('menu')
             ->take(8)
             ->get();
     }
 
-    public function scopeGetWhereMenu($query, Menu $menu)
+    public function getWhereMenu(Menu $menu)
     {
-        return $query
+        return $this
             ->whereMenuId($menu->id)
             ->with('menu')
             ->withCount('products')

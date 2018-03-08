@@ -31,7 +31,7 @@
             <label for="warehouses">@lang('form.warehouses')</label>
         </div>
         <div class="col-sm-9">
-            <select name="warehouses_id" id="warehouses" disabled class="form-control calc-item" data-route="{{  route('delivery.warehouse') }}"></select>
+            <select name="warehouse_id" id="warehouses" disabled class="form-control calc-item" data-route="{{  route('delivery.warehouse') }}"></select>
         </div>
     </div>
 </div>

@@ -45,10 +45,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $width
  * @property float $height
  * @property float $length
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Product getForMainPageWhere($field)
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Product getMaxPrice(\AutoKit\Menu $menu, \AutoKit\Components\Money\Exchanger $exchanger, \AutoKit\Category $category = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Product getWhereCategory(\AutoKit\Category $category, $brand = null, $orderBy = 'desc', $column = 'id', $price = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Product getWhereMenu(\AutoKit\Menu $menu, $brand = null, $orderBy = 'desc', $column = 'id', $price = null)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Product whereHeight($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Product whereLength($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Product whereWeight($value)
@@ -127,9 +123,9 @@ class Product extends Model
         return ! ($this->outOfStock() || ($cart->has($this) && $cart->freeQuantity($this) === 0));
     }
 
-    public function scopeGetForMainPageWhere($query, string $field)
+    public function getForMainPageWhere(string $field)
     {
-        return $query
+        return $this
             ->where($field, 1)
             ->with('reviews')
             ->inRandomOrder()
@@ -137,10 +133,10 @@ class Product extends Model
             ->get();
     }
 
-    public function scopeGetWhereMenu(
-        $query, Menu $menu, ?string $brand = null, string $orderBy = 'desc', string $column = 'id', ?array $price = null
+    public function getWhereMenu(
+        Menu $menu, ?string $brand = null, string $orderBy = 'desc', string $column = 'id', ?array $price = null
     ) {
-        $data = $query
+        $data = $this
             ->whereIn('category_id', Category::select('id')->whereMenuId($menu->id)->get())
             ->with('reviews')
             ->orderBy($column, $orderBy);
@@ -154,10 +150,10 @@ class Product extends Model
         return $data->paginate();
     }
 
-    public function scopeGetWhereCategory(
-        $query, Category $category, ?string $brand = null, string $orderBy = 'desc', string $column = 'id', ?array $price = null
+    public function getWhereCategory(
+        Category $category, ?string $brand = null, string $orderBy = 'desc', string $column = 'id', ?array $price = null
     ) {
-        $data = $query
+        $data = $this
             ->whereCategoryId($category->id)
             ->with('reviews')
             ->orderBy($column, $orderBy);
@@ -171,9 +167,9 @@ class Product extends Model
         return $data->paginate();
     }
 
-    public function scopeGetMaxPrice($query, Menu $menu, Exchanger $exchanger, ?Category $category = null): int
+    public function getMaxPrice(Menu $menu, Exchanger $exchanger, ?Category $category = null): int
     {
-        $data = $query
+        $data = $this
             ->whereIn('category_id', Category::select('id')->whereMenuId($menu->id)->get());
         if ($category) {
             $data->whereCategoryId($category->id);

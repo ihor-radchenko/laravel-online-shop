@@ -129,6 +129,13 @@ class Cart
         return ! is_null($this->repository->getShippingPrice());
     }
 
+    public function getShippingInUSD()
+    {
+        return $this->hasShipping()
+            ? $this->exchanger->convert($this->repository->getShippingPrice(), Currency::USD())
+            : null;
+    }
+
     public function totalQuantity(): int
     {
         return $this->calculator->totalQuantity($this->all());

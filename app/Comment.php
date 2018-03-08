@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Comment whereUserId($value)
  * @mixin \Eloquent
  * @property string $email
- * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\Comment getForArticle(\AutoKit\Article $article, $offset = 0)
  */
 class Comment extends Model
 {
@@ -47,9 +46,9 @@ class Comment extends Model
         return $this->belongsTo(Article::class);
     }
 
-    public function scopeGetForArticle($query, Article $article, int $offset = 0)
+    public function getForArticle(Article $article, int $offset = 0)
     {
-        return $query
+        return $this
             ->whereArticleId($article->id)
             ->with('user')
             ->orderBy('id')

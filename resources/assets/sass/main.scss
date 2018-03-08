@@ -996,3 +996,15 @@ textarea {
     background-color: #43458b;
   }
 }
+
+.phone-number {
+  position: relative;
+  .code {
+    position: absolute;
+    top: 7px;
+    left: 5px;
+  }
+  input {
+    padding-left: 35px;
+  }
+}

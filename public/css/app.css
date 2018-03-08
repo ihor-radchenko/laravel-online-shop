@@ -14138,6 +14138,20 @@ textarea {
   background-color: #43458b;
 }
 
+.phone-number {
+  position: relative;
+}
+
+.phone-number .code {
+  position: absolute;
+  top: 7px;
+  left: 5px;
+}
+
+.phone-number input {
+  padding-left: 35px;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;

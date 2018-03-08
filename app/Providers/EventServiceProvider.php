@@ -20,6 +20,9 @@ class EventServiceProvider extends ServiceProvider
         'AutoKit\Events\ConfirmEmail' => [
             'AutoKit\Listeners\CongratEmailConfirmMessage'
         ],
+        'AutoKit\Events\NewOrder' => [
+            'AutoKit\Listeners\SendNewOrderEmail'
+        ]
     ];
 
     /**

@@ -13,8 +13,8 @@
         <td>{{ $currencySymbol }}<span id="totalPriceWithShipping">{{ $cart->totalPrice()->format() }}</span></td>
     </tr>
     <tr>
-        <td colspan="2" class="text-center">
-            <button class="my-btn btn-black hidden" id="paymentBtn" data-toggle="modal" data-target="#paymentForm">
+        <td colspan="2" class="text-center margin-top25">
+            <button class="my-btn btn-black hidden" id="paymentBtn" data-toggle="modal" data-target="#paymentForm" disabled>
                 @lang('button.payment')
             </button>
         </td>

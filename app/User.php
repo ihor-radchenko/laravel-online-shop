@@ -33,6 +33,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string|null $confirm_token
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereConfirmToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereVerified($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Order[] $orders
  */
 class User extends Authenticatable
 {
@@ -77,6 +78,11 @@ class User extends Authenticatable
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 
     public function confirmEmail()

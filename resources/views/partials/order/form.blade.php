@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="my-btn payment-btn">@lang('form.payment')</button>
+                    <button type="submit" form="order-form" class="my-btn payment-btn">@lang('form.payment')</button>
                 </div>
             </div>
         </div>

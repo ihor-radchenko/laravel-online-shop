@@ -2,14 +2,15 @@
 
 namespace AutoKit\Http\Controllers;
 
+use Auth;
 use AutoKit\Components\Cart\Cart;
 use AutoKit\Components\Delivery\Address;
 use AutoKit\Components\Money\Currency;
+use AutoKit\Components\Stripe\Charge;
 use AutoKit\Exceptions\DeliveryApi;
+use AutoKit\Http\Requests\OrderRequest;
+use AutoKit\Order;
 use Illuminate\Http\Request;
-use Lang;
-use Stripe\Charge;
-use Stripe\Stripe;
 
 class OrderController extends Controller
 {
@@ -28,11 +29,17 @@ class OrderController extends Controller
      */
     protected $currency;
 
-    public function __construct(Address $address, Cart $cart, Currency $currency)
+    /**
+     * @var Charge
+     */
+    protected $stripe;
+
+    public function __construct(Address $address, Cart $cart, Currency $currency, Charge $charge)
     {
         $this->deliveryAddress = $address;
         $this->cart = $cart;
         $this->currency = $currency;
+        $this->stripe = $charge;
     }
 
     public function index()
@@ -61,17 +68,20 @@ class OrderController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param OrderRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \AutoKit\Exceptions\DifferentCurrencies
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        Stripe::setApiKey(config('stripe.secret_key'));
-        $charge = Charge::create([
-            'amount' => $this->cart->totalPriceWithShipping()->getAmount(),
-            'currency' => $this->currency->getIsoAlfa(),
-            'description' => Lang::get('payment.description'),
-            'source' => $request->stripeToken
-        ]);
+        $order = Auth::check()
+            ? $request->user()->orders()->create($request->all())
+            : Order::create($request->all());
+        $charge = $this->stripe->charge($order, $request->stripeToken);
+        $order->confirmPayment($charge);
+        $this->cart->clear();
+        return Auth::check()
+            ? redirect()->route('home')
+            : redirect()->route('main');
     }
 }
