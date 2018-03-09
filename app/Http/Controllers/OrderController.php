@@ -79,7 +79,7 @@ class OrderController extends Controller
             : Order::create($request->all());
         $charge = $this->stripe->charge($order, $request->stripeToken);
         $order->confirmPayment($charge);
-        $this->cart->clear();
+        $this->cart->purchaseProducts();
         return Auth::check()
             ? redirect()->route('home')
             : redirect()->route('main');

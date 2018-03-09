@@ -166,4 +166,13 @@ class Cart
             ? $this->totalPrice()->add($this->getShipping())
             : $this->totalPrice();
     }
+
+    public function purchaseProducts()
+    {
+        $this->all()->each(function ($item) {
+            $item->product->quantity -= $item->quantity;
+            $item->product->save();
+        });
+        $this->clear();
+    }
 }
