@@ -167,12 +167,29 @@ class Cart
             : $this->totalPrice();
     }
 
-    public function purchaseProducts()
+    public function purchaseProducts(): void
     {
-        $this->all()->each(function ($item) {
-            $item->product->quantity -= $item->quantity;
-            $item->product->save();
+        $idsAndQuantity = $this->getIdsAndQuantityProducts();
+        $products = Product::find($idsAndQuantity->pluck('id'));
+        $products->each(function (Product $item) use ($idsAndQuantity) {
+            $quantity = $item->quantity - $idsAndQuantity->get($item->id)['qty'];
+            if ($quantity < 0) {
+                $this->update($item, $item->quantity);
+                throw new QuantityOverstated($item->id);
+            }
+            $item->quantity = $quantity;
         });
-        $this->clear();
+        $products->each(function (Product $item) {
+            $item->save();
+        });
+    }
+
+    private function getIdsAndQuantityProducts(): Collection
+    {
+        $collection = collect();
+        $this->all()->each(function (CartItem $item, $i) use ($collection) {
+            $collection->put($i, ['id' => $item->product->id, 'qty' => $item->quantity]);
+        });
+        return $collection;
     }
 }

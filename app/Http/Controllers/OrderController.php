@@ -8,9 +8,12 @@ use AutoKit\Components\Delivery\Address;
 use AutoKit\Components\Money\Currency;
 use AutoKit\Components\Stripe\Charge;
 use AutoKit\Exceptions\DeliveryApi;
+use AutoKit\Exceptions\QuantityOverstated;
 use AutoKit\Http\Requests\OrderRequest;
 use AutoKit\Order;
+use AutoKit\Product;
 use Illuminate\Http\Request;
+use Lang;
 
 class OrderController extends Controller
 {
@@ -74,12 +77,19 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
+        try {
+            $this->cart->purchaseProducts();
+        } catch (QuantityOverstated $e) {
+            $product = Product::find($e->getMessage());
+            session()->flash('message', Lang::get('flash.quantity_overstated', ['name' => $product->title, 'qty' => $product->quantity]));
+            return redirect()->route('cart');
+        }
         $order = Auth::check()
             ? $request->user()->orders()->create($request->all())
             : Order::create($request->all());
         $charge = $this->stripe->charge($order, $request->stripeToken);
         $order->confirmPayment($charge);
-        $this->cart->purchaseProducts();
+        $this->cart->clear();
         return Auth::check()
             ? redirect()->route('home')
             : redirect()->route('main');
