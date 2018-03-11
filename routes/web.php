@@ -76,13 +76,30 @@ Route::middleware('ajax')->group(function () {
         Route::post('delivery/calculation', 'Order\DeliveryController@calculation')
             ->name('delivery.calculation');
     });
+
+    Route::get('home/orders/info', 'HomeController@order')
+        ->name('order.info');
 });
 
 Route::get('/confirm/{token}', 'Auth\EmailConfirmController@confirmEmail')
     ->name('confirm');
 
-Route::get('/home', 'HomeController@index')
-    ->name('home');
+Route::prefix('home')->group(function () {
+    Route::get('/', 'HomeController@index')
+        ->name('home');
+
+    Route::post('user/update', 'HomeController@update')
+        ->name('user.update');
+
+    Route::get('change-password', 'Auth\ChangePasswordController@index')
+        ->name('change.password');
+
+    Route::post('user/change-password', 'Auth\ChangePasswordController@update')
+        ->name('user.update.pass');
+
+    Route::get('orders', 'HomeController@orders')
+        ->name('home.orders');
+});
 
 Route::get('cart', 'CartController@index')
     ->name('cart');

@@ -29,5 +29,6 @@ class OrderObserver
         $order->cart = serialize($this->cart->all());
         $order->is_self_delivery = $this->data['delivery'] === 'on' ? false : true;
         $order->shipping_price = $this->data['delivery'] === 'on' ? $this->cart->getShippingInUSD()->getAmount() : 0;
+        $order->warehouse = $this->data['warehouse_id'] ?? null;
     }
 }

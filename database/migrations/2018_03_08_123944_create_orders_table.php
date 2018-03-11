@@ -17,11 +17,11 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->string('customer_name');
             $table->string('customer_email');
-            $table->string('customer_phone_number');
+            $table->integer('customer_phone_number');
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->boolean('is_self_delivery');
-            $table->string('warehouse_id')->nullable();
+            $table->string('warehouse')->nullable();
             $table->string('payment_id')->nullable();
             $table->longText('cart');
             $table->integer('shipping_price');

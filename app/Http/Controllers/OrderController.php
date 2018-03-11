@@ -91,7 +91,7 @@ class OrderController extends Controller
         $order->confirmPayment($charge);
         $this->cart->clear();
         return Auth::check()
-            ? redirect()->route('home')
+            ? redirect()->route('home.orders')
             : redirect()->route('main');
     }
 }

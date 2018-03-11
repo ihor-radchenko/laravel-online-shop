@@ -49,5 +49,20 @@ return [
     'sort_price' => 'Сортировать по цене',
     'sort_desc' => 'По убыванию',
     'sort_asc' => 'По возрастанию',
-    'price' => 'Стоимость'
+    'price' => 'Стоимость',
+
+    'home_my_data' => 'Мои данные',
+    'my_orders' => 'Мои заказы',
+    'personal_area' => 'Личный кабинет',
+
+    'num_order' => 'Номер заказа',
+    'order_price' => 'Стоимость',
+    'shipping_price' => 'Доставка',
+    'address' => 'Адрес',
+    'order_weight' => 'Суммарный вес, кг',
+    'order_dimension' => 'Габариты, м3',
+    'order_view' => 'Посмотреть',
+    'empty_order' => 'У вас пока нет заказов',
+    'is_self_delivery' => 'Самовывоз',
+    'order' => 'Заказ'
 ];

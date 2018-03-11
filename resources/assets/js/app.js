@@ -33,4 +33,6 @@ require('./order');
 
 require('./stripe');
 
+require('./personal_area');
+
 require ('./preloader');

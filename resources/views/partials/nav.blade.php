@@ -44,11 +44,16 @@
                                     <li><a href="{{ route('login') }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @lang('auth.signin')</a></li>
                                 @else
                                     <li>
-                                        <a href="{{ route('logout') }}" id="btnLogout">
+                                        <a href="{{ route('home') }}">
+                                            <i class="fa fa-home"></i> @lang('page.personal_area')
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('logout') }}" class="btnLogout">
                                             <i class="fa fa-user-times"></i> @lang('auth.logout')
                                         </a>
                                     </li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form class="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
                                 @endguest

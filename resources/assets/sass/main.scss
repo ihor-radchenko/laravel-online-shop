@@ -1008,3 +1008,44 @@ textarea {
     padding-left: 35px;
   }
 }
+
+.margin-bot25 {
+  margin-bottom: 25px;
+}
+
+.side-bar-btn {
+  display: flex;
+  flex-direction: column;
+  .btn-side-bar {
+    display: block;
+    width: 100%;
+    margin: 5px 10px;
+    text-align: center;
+    background-color: $black;
+    color: white;
+    position: relative;
+    text-transform: capitalize;
+    border: none;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: $dark-red;
+      height: 100%;
+      width: 0;
+    }
+    &:hover:before {
+      transition: .5s ease;
+      width: 100%;
+    }
+    &.active {
+      background-color: $dark-red;
+      pointer-events: none;
+    }
+    span {
+      position: relative;
+      z-index: 5;
+    }
+  }
+}

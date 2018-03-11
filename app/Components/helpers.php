@@ -1,7 +1,5 @@
 <?php
 
-use AutoKit\Components\Money\Money;
-
 if (! function_exists('round_up')) {
 
     /**
@@ -14,5 +12,18 @@ if (! function_exists('round_up')) {
         $places = $places < 0 ? 0 : $places;
         $mult = pow(10, $places);
         return ceil($value * $mult) / $mult;
+    }
+}
+
+if (! function_exists('active_class_html')) {
+
+    /**
+     * @param string $route
+     * @return string
+     */
+    function active_class_html(string $route): string
+    {
+        $currentPath = request()->url();
+        return $currentPath === $route ? ' active' : '';
     }
 }

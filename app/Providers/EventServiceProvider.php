@@ -22,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'AutoKit\Events\NewOrder' => [
             'AutoKit\Listeners\SendNewOrderEmail'
+        ],
+        'AutoKit\Events\UserEditInfo' => [
+            'AutoKit\Listeners\CongratUserEditMessage'
         ]
     ];
 

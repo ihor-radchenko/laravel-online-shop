@@ -3,6 +3,7 @@
 namespace AutoKit;
 
 use AutoKit\Events\ConfirmEmail;
+use AutoKit\Events\UserEditInfo;
 use AutoKit\Events\UserRegistered;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -34,6 +35,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereConfirmToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereVerified($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\AutoKit\Order[] $orders
+ * @property string|null $surname
+ * @property string|null $patronymic
+ * @property int|null $phone_number
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User wherePatronymic($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User wherePhoneNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereSurname($value)
+ * @property-read string $full_name
  */
 class User extends Authenticatable
 {
@@ -49,11 +57,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'confirm_token', 'verified'
+        'name', 'email', 'password', 'confirm_token', 'verified', 'surname', 'patronymic', 'phone_number'
     ];
 
     protected $dispatchesEvents = [
-        'created' => UserRegistered::class
+        'created' => UserRegistered::class,
+        'updated' => UserEditInfo::class
     ];
 
     /**
@@ -63,6 +72,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    protected $appends = [
+        'full_name'
     ];
 
     public function articles()
@@ -92,5 +105,10 @@ class User extends Authenticatable
         $this->save();
         event(new ConfirmEmail($this));
         return $this;
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return trim($this->surname . ' ' . $this->name . ' ' . $this->patronymic);
     }
 }

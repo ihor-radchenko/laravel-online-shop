@@ -5,8 +5,8 @@
     <div class="container margin-top25">
         <div class="row">
             @if($cart->isNotEmpty())
-                @include('partials.flash')
                 <div class="col-sm-10 col-sm-offset-1">
+                    @include('partials.flash')
                     <div class="well">
                         <table class="table cart-list">
                             <thead>

@@ -27,8 +27,8 @@ class ChangePriceType extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->decimal('price', 8, 2);
-            $table->decimal('old_price', 8, 2)->nullable();
+            $table->decimal('price', 8, 2)->change();
+            $table->decimal('old_price', 8, 2)->nullable()->change();
         });
     }
 }

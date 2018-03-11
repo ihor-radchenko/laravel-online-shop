@@ -14152,6 +14152,58 @@ textarea {
   padding-left: 35px;
 }
 
+.margin-bot25 {
+  margin-bottom: 25px;
+}
+
+.side-bar-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.side-bar-btn .btn-side-bar {
+  display: block;
+  width: 100%;
+  margin: 5px 10px;
+  text-align: center;
+  background-color: #13191e;
+  color: white;
+  position: relative;
+  text-transform: capitalize;
+  border: none;
+}
+
+.side-bar-btn .btn-side-bar:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #951916;
+  height: 100%;
+  width: 0;
+}
+
+.side-bar-btn .btn-side-bar:hover:before {
+  -webkit-transition: .5s ease;
+  transition: .5s ease;
+  width: 100%;
+}
+
+.side-bar-btn .btn-side-bar.active {
+  background-color: #951916;
+  pointer-events: none;
+}
+
+.side-bar-btn .btn-side-bar span {
+  position: relative;
+  z-index: 5;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;

@@ -19,5 +19,6 @@ return [
     'register' => 'Зарегистрироваться',
     'checkout' => 'Оформить',
     'calculation_delivery' => 'Подсчитать стоимость доставки',
-    'payment' => 'Оплатить'
+    'payment' => 'Оплатить',
+    'confirm' => 'Подтвердить'
 ];

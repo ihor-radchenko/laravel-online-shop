@@ -108,6 +108,7 @@ return [
     */
 
     'phone_number' => 'Номер телефона должен содержать 9 цифр',
+    'current_password' => 'Введен неверный пароль',
 
     'custom' => [
         'attribute-name' => [
