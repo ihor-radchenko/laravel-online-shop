@@ -2,6 +2,7 @@
 
 namespace AutoKit\Http;
 
+use AutoKit\Http\Middleware\Admin;
 use AutoKit\Http\Middleware\AjaxRequest;
 use AutoKit\Http\Middleware\Currency;
 use AutoKit\Http\Middleware\CurrencyProtection;
@@ -67,6 +68,7 @@ class Kernel extends HttpKernel
         'ajax' => AjaxRequest::class,
         'order' => OrderIfCartNotEmpty::class,
         'currency' => CurrencyProtection::class,
-        'stripe' => StripePaymentRequest::class
+        'stripe' => StripePaymentRequest::class,
+        'admin' => Admin::class,
     ];
 }

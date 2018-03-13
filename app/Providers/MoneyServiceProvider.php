@@ -4,9 +4,10 @@ namespace AutoKit\Providers;
 
 use AutoKit\Components\Money\Currency;
 use AutoKit\Components\Money\Exchanger;
+use Illuminate\Support\ServiceProvider;
 use AutoKit\Components\Money\ExchangeRequest;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class MoneyServiceProvider extends ServiceProvider
 {
@@ -20,8 +21,13 @@ class MoneyServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->currency = request()->cookie('currency', 'USD');
-        if (! Currency::exist($this->currency)) {
-            $this->currency = $this->app->make(Encrypter::class)->decrypt($this->currency);
+        if (!Currency::exist($this->currency)) {
+            try {
+                $this->currency = $this->app->make(Encrypter::class)->decrypt($this->currency);
+            } catch (DecryptException $e) {
+                $this->currency = 'USD';
+            }
+
         }
     }
 

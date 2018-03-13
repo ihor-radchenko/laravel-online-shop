@@ -3,7 +3,6 @@
 namespace AutoKit;
 
 use AutoKit\Events\ConfirmEmail;
-use AutoKit\Events\UserEditInfo;
 use AutoKit\Events\UserRegistered;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,6 +41,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User wherePhoneNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereSurname($value)
  * @property-read string $full_name
+ * @property int $role_id
+ * @property-read \AutoKit\Role $role
+ * @method static \Illuminate\Database\Eloquent\Builder|\AutoKit\User whereRoleId($value)
  */
 class User extends Authenticatable
 {
@@ -57,12 +59,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'confirm_token', 'verified', 'surname', 'patronymic', 'phone_number'
+        'name', 'email', 'password', 'confirm_token', 'verified', 'surname', 'patronymic', 'phone_number', 'role_id'
     ];
 
     protected $dispatchesEvents = [
         'created' => UserRegistered::class,
-        'updated' => UserEditInfo::class
     ];
 
     /**
@@ -98,6 +99,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     public function confirmEmail()
     {
         $this->verified = self::EMAIL_CONFIRMED;
@@ -110,5 +116,10 @@ class User extends Authenticatable
     public function getFullNameAttribute(): string
     {
         return trim($this->surname . ' ' . $this->name . ' ' . $this->patronymic);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role->title === 'admin';
     }
 }

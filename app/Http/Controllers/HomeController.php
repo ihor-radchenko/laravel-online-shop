@@ -2,6 +2,7 @@
 
 namespace AutoKit\Http\Controllers;
 
+use AutoKit\Events\UserEditInfo;
 use AutoKit\Http\Requests\UserRequest;
 use AutoKit\Order;
 use Illuminate\Http\Request;
@@ -58,6 +59,7 @@ class HomeController extends Controller
     public function update(UserRequest $request)
     {
         $request->user()->update($request->all());
+        event(new UserEditInfo($request->user()));
         return back();
     }
 }

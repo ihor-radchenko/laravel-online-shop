@@ -14204,6 +14204,14 @@ textarea {
   z-index: 5;
 }
 
+.btn-link {
+  border: none;
+}
+
+.table .orders-table-head th {
+  vertical-align: middle;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;

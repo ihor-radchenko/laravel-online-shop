@@ -34,7 +34,7 @@ class Slider extends Model
 
     public function getImgAttribute(string $value): string
     {
-        return '/img/carousel/' . $value;
+        return '/images/carousel/' . $value;
     }
 
     public function menu()

@@ -38,7 +38,7 @@ class Article extends Model
 
     public function getImgAttribute(string $value): string
     {
-        return '/img/posts/' . $value;
+        return '/images/posts/' . $value;
     }
 
     public function user()

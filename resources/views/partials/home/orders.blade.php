@@ -6,8 +6,8 @@
         @if($orders->isNotEmpty())
             <table class="table">
                 <thead>
-                    <tr class="color-black">
-                        <th>@lang('page.num_order')</th>
+                    <tr class="color-black orders-table-head">
+                        <th class="text-center">@lang('page.num_order')</th>
                         <th>@lang('page.order_price')</th>
                         <th>@lang('page.shipping_price')</th>
                         <th>@lang('page.address')</th>
@@ -19,7 +19,7 @@
                 <tbody>
                     @foreach($orders as $order)
                         <tr>
-                            <td>{{ $order->id }}</td>
+                            <td class="text-center">{{ $order->id }}</td>
                             <td>{{ $order->total_price }}</td>
                             <td>{{ $order->shipping_price }}</td>
                             <td>{{! is_null($order->warehouse) ? $order->warehouse->get('address') : Lang::get('page.is_self_delivery') }}</td>

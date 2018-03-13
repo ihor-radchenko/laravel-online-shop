@@ -43,7 +43,7 @@ class Category extends Model
 
     public function getImgAttribute(string $value): string
     {
-        return '/img/categories/' . $value;
+        return '/images/categories/' . $value;
     }
 
     public function getForMainPage()

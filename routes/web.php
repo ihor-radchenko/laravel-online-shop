@@ -114,3 +114,8 @@ Route::get('change/currency/{currency}', 'IndexController@changeCurrency')
 Route::post('payment/order', 'OrderController@store')
     ->name('payment')
     ->middleware('stripe');
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+    Route::get('/', 'IndexController@index')
+        ->name('admin.main');
+});

@@ -118,6 +118,7 @@ class Order extends Model
     {
         return $this
             ->whereUserId(Auth::user()->id)
+            ->orderByDesc('id')
             ->get();
     }
 }

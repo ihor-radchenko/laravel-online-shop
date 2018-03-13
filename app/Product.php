@@ -3,9 +3,9 @@
 namespace AutoKit;
 
 use AutoKit\Components\Cart\Cart;
+use AutoKit\Components\Money\Money;
 use AutoKit\Components\Money\Currency;
 use AutoKit\Components\Money\Exchanger;
-use AutoKit\Components\Money\Money;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -78,7 +78,7 @@ class Product extends Model
         if (preg_match('~^http~', $value)) {
             return $value;
         }
-        return '/img/products/' . $value;
+        return '/images/products/' . $value;
     }
 
     /**

@@ -11774,7 +11774,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(48);
+module.exports = __webpack_require__(49);
 
 
 /***/ }),
@@ -11816,9 +11816,9 @@ __webpack_require__(45);
 
 __webpack_require__(46);
 
-__webpack_require__(92);
-
 __webpack_require__(47);
+
+__webpack_require__(48);
 
 /***/ }),
 /* 12 */
@@ -34305,64 +34305,6 @@ $($("#paymentBtn")).click(function () {
 /***/ (function(module, exports) {
 
 
-$(window).on('load', function () {
-    $('.preload').fadeOut('slow');
-});
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */
-/***/ (function(module, exports) {
-
-
 $(document).on('click', '.view-order', function () {
     var btn = $(this);
     $.ajax({
@@ -34379,6 +34321,21 @@ $(document).on('click', '.view-order', function () {
         }
     });
 });
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+
+$(window).on('load', function () {
+    $('.preload').fadeOut('slow');
+});
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

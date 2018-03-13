@@ -43,6 +43,13 @@
                                     <li><a href="{{ route('register') }}"><i class="fa fa-user-plus" aria-hidden="true"></i> @lang('auth.signup')</a></li>
                                     <li><a href="{{ route('login') }}"><i class="fa fa-user-circle-o" aria-hidden="true"></i> @lang('auth.signin')</a></li>
                                 @else
+                                    @admin
+                                        <li>
+                                            <a href="{{ route('admin.main') }}">
+                                                <i class="fa fa-key"></i> @lang('page.admin_dashboard')
+                                            </a>
+                                        </li>
+                                    @endadmin
                                     <li>
                                         <a href="{{ route('home') }}">
                                             <i class="fa fa-home"></i> @lang('page.personal_area')

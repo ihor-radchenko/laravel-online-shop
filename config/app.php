@@ -181,7 +181,8 @@ return [
         \AutoKit\Providers\RepositoryServiceProvider::class,
         \AutoKit\Providers\CartServiceProvider::class,
         \AutoKit\Providers\MoneyServiceProvider::class,
-        \AutoKit\Providers\ObserverServiceProvider::class
+        \AutoKit\Providers\ObserverServiceProvider::class,
+        \AutoKit\Providers\BladeServiceProvider::class,
 
     ],
 
