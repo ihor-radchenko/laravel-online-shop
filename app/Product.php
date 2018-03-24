@@ -193,4 +193,20 @@ class Product extends Model
         );
         return [$minPrice->getAmount(), $maxPrice->getAmount()];
     }
+
+    public function searchTooltips(string $query): array
+    {
+        $result = $this
+            ->where('title', 'like', $query . '%')
+            ->get();
+        return $result->pluck('title')->all();
+    }
+
+    public function search(string $query)
+    {
+        $query = str_replace(['_', '%'], ['\_', '\%'], $query);
+        return $this
+            ->where('title', 'like', '%' . $query . '%')
+            ->get();
+    }
 }

@@ -14,6 +14,7 @@ try {
 } catch (e) {}
 
 require('jquery-ui/ui/widgets/slider');
+require('jquery-ui/ui/widgets/autocomplete');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

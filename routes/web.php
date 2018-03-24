@@ -79,6 +79,9 @@ Route::middleware('ajax')->group(function () {
 
     Route::get('home/orders/info', 'HomeController@order')
         ->name('order.info');
+
+    Route::get('search/list', 'SearchController@search')
+        ->name('search.list');
 });
 
 Route::get('/confirm/{token}', 'Auth\EmailConfirmController@confirmEmail')
@@ -119,3 +122,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::get('/', 'IndexController@index')
         ->name('admin.main');
 });
+
+Route::get('search', 'SearchController@index')
+    ->name('search.index');

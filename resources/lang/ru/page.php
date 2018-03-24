@@ -65,5 +65,9 @@ return [
     'order_view' => 'Посмотреть',
     'empty_order' => 'У вас пока нет заказов',
     'is_self_delivery' => 'Самовывоз',
-    'order' => 'Заказ'
+    'order' => 'Заказ',
+
+    'searchQuery' => 'Поиск по запросу:',
+    'searchEmpty' => 'Товар не найден',
+    'searchResult' => 'Результатов:',
 ];

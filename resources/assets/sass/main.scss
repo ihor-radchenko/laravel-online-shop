@@ -1057,3 +1057,38 @@ textarea {
 .table .orders-table-head th {
   vertical-align: middle;
 }
+
+.btn-search {
+  background-color: transparent;
+  border: none;
+  padding: 14px 15px;
+  &:hover {
+    color: white;
+  }
+}
+
+.search-block {
+  padding: 7px 0;
+  button {
+    position: absolute;
+    top: 11px;
+    right: 5px;
+    transition: color 0s;
+    border: none;
+  }
+}
+
+.search-q {
+  color: $red;
+}
+
+.search-list {
+  .search-item {
+    img {
+      max-height: 50px;
+    }
+    td {
+      border: none;
+    }
+  }
+}

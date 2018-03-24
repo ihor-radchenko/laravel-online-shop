@@ -15,7 +15,15 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
+                    <div class="search-block hidden col-sm-11">
+                        <form action="{{ route('search.index') }}" method="get">
+                            <input type="text" id="SearchInput" class="form-control" data-route="{{ route('search.list') }}" name="q">
+                            <button class="btn-white" id="GoSearch" type="submit">
+                                <i class="fa fa-search fa-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-nav" id="MainNavBar">
                         @isset($menu_navigation)
                             @foreach($menu_navigation as $nav)
                                 @if($nav->categories->count() > 0)
@@ -36,6 +44,7 @@
                         @endisset
                     </ul>
                     <ul class="nav navbar-nav navbar-right hidden-xs">
+                        <li><button class="btn-search show-search"><i class="fa fa-search fa-lg"></i></button></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-o fa-lg" aria-hidden="true"></i></a>
                             <ul class="dropdown-menu">

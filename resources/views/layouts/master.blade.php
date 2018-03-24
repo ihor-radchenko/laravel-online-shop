@@ -23,7 +23,7 @@
     <div class="container">
         <div class="header-wrap">
             <a href="{{ route('main') }}" class="logo">
-                <img src="{{ asset('/img/autokit.png') }}" alt="logo">
+                <img src="{{ asset('/images/autokit.png') }}" alt="logo">
             </a>
             <div>
                 <div class="form-group form-group-sm">
@@ -55,7 +55,7 @@
 
 <footer>
     <a href="{{ route('main') }}" class="logo">
-        <img src="{{ asset('/img/autokit.png') }}" alt="logo">
+        <img src="{{ asset('/images/autokit.png') }}" alt="logo">
     </a>
     <h3 class="copyright color-black">
         @lang('page.copyright') {{ date('Y') }}

@@ -14212,6 +14212,41 @@ textarea {
   vertical-align: middle;
 }
 
+.btn-search {
+  background-color: transparent;
+  border: none;
+  padding: 14px 15px;
+}
+
+.btn-search:hover {
+  color: white;
+}
+
+.search-block {
+  padding: 7px 0;
+}
+
+.search-block button {
+  position: absolute;
+  top: 11px;
+  right: 5px;
+  -webkit-transition: color 0s;
+  transition: color 0s;
+  border: none;
+}
+
+.search-q {
+  color: #ee221d;
+}
+
+.search-list .search-item img {
+  max-height: 50px;
+}
+
+.search-list .search-item td {
+  border: none;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .subscribe {
     height: 200px;

@@ -57,3 +57,28 @@ $(window).scroll(function () {
 $(document).on('change', '#selectCurrency', function () {
     window.location = $(this).val();
 });
+
+$(document).on('click', '.show-search', function () {
+    $(".search-block").removeClass('hidden');
+    $("#SearchInput").val('');
+    $("#MainNavBar").hide();
+    $(this).removeClass('show-search').addClass('hide-search').children('.fa').removeClass('fa-search').addClass('fa-times');
+});
+
+$(document).on('click', '.hide-search', function () {
+    $(".search-block").addClass('hidden');
+    $("#SearchInput").val('');
+    $("#MainNavBar").show();
+    $(this).removeClass('hide-search').addClass('show-search').children('.fa').removeClass('fa-times').addClass('fa-search');
+});
+
+$("#SearchInput").autocomplete({
+    minLength: 3,
+    source: $("#SearchInput").data('route')
+});
+
+$(document).on('click', '#GoSearch', function (e) {
+    if ($("#SearchInput").val() === '') {
+        e.preventDefault();
+    }
+});
