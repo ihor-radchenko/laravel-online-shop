@@ -23,7 +23,7 @@ const app = new Vue({
 
 require('./main');
 
-require('./reviw_comment');
+require('./review_comment');
 
 require('./products');
 

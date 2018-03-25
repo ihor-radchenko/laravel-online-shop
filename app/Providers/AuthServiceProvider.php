@@ -2,6 +2,8 @@
 
 namespace AutoKit\Providers;
 
+use AutoKit\Comment;
+use AutoKit\Policies\CommentPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -14,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'AutoKit\Model' => 'AutoKit\Policies\ModelPolicy',
+        Comment::class => CommentPolicy::class,
     ];
 
     /**

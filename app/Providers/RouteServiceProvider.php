@@ -5,6 +5,7 @@ namespace AutoKit\Providers;
 use AutoKit\Article;
 use AutoKit\Brand;
 use AutoKit\Category;
+use AutoKit\Comment;
 use AutoKit\Menu;
 use AutoKit\User;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::pattern('menu', '[a-z-]+');
         Route::pattern('category', '[a-z-]+');
         Route::pattern('product', '[0-9]+');
+        Route::pattern('comment', '[0-9]+');
         Route::pattern('currency', '[a-z]{3}');
 
         Route::bind('article', function ($value) {

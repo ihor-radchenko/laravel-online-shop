@@ -165,3 +165,39 @@ function showErrorByForm(objectWithErrors) {
         showAjaxErrorMessage(objectWithErrors[property], '#group-' + property)
     }
 }
+
+$(document).on('click', '.confirm-delete-comment', function () {
+    $(this).parent().parent().children('.shade').addClass('active');
+});
+
+$(document).on('click', '.btn-no-delete-comment', function () {
+    $(this).parent().parent().parent().removeClass('active');
+});
+
+$(document).on('click', '.btn-delete-comment', function () {
+    var btn = $(this);
+    $.ajax({
+        url: btn.data('route'),
+        type: 'DELETE',
+        success: function (response) {
+            if (response.status) {
+                btn.parent().parent().parent().parent().remove();
+            }
+        }
+    })
+});
+
+$(document).on('click', '.btn-update-comment', function () {
+    var btn = $(this);
+    $.ajax({
+        url: btn.data('route'),
+        type: 'PUT',
+        data: {
+            text: $("#update-text-" + btn.data('id')).val()
+        },
+        success: function (response) {
+            $("#modal-" + btn.data('id')).modal('hide');
+            $("#text-" + btn.data('id')).empty().append(response.text);
+        }
+    })
+});

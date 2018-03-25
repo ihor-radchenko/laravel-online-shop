@@ -51,7 +51,7 @@ class Comment extends Model
         return $this
             ->whereArticleId($article->id)
             ->with('user')
-            ->orderBy('id')
+            ->orderByDesc('id')
             ->take($this->perPage)
             ->offset($offset * $this->perPage)
             ->get();

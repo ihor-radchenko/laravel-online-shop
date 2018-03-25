@@ -70,4 +70,8 @@ return [
     'searchQuery' => 'Поиск по запросу:',
     'searchEmpty' => 'Товар не найден',
     'searchResult' => 'Результатов:',
+
+    'confirm_delete_comment' => 'Вы действительно хотите удалить комментарий?',
+
+    'update_comment' => 'Редактирование коментария',
 ];

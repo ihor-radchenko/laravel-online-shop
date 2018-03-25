@@ -82,6 +82,12 @@ Route::middleware('ajax')->group(function () {
 
     Route::get('search/list', 'SearchController@search')
         ->name('search.list');
+
+    Route::delete('comments/{comment}', 'CommentController@delete')
+        ->name('comment.delete');
+
+    Route::put('comments/{comment}', 'CommentController@update')
+        ->name('comment.update');
 });
 
 Route::get('/confirm/{token}', 'Auth\EmailConfirmController@confirmEmail')

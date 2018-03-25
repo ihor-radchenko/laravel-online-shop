@@ -13596,6 +13596,7 @@ h4 {
 .comments .comment {
   padding: 35px 0;
   font-size: 18px;
+  position: relative;
 }
 
 .comments .comment .info {
@@ -13607,6 +13608,41 @@ h4 {
 
 .comments .comment .info .author {
   font-weight: bold;
+}
+
+.comments .comment .shade {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+.comments .comment .shade .inner {
+  margin: auto;
+}
+
+.comments .comment .shade .inner button {
+  border: none;
+}
+
+.comments .comment .shade.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.comments .comment .btns {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .comments .comment-add h4 {

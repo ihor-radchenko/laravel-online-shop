@@ -535,6 +535,7 @@ h4 {
   .comment {
     padding: 35px 0;
     font-size: 18px;
+    position: relative;
 
     .info {
       color: $black;
@@ -545,6 +546,32 @@ h4 {
       .author {
         font-weight: bold;
       }
+    }
+
+    .shade {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, .6);
+      color: white;
+      .inner {
+        margin: auto;
+        button {
+          border: none;
+        }
+      }
+      &.active {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .btns {
+      position: absolute;
+      top: 0;
+      right: 0;
     }
   }
   .comment-add {
