@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4745a2cf657786033ef00308ee619705",
+    "content-hash": "eca37f1bf791b87f2591c2b0b3673ce0",
     "packages": [
         {
             "name": "caouecs/laravel-lang",
@@ -955,6 +955,60 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
+        },
+        {
+            "name": "imliam/laravel-env-set-command",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ImLiam/laravel-env-set-command.git",
+                "reference": "be51ce036f8d5c935a5bb2d21768831a4efd0d17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ImLiam/laravel-env-set-command/zipball/be51ce036f8d5c935a5bb2d21768831a4efd0d17",
+                "reference": "be51ce036f8d5c935a5bb2d21768831a4efd0d17",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ImLiam\\EnvironmentSetCommand\\EnvironmentSetCommandServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ImLiam\\EnvironmentSetCommand\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Liam Hammett",
+                    "email": "liam@liamhammett.com",
+                    "homepage": "https://liamhammett.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Set a .env file variable from the command line",
+            "homepage": "https://github.com/imliam/laravel-env-set-command",
+            "keywords": [
+                "artisan",
+                "env",
+                "environment",
+                "imliam",
+                "laravel-env-set-command",
+                "variables"
+            ],
+            "time": "2018-07-13T21:19:43+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
